@@ -20,9 +20,9 @@
             this.lblTenHeThong = new System.Windows.Forms.Label();
             this.lblNguoiDangNhap = new System.Windows.Forms.Label();
             this.pnlMenu = new System.Windows.Forms.Panel();
+            this.btnDangKyLop = new System.Windows.Forms.Button();
             this.btnHocPhi = new System.Windows.Forms.Button();
             this.btnKetQua = new System.Windows.Forms.Button();
-            this.btnLopHoc = new System.Windows.Forms.Button();
             this.btnThongTin = new System.Windows.Forms.Button();
             this.pnlNoiDung = new System.Windows.Forms.Panel();
             this.tabHoSo = new System.Windows.Forms.TabControl();
@@ -111,9 +111,9 @@
             // 
             this.pnlMenu.AutoScroll = true;
             this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(242)))), ((int)(((byte)(248)))));
+            this.pnlMenu.Controls.Add(this.btnDangKyLop);
             this.pnlMenu.Controls.Add(this.btnHocPhi);
             this.pnlMenu.Controls.Add(this.btnKetQua);
-            this.pnlMenu.Controls.Add(this.btnLopHoc);
             this.pnlMenu.Controls.Add(this.btnThongTin);
             this.pnlMenu.Dock = System.Windows.Forms.DockStyle.Left;
             this.pnlMenu.Location = new System.Drawing.Point(0, 65);
@@ -122,13 +122,28 @@
             this.pnlMenu.Size = new System.Drawing.Size(220, 673);
             this.pnlMenu.TabIndex = 1;
             // 
+            // btnDangKyLop
+            // 
+            this.btnDangKyLop.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(242)))), ((int)(((byte)(248)))));
+            this.btnDangKyLop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnDangKyLop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnDangKyLop.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))));
+            this.btnDangKyLop.Location = new System.Drawing.Point(12, 176);
+            this.btnDangKyLop.Name = "btnDangKyLop";
+            this.btnDangKyLop.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
+            this.btnDangKyLop.Size = new System.Drawing.Size(196, 52);
+            this.btnDangKyLop.TabIndex = 4;
+            this.btnDangKyLop.Text = "Đăng ký lớp";
+            this.btnDangKyLop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDangKyLop.UseVisualStyleBackColor = false;
+            // 
             // btnHocPhi
             // 
             this.btnHocPhi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(242)))), ((int)(((byte)(248)))));
             this.btnHocPhi.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnHocPhi.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnHocPhi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))));
-            this.btnHocPhi.Location = new System.Drawing.Point(12, 176);
+            this.btnHocPhi.Location = new System.Drawing.Point(12, 124);
             this.btnHocPhi.Name = "btnHocPhi";
             this.btnHocPhi.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.btnHocPhi.Size = new System.Drawing.Size(196, 52);
@@ -143,7 +158,7 @@
             this.btnKetQua.Dock = System.Windows.Forms.DockStyle.Top;
             this.btnKetQua.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnKetQua.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))));
-            this.btnKetQua.Location = new System.Drawing.Point(12, 124);
+            this.btnKetQua.Location = new System.Drawing.Point(12, 72);
             this.btnKetQua.Name = "btnKetQua";
             this.btnKetQua.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
             this.btnKetQua.Size = new System.Drawing.Size(196, 52);
@@ -151,21 +166,6 @@
             this.btnKetQua.Text = "Kết quả học tập";
             this.btnKetQua.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnKetQua.UseVisualStyleBackColor = false;
-            // 
-            // btnLopHoc
-            // 
-            this.btnLopHoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(237)))), ((int)(((byte)(242)))), ((int)(((byte)(248)))));
-            this.btnLopHoc.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLopHoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLopHoc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(65)))), ((int)(((byte)(105)))));
-            this.btnLopHoc.Location = new System.Drawing.Point(12, 72);
-            this.btnLopHoc.Name = "btnLopHoc";
-            this.btnLopHoc.Padding = new System.Windows.Forms.Padding(12, 0, 0, 0);
-            this.btnLopHoc.Size = new System.Drawing.Size(196, 52);
-            this.btnLopHoc.TabIndex = 2;
-            this.btnLopHoc.Text = "Lớp đã đăng ký";
-            this.btnLopHoc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLopHoc.UseVisualStyleBackColor = false;
             // 
             // btnThongTin
             // 
@@ -539,7 +539,7 @@
             this.tabLopHoc.Location = new System.Drawing.Point(4, 26);
             this.tabLopHoc.Name = "tabLopHoc";
             this.tabLopHoc.Padding = new System.Windows.Forms.Padding(16);
-            this.tabLopHoc.Size = new System.Drawing.Size(152, 0);
+            this.tabLopHoc.Size = new System.Drawing.Size(932, 555);
             this.tabLopHoc.TabIndex = 1;
             this.tabLopHoc.Text = "Lớp đã đăng ký";
             this.tabLopHoc.UseVisualStyleBackColor = true;
@@ -557,7 +557,7 @@
             this.dgvLopHoc.ReadOnly = true;
             this.dgvLopHoc.RowHeadersVisible = false;
             this.dgvLopHoc.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvLopHoc.Size = new System.Drawing.Size(120, 0);
+            this.dgvLopHoc.Size = new System.Drawing.Size(900, 523);
             this.dgvLopHoc.TabIndex = 0;
             // 
             // tabKetQua
@@ -567,7 +567,7 @@
             this.tabKetQua.Location = new System.Drawing.Point(4, 26);
             this.tabKetQua.Name = "tabKetQua";
             this.tabKetQua.Padding = new System.Windows.Forms.Padding(16);
-            this.tabKetQua.Size = new System.Drawing.Size(152, 0);
+            this.tabKetQua.Size = new System.Drawing.Size(932, 555);
             this.tabKetQua.TabIndex = 2;
             this.tabKetQua.Text = "Kết quả học tập";
             this.tabKetQua.UseVisualStyleBackColor = true;
@@ -585,7 +585,7 @@
             this.dgvKetQua.ReadOnly = true;
             this.dgvKetQua.RowHeadersVisible = false;
             this.dgvKetQua.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvKetQua.Size = new System.Drawing.Size(120, 0);
+            this.dgvKetQua.Size = new System.Drawing.Size(900, 523);
             this.dgvKetQua.TabIndex = 0;
             // 
             // tabHocPhi
@@ -595,7 +595,7 @@
             this.tabHocPhi.Location = new System.Drawing.Point(4, 26);
             this.tabHocPhi.Name = "tabHocPhi";
             this.tabHocPhi.Padding = new System.Windows.Forms.Padding(16);
-            this.tabHocPhi.Size = new System.Drawing.Size(152, 0);
+            this.tabHocPhi.Size = new System.Drawing.Size(932, 555);
             this.tabHocPhi.TabIndex = 3;
             this.tabHocPhi.Text = "Học phí";
             this.tabHocPhi.UseVisualStyleBackColor = true;
@@ -613,7 +613,7 @@
             this.dgvHocPhi.ReadOnly = true;
             this.dgvHocPhi.RowHeadersVisible = false;
             this.dgvHocPhi.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvHocPhi.Size = new System.Drawing.Size(120, 0);
+            this.dgvHocPhi.Size = new System.Drawing.Size(900, 523);
             this.dgvHocPhi.TabIndex = 0;
             // 
             // lblTieuDeTrang
@@ -688,9 +688,9 @@
         private System.Windows.Forms.ToolStripStatusLabel tslblVaiTro;
         private System.Windows.Forms.Label lblTieuDeTrang;
         private System.Windows.Forms.Button btnThongTin;
-        private System.Windows.Forms.Button btnLopHoc;
         private System.Windows.Forms.Button btnKetQua;
         private System.Windows.Forms.Button btnHocPhi;
+        private System.Windows.Forms.Button btnDangKyLop;
         private System.Windows.Forms.TabControl tabHoSo;
         private System.Windows.Forms.TabPage tabThongTin;
         private System.Windows.Forms.TabPage tabLopHoc;

@@ -12,8 +12,8 @@
         {
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblIntro = new System.Windows.Forms.Label();
-            this.lblcboHocVien = new System.Windows.Forms.Label();
-            this.cboHocVien = new System.Windows.Forms.ComboBox();
+            this.lbltxtHocVien = new System.Windows.Forms.Label();
+            this.txtHocVien = new System.Windows.Forms.TextBox();
             this.lbltxtSoDienThoai = new System.Windows.Forms.Label();
             this.txtSoDienThoai = new System.Windows.Forms.TextBox();
             this.lbltxtTrinhDo = new System.Windows.Forms.Label();
@@ -67,24 +67,23 @@
             this.lblIntro.Name = "lblIntro";
             this.lblIntro.Size = new System.Drawing.Size(1000, 24);
             this.lblIntro.TabIndex = 1;
-            this.lblIntro.Text = "Chọn học viên, chọn lớp và kiểm tra thông tin đăng ký";
+            this.lblIntro.Text = "Chọn lớp học để đăng ký bằng tài khoản của bạn";
             // 
-            // lblcboHocVien
+            // lbltxtHocVien
             // 
-            this.lblcboHocVien.Location = new System.Drawing.Point(24, 100);
-            this.lblcboHocVien.Name = "lblcboHocVien";
-            this.lblcboHocVien.Size = new System.Drawing.Size(530, 24);
-            this.lblcboHocVien.TabIndex = 2;
-            this.lblcboHocVien.Text = "Học viên — tìm/chọn theo mã và họ tên";
+            this.lbltxtHocVien.Location = new System.Drawing.Point(24, 100);
+            this.lbltxtHocVien.Name = "lbltxtHocVien";
+            this.lbltxtHocVien.Size = new System.Drawing.Size(530, 24);
+            this.lbltxtHocVien.TabIndex = 2;
+            this.lbltxtHocVien.Text = "Học viên đang đăng nhập";
             // 
-            // cboHocVien
+            // txtHocVien
             // 
-            this.cboHocVien.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.cboHocVien.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.cboHocVien.Location = new System.Drawing.Point(30, 126);
-            this.cboHocVien.Name = "cboHocVien";
-            this.cboHocVien.Size = new System.Drawing.Size(530, 25);
-            this.cboHocVien.TabIndex = 3;
+            this.txtHocVien.ReadOnly = true;
+            this.txtHocVien.Location = new System.Drawing.Point(30, 126);
+            this.txtHocVien.Name = "txtHocVien";
+            this.txtHocVien.Size = new System.Drawing.Size(530, 25);
+            this.txtHocVien.TabIndex = 3;
             // 
             // lbltxtSoDienThoai
             // 
@@ -346,7 +345,7 @@
             this.lblKiemTra.Name = "lblKiemTra";
             this.lblKiemTra.Size = new System.Drawing.Size(1132, 24);
             this.lblKiemTra.TabIndex = 25;
-            this.lblKiemTra.Text = "Chưa chọn lớp. Chọn học viên và lớp để kiểm tra đăng ký trùng và chỗ còn lại.";
+            this.lblKiemTra.Text = "Chưa chọn lớp. Chọn lớp để kiểm tra đăng ký trùng và chỗ còn lại.";
             // 
             // btnKiemTra
             // 
@@ -390,8 +389,8 @@
             this.ClientSize = new System.Drawing.Size(1180, 760);
             this.Controls.Add(this.lblTitle);
             this.Controls.Add(this.lblIntro);
-            this.Controls.Add(this.lblcboHocVien);
-            this.Controls.Add(this.cboHocVien);
+            this.Controls.Add(this.lbltxtHocVien);
+            this.Controls.Add(this.txtHocVien);
             this.Controls.Add(this.lbltxtSoDienThoai);
             this.Controls.Add(this.txtSoDienThoai);
             this.Controls.Add(this.lbltxtTrinhDo);
@@ -429,8 +428,8 @@
         }
         private System.Windows.Forms.Label lblTitle;
         private System.Windows.Forms.Label lblIntro;
-        private System.Windows.Forms.Label lblcboHocVien;
-        private System.Windows.Forms.ComboBox cboHocVien;
+        private System.Windows.Forms.Label lbltxtHocVien;
+        private System.Windows.Forms.TextBox txtHocVien;
         private System.Windows.Forms.Label lbltxtSoDienThoai;
         private System.Windows.Forms.TextBox txtSoDienThoai;
         private System.Windows.Forms.Label lbltxtTrinhDo;

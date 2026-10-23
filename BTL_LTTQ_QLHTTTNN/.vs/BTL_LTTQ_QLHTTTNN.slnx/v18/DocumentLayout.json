@@ -1,70 +1,106 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\",
+  "WorkspaceRootPath": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmphieuthu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmphieuthu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\new folder (4)\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmlapphieuthu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmlapphieuthu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmhocphi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmhocphi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmhocphi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmhocphi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmnhapdiem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmnhapdiem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmhocphi.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmhocphi.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmdiemdanh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmdiemdanh.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmgiaovien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmgiaovien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmlapphieuthu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmlapphieuthu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmlichhoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmlichhoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmlapphieuthu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmlapphieuthu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmlophoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmtaolichhoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmtaolichhoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmtaolichhoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmtaolichhoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmtaolichhoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmtaolichhoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmlichhoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmlichhoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmlichhoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmlichhoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmlophoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmlophoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmchitietlophoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmchitietlophoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmchitietlophoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmchitietlophoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmlophoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmlophoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmlophoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmlophoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmkhoahoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmchitietlophoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmchitietlophoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\functions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:functions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmkhoahoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmkhoahoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmchitietkhoahoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmchitietkhoahoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmchitietkhoahoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmchitietkhoahoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmkhoahoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmkhoahoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmdangkyhoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmdangkyhoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmchitietkhoahoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmchitietkhoahoc.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmhocvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmhocvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmkhoahoc.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmkhoahoc.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmtaikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmtaikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmmainhocvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmmainhocvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmmaingiaovien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmmaingiaovien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmmainnhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmmainnhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmmainadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmmainadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\desktop\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\frmdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmdangnhap.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmkhoahoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:frmkhoahoc.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,8 +110,12 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 8,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -83,10 +123,6 @@
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{40ea2e6b-2121-4bb8-a43e-c83c04b51041}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             },
             {
               "$type": "Bookmark",
@@ -106,195 +142,297 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "frmPhieuThu.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmPhieuThu.cs",
-              "RelativeDocumentMoniker": "frmPhieuThu.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmPhieuThu.cs [Design]",
-              "RelativeToolTip": "frmPhieuThu.cs [Design]",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T03:06:08.842Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-10-21T13:36:28.822Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "frmLapPhieuThu.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLapPhieuThu.cs",
+              "RelativeDocumentMoniker": "frmLapPhieuThu.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLapPhieuThu.cs",
+              "RelativeToolTip": "frmLapPhieuThu.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHwAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T14:43:15.674Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "frmHocPhi.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.cs",
+              "Title": "frmHocPhi.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.cs",
               "RelativeDocumentMoniker": "frmHocPhi.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.cs [Design]",
-              "RelativeToolTip": "frmHocPhi.cs [Design]",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.cs",
+              "RelativeToolTip": "frmHocPhi.cs",
+              "ViewState": "AgIAAG4AAAAAAAAAAADwv4gAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T03:05:29.95Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-10-22T14:23:10.083Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "frmNhapDiem.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmNhapDiem.cs",
-              "RelativeDocumentMoniker": "frmNhapDiem.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmNhapDiem.cs [Design]",
-              "RelativeToolTip": "frmNhapDiem.cs [Design]",
+              "Title": "frmHocPhi.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.Designer.cs",
+              "RelativeDocumentMoniker": "frmHocPhi.Designer.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.Designer.cs",
+              "RelativeToolTip": "frmHocPhi.Designer.cs",
+              "ViewState": "AgIAAMgBAAAAAAAAAAAswPIBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T03:04:59.592Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "frmDiemDanh.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDiemDanh.cs",
-              "RelativeDocumentMoniker": "frmDiemDanh.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDiemDanh.cs [Design]",
-              "RelativeToolTip": "frmDiemDanh.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T03:03:56.284Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "frmGiaoVien.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmGiaoVien.cs",
-              "RelativeDocumentMoniker": "frmGiaoVien.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmGiaoVien.cs [Design]",
-              "RelativeToolTip": "frmGiaoVien.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T03:03:17.638Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-10-22T14:22:54.03Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "frmLichHoc.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLichHoc.cs",
-              "RelativeDocumentMoniker": "frmLichHoc.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLichHoc.cs [Design]",
-              "RelativeToolTip": "frmLichHoc.cs [Design]",
+              "Title": "frmLapPhieuThu.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLapPhieuThu.cs",
+              "RelativeDocumentMoniker": "frmLapPhieuThu.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLapPhieuThu.cs [Design]",
+              "RelativeToolTip": "frmLapPhieuThu.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T03:02:51.768Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-10-22T14:35:08.721Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "frmLapPhieuThu.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLapPhieuThu.Designer.cs",
+              "RelativeDocumentMoniker": "frmLapPhieuThu.Designer.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLapPhieuThu.Designer.cs",
+              "RelativeToolTip": "frmLapPhieuThu.Designer.cs",
+              "ViewState": "AgIAAH0AAAAAAAAAAAAvwE4AAABRAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T14:39:06.435Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "frmLopHoc.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.cs",
-              "RelativeDocumentMoniker": "frmLopHoc.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.cs [Design]",
-              "RelativeToolTip": "frmLopHoc.cs [Design]",
+              "Title": "frmTaoLichHoc.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.cs",
+              "RelativeDocumentMoniker": "frmTaoLichHoc.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.cs",
+              "RelativeToolTip": "frmTaoLichHoc.cs",
+              "ViewState": "AgIAACkAAAAAAAAAAAAvwD8AAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T03:02:33.242Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "frmKhoaHoc.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.cs",
-              "RelativeDocumentMoniker": "frmKhoaHoc.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.cs [Design]",
-              "RelativeToolTip": "frmKhoaHoc.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T03:01:06.266Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "frmDangKyHoc.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDangKyHoc.cs",
-              "RelativeDocumentMoniker": "frmDangKyHoc.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDangKyHoc.cs [Design]",
-              "RelativeToolTip": "frmDangKyHoc.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T03:00:21.239Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-10-22T13:23:53.189Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "frmHocVien.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocVien.cs",
-              "RelativeDocumentMoniker": "frmHocVien.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocVien.cs [Design]",
-              "RelativeToolTip": "frmHocVien.cs [Design]",
+              "Title": "frmLichHoc.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLichHoc.Designer.cs",
+              "RelativeDocumentMoniker": "frmLichHoc.Designer.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLichHoc.Designer.cs",
+              "RelativeToolTip": "frmLichHoc.Designer.cs",
+              "ViewState": "AgIAAOQAAAAAAAAAAAAswA4BAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T02:59:53.43Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-10-22T13:16:38.757Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "frmTaoLichHoc.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.Designer.cs",
+              "RelativeDocumentMoniker": "frmTaoLichHoc.Designer.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.Designer.cs",
+              "RelativeToolTip": "frmTaoLichHoc.Designer.cs",
+              "ViewState": "AgIAAPAAAAAAAAAAAAAswBoBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T13:23:44.99Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "frmTaoLichHoc.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.cs",
+              "RelativeDocumentMoniker": "frmTaoLichHoc.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.cs [Design]",
+              "RelativeToolTip": "frmTaoLichHoc.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T13:21:07.789Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 10,
-              "Title": "frmTaiKhoan.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaiKhoan.cs",
-              "RelativeDocumentMoniker": "frmTaiKhoan.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaiKhoan.cs [Design]",
-              "RelativeToolTip": "frmTaiKhoan.cs [Design]",
+              "Title": "frmLichHoc.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLichHoc.cs",
+              "RelativeDocumentMoniker": "frmLichHoc.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLichHoc.cs",
+              "RelativeToolTip": "frmLichHoc.cs",
+              "ViewState": "AgIAANsAAAAAAAAAAAAswAUBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T02:59:22.015Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "frmMainHocVien.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainHocVien.cs",
-              "RelativeDocumentMoniker": "frmMainHocVien.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainHocVien.cs [Design]",
-              "RelativeToolTip": "frmMainHocVien.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T02:58:24.377Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "frmMainGiaoVien.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainGiaoVien.cs",
-              "RelativeDocumentMoniker": "frmMainGiaoVien.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainGiaoVien.cs [Design]",
-              "RelativeToolTip": "frmMainGiaoVien.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T02:57:39.895Z",
-              "EditorCaption": " [Design]"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "frmMainNhanVien.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainNhanVien.cs",
-              "RelativeDocumentMoniker": "frmMainNhanVien.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainNhanVien.cs [Design]",
-              "RelativeToolTip": "frmMainNhanVien.cs [Design]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T02:55:53.875Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-10-22T13:14:32.694Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 14,
-              "Title": "frmMainAdmin.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainAdmin.cs",
-              "RelativeDocumentMoniker": "frmMainAdmin.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainAdmin.cs [Design]",
-              "RelativeToolTip": "frmMainAdmin.cs [Design]",
+              "Title": "frmLopHoc.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.cs",
+              "RelativeDocumentMoniker": "frmLopHoc.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.cs",
+              "RelativeToolTip": "frmLopHoc.cs",
+              "ViewState": "AgIAAEIBAAAAAAAAAAAuwFABAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T02:54:56.481Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-10-22T06:40:35.557Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "frmChiTietLopHoc.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietLopHoc.cs",
+              "RelativeDocumentMoniker": "frmChiTietLopHoc.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietLopHoc.cs",
+              "RelativeToolTip": "frmChiTietLopHoc.cs",
+              "ViewState": "AgIAAHgAAAAAAAAAAAAowKEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T07:35:05.673Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "frmChiTietLopHoc.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietLopHoc.Designer.cs",
+              "RelativeDocumentMoniker": "frmChiTietLopHoc.Designer.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietLopHoc.Designer.cs",
+              "RelativeToolTip": "frmChiTietLopHoc.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADQBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T07:34:46.985Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "frmLopHoc.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.Designer.cs",
+              "RelativeDocumentMoniker": "frmLopHoc.Designer.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.Designer.cs",
+              "RelativeToolTip": "frmLopHoc.Designer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAK0BAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T07:31:02.343Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 15,
-              "Title": "frmDangNhap.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDangNhap.cs",
-              "RelativeDocumentMoniker": "frmDangNhap.cs",
-              "ToolTip": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDangNhap.cs [Design]",
-              "RelativeToolTip": "frmDangNhap.cs [Design]",
+              "Title": "frmLopHoc.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.cs",
+              "RelativeDocumentMoniker": "frmLopHoc.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.cs [Design]",
+              "RelativeToolTip": "frmLopHoc.cs [Design]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-21T02:53:58.945Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2026-10-22T06:40:26.634Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "frmChiTietLopHoc.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietLopHoc.cs",
+              "RelativeDocumentMoniker": "frmChiTietLopHoc.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietLopHoc.cs [Design]",
+              "RelativeToolTip": "frmChiTietLopHoc.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-22T07:34:25.404Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "frmChiTietKhoaHoc.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietKhoaHoc.cs",
+              "RelativeDocumentMoniker": "frmChiTietKhoaHoc.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietKhoaHoc.cs",
+              "RelativeToolTip": "frmChiTietKhoaHoc.cs",
+              "ViewState": "AgIAAEsAAAAAAAAAAAA+wHUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-21T14:45:33.442Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Functions.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Functions.cs",
+              "RelativeDocumentMoniker": "Functions.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Functions.cs",
+              "RelativeToolTip": "Functions.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAGQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-21T04:10:33.408Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "frmChiTietKhoaHoc.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietKhoaHoc.Designer.cs",
+              "RelativeDocumentMoniker": "frmChiTietKhoaHoc.Designer.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietKhoaHoc.Designer.cs",
+              "RelativeToolTip": "frmChiTietKhoaHoc.Designer.cs",
+              "ViewState": "AgIAANoAAAAAAAAAAAAAAAIBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-21T15:07:56.149Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "frmKhoaHoc.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.cs",
+              "RelativeDocumentMoniker": "frmKhoaHoc.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.cs [Design]",
+              "RelativeToolTip": "frmKhoaHoc.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-21T12:36:26.873Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "frmKhoaHoc.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.cs",
+              "RelativeDocumentMoniker": "frmKhoaHoc.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.cs",
+              "RelativeToolTip": "frmKhoaHoc.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAYwJ4AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-21T12:26:24.044Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "frmChiTietKhoaHoc.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietKhoaHoc.cs",
+              "RelativeDocumentMoniker": "frmChiTietKhoaHoc.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietKhoaHoc.cs [Design]",
+              "RelativeToolTip": "frmChiTietKhoaHoc.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-21T14:33:15.111Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "frmKhoaHoc.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.Designer.cs",
+              "RelativeDocumentMoniker": "frmKhoaHoc.Designer.cs",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.Designer.cs",
+              "RelativeToolTip": "frmKhoaHoc.Designer.cs",
+              "ViewState": "AgIAAMcBAAAAAAAAAAAuwOABAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-21T12:26:25.81Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "frmKhoaHoc.resx",
+              "DocumentMoniker": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.resx",
+              "RelativeDocumentMoniker": "frmKhoaHoc.resx",
+              "ToolTip": "C:\\Users\\admin\\Desktop\\New folder (4)\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.resx",
+              "RelativeToolTip": "frmKhoaHoc.resx",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
+              "WhenOpened": "2026-10-21T12:26:27.381Z"
             }
           ]
         }

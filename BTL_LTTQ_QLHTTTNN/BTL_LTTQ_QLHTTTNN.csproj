@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="frmChiTietKhoaHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChiTietKhoaHoc.Designer.cs">
+      <DependentUpon>frmChiTietKhoaHoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChiTietLopHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChiTietLopHoc.Designer.cs">
+      <DependentUpon>frmChiTietLopHoc.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmDangKyHoc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -87,6 +99,12 @@
     </Compile>
     <Compile Include="frmKhoaHoc.Designer.cs">
       <DependentUpon>frmKhoaHoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLapPhieuThu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLapPhieuThu.Designer.cs">
+      <DependentUpon>frmLapPhieuThu.cs</DependentUpon>
     </Compile>
     <Compile Include="frmLichHoc.cs">
       <SubType>Form</SubType>
@@ -130,20 +148,30 @@
     <Compile Include="frmNhapDiem.Designer.cs">
       <DependentUpon>frmNhapDiem.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmPhieuThu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmPhieuThu.Designer.cs">
-      <DependentUpon>frmPhieuThu.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmTaiKhoan.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmTaiKhoan.Designer.cs">
       <DependentUpon>frmTaiKhoan.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmTaoLichHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTaoLichHoc.Designer.cs">
+      <DependentUpon>frmTaoLichHoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Functions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmChiTietKhoaHoc.resx">
+      <DependentUpon>frmChiTietKhoaHoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmKhoaHoc.resx">
+      <DependentUpon>frmKhoaHoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLopHoc.resx">
+      <DependentUpon>frmLopHoc.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

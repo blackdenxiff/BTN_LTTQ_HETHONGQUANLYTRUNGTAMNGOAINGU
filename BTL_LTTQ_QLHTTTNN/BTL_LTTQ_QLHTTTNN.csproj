@@ -169,6 +169,7 @@
       <DependentUpon>frmTaoLichHoc.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\DatabaseConnection.cs" />
+    <Compile Include="SessionContext.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="thongtincanha.cs">

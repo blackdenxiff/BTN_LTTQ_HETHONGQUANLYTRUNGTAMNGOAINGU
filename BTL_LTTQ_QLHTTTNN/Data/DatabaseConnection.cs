@@ -10,8 +10,12 @@ namespace BTL_LTTQ_QLHTTTNN
         public static SqlConnection Conn;
 
         // Chuỗi kết nối SQL Server
-        public static string ConnString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLTrungTamTiengAnh;User ID=sa;Password=123456789;TrustServerCertificate=True";
-
+        public static string ConnString =
+    @"Data Source=LAPTOP-14VPGTHB\SQLEXPRESS;" +
+    "Initial Catalog=QLTrungTamTiengAnh;" +
+    "Integrated Security=True;" +
+    "Encrypt=True;" +
+    "TrustServerCertificate=True;";
         // Mở kết nối chung
         public static void Connect()
         {

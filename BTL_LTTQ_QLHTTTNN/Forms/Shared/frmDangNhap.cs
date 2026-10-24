@@ -12,6 +12,8 @@ namespace BTL_LTTQ_QLHTTTNN
 
         public string MatKhau { get { return txtMatKhau.Text; } }
 
+        public void XoaMatKhau() { txtMatKhau.Clear(); }
+
         public frmDangNhap() { InitializeComponent(); }
 
         public void HienThongBao(string thongBao) { lblThongBao.Text = thongBao; }

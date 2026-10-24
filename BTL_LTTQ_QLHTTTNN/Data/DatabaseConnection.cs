@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Configuration;
 using System.Windows.Forms;
 
 namespace BTL_LTTQ_QLHTTTNN
@@ -10,7 +11,20 @@ namespace BTL_LTTQ_QLHTTTNN
         public static SqlConnection Conn;
 
         // Chuỗi kết nối SQL Server
-        public static string ConnString = @"Data Source=.\SQLEXPRESS;Initial Catalog=QLTrungTamTiengAnh;User ID=sa;Password=123456789;TrustServerCertificate=True";
+        public static string ConnString = LayChuoiKetNoi();
+
+        private static string LayChuoiKetNoi()
+        {
+            var setting = ConfigurationManager.ConnectionStrings["QLTrungTamTiengAnh"];
+            if (setting == null) throw new InvalidOperationException("Thiếu connectionStrings QLTrungTamTiengAnh trong App.config.");
+            return setting.ConnectionString;
+        }
+
+        // Mỗi thao tác sở hữu kết nối riêng và phải giải phóng bằng using.
+        public static SqlConnection TaoKetNoi()
+        {
+            return new SqlConnection(ConnString);
+        }
 
         // Mở kết nối chung
         public static void Connect()

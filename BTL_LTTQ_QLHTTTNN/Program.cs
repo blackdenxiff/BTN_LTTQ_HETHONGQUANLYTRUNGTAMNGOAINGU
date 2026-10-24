@@ -16,7 +16,7 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new frmHocPhi());
+            Application.Run(new frmMainNhanVien());
         }
     }
 }

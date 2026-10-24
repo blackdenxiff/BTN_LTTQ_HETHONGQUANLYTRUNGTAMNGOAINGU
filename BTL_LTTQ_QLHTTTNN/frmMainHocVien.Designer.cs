@@ -16,32 +16,6 @@
         #region Windows Form Designer generated code
         private void InitializeComponent()
         {
-<<<<<<< HEAD
-            this.label1 = new System.Windows.Forms.Label();
-            this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(399, 67);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 16);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "label1";
-            // 
-            // frmMainHocVien
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1026, 669);
-            this.Controls.Add(this.label1);
-            this.Name = "frmMainHocVien";
-            this.Text = "frmMainHocVien";
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
-        }
-=======
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.lblTenHeThong = new System.Windows.Forms.Label();
             this.lblNguoiDangNhap = new System.Windows.Forms.Label();
@@ -701,14 +675,10 @@
             this.stsTrangThai.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
->>>>>>> origin/hai
 
         }
         #endregion
 
-<<<<<<< HEAD
-        private System.Windows.Forms.Label label1;
-=======
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Panel pnlMenu;
         private System.Windows.Forms.Panel pnlNoiDung;
@@ -769,6 +739,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvHocPhiDaThanhToan;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvHocPhiConPhaiTra;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgvHocPhiTrangThai;
->>>>>>> origin/hai
     }
 }

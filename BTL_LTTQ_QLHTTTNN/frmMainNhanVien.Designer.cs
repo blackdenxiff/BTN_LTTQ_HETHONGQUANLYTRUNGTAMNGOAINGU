@@ -105,7 +105,8 @@
             this.lblHuongDan.Name = "lblHuongDan";
             this.lblHuongDan.Size = new System.Drawing.Size(800, 28);
             this.lblHuongDan.TabIndex = 14;
-            this.lblHuongDan.Text = "Chọn chức năng trong menu bên trái để bắt đầu quản lý học viên, lớp học và học phí.";
+            this.lblHuongDan.Text = "Chọn chức năng trong menu bên trái để bắt đầu quản lý học viên, lớp học và học ph" +
+    "í.";
             this.lblHuongDan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblThongBao

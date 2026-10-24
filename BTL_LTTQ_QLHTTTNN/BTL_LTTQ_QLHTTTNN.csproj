@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -46,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="frmChiTietKhoaHoc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -58,6 +60,9 @@
     <Compile Include="frmChiTietLopHoc.Designer.cs">
       <DependentUpon>frmChiTietLopHoc.cs</DependentUpon>
     </Compile>
+=======
+    <Compile Include="HocVienData.cs" />
+>>>>>>> origin/hai
     <Compile Include="frmDangKyHoc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -163,6 +168,7 @@
     <Compile Include="Functions.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+<<<<<<< HEAD
     <EmbeddedResource Include="frmChiTietKhoaHoc.resx">
       <DependentUpon>frmChiTietKhoaHoc.cs</DependentUpon>
     </EmbeddedResource>
@@ -171,6 +177,13 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmLopHoc.resx">
       <DependentUpon>frmLopHoc.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="frmDangKyHoc.resx">
+      <DependentUpon>frmDangKyHoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMainHocVien.resx">
+      <DependentUpon>frmMainHocVien.cs</DependentUpon>
+>>>>>>> origin/hai
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

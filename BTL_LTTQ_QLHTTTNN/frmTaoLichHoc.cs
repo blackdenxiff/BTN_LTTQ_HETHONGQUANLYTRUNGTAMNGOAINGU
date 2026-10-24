@@ -16,9 +16,9 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void frmTaoLichHoc_Load(object sender, EventArgs e)
         {
-            Functions.Connect();
+            DatabaseConnection.Connect();
 
-            DataTable dtLop = Functions.GetDataToTable("SELECT LopHocID, TenLop FROM LopHoc WHERE IsDeleted = 0");
+            DataTable dtLop = DatabaseConnection.GetDataToTable("SELECT LopHocID, TenLop FROM LopHoc WHERE IsDeleted = 0");
             DataRow drLop = dtLop.NewRow();
             drLop["LopHocID"] = 0;
             drLop["TenLop"] = "-- Chọn lớp học --";
@@ -27,7 +27,7 @@ namespace BTL_LTTQ_QLHTTTNN
             cboLopHoc.DisplayMember = "TenLop";
             cboLopHoc.ValueMember = "LopHocID";
 
-            DataTable dtPhong = Functions.GetDataToTable("SELECT PhongHocID, TenPhong FROM PhongHoc");
+            DataTable dtPhong = DatabaseConnection.GetDataToTable("SELECT PhongHocID, TenPhong FROM PhongHoc");
             DataRow drPhong = dtPhong.NewRow();
             drPhong["PhongHocID"] = 0;
             drPhong["TenPhong"] = "-- Chọn phòng học --";
@@ -47,7 +47,7 @@ namespace BTL_LTTQ_QLHTTTNN
 
             string sqlGV = "SELECT NhanSuID AS GiaoVienID, HoTen AS TenGiaoVien FROM NhanSu " +
                            "WHERE LoaiNhanSu = N'Giáo viên' OR LoaiNhanSu = N'Cả hai'";
-            DataTable dtGiaoVien = Functions.GetDataToTable(sqlGV);
+            DataTable dtGiaoVien = DatabaseConnection.GetDataToTable(sqlGV);
             DataRow drGV = dtGiaoVien.NewRow();
             drGV["GiaoVienID"] = 0;
             drGV["TenGiaoVien"] = "-- Chọn giáo viên --";
@@ -78,7 +78,7 @@ namespace BTL_LTTQ_QLHTTTNN
                          $"LEFT JOIN LopHoc l ON lh.LopHocID = l.LopHocID " +
                          $"WHERE lh.LichHocID = {_lichHocID}";
 
-            DataTable dt = Functions.GetDataToTable(sql);
+            DataTable dt = DatabaseConnection.GetDataToTable(sql);
             if (dt.Rows.Count > 0)
             {
                 DataRow dr = dt.Rows[0];
@@ -104,7 +104,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 string sql = $"SELECT k.TenKhoaHoc, l.GiaoVienPhuTrachID FROM LopHoc l " +
                              $"LEFT JOIN KhoaHoc k ON l.KhoaHocID = k.KhoaHocID " +
                              $"WHERE l.LopHocID = {lopHocID}";
-                DataTable dt = Functions.GetDataToTable(sql);
+                DataTable dt = DatabaseConnection.GetDataToTable(sql);
                 if (dt.Rows.Count > 0)
                 {
                     txtKhoaHoc.Text = dt.Rows[0]["TenKhoaHoc"].ToString();
@@ -153,7 +153,7 @@ namespace BTL_LTTQ_QLHTTTNN
             else if (cboCaHoc.SelectedIndex == 3) { gioBatDau = "18:00:00"; gioKetThuc = "20:00:00"; }
 
             string sqlCheck = $"SELECT COUNT(*) FROM LichHoc WHERE PhongHocID = {phongHocID} AND NgayHoc = '{ngayHoc}' AND GioBatDau = '{gioBatDau}' AND IsDeleted = 0 AND LichHocID != {_lichHocID}";
-            DataTable dtCheck = Functions.GetDataToTable(sqlCheck);
+            DataTable dtCheck = DatabaseConnection.GetDataToTable(sqlCheck);
             if (dtCheck.Rows.Count > 0 && Convert.ToInt32(dtCheck.Rows[0][0]) > 0)
             {
                 MessageBox.Show("Phòng học này đã có lớp sử dụng vào Ca và Ngày đã chọn!", "Cảnh báo trùng lịch", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -163,7 +163,7 @@ namespace BTL_LTTQ_QLHTTTNN
             if (cboGiaoVien.SelectedValue != null && Convert.ToInt32(cboGiaoVien.SelectedValue) > 0)
             {
                 int gvID = Convert.ToInt32(cboGiaoVien.SelectedValue);
-                Functions.RunSQL($"UPDATE LopHoc SET GiaoVienPhuTrachID = {gvID} WHERE LopHocID = {lopHocID}");
+                DatabaseConnection.RunSQL($"UPDATE LopHoc SET GiaoVienPhuTrachID = {gvID} WHERE LopHocID = {lopHocID}");
             }
 
             if (_lichHocID > 0)
@@ -171,14 +171,14 @@ namespace BTL_LTTQ_QLHTTTNN
                 string sqlUpdate = $"UPDATE LichHoc SET LopHocID = {lopHocID}, PhongHocID = {phongHocID}, " +
                                    $"NgayHoc = '{ngayHoc}', GioBatDau = '{gioBatDau}', GioKetThuc = '{gioKetThuc}', UpdatedAt = GETDATE() " +
                                    $"WHERE LichHocID = {_lichHocID}";
-                Functions.RunSQL(sqlUpdate);
+                DatabaseConnection.RunSQL(sqlUpdate);
                 MessageBox.Show("Cập nhật lịch học thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
                 string sqlInsert = $"INSERT INTO LichHoc (LopHocID, PhongHocID, NgayHoc, GioBatDau, GioKetThuc, TrangThai, IsDeleted, CreatedAt) " +
                                    $"VALUES ({lopHocID}, {phongHocID}, '{ngayHoc}', '{gioBatDau}', '{gioKetThuc}', N'Đã lên lịch', 0, GETDATE())";
-                Functions.RunSQL(sqlInsert);
+                DatabaseConnection.RunSQL(sqlInsert);
                 MessageBox.Show("Xếp lịch học thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
@@ -190,7 +190,7 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             if (MessageBox.Show("Bạn có chắc chắn muốn xóa lịch học này không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                Functions.RunSQL($"UPDATE LichHoc SET IsDeleted = 1 WHERE LichHocID = {_lichHocID}");
+                DatabaseConnection.RunSQL($"UPDATE LichHoc SET IsDeleted = 1 WHERE LichHocID = {_lichHocID}");
                 MessageBox.Show("Xóa lịch học thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.DialogResult = DialogResult.OK;
                 this.Close();

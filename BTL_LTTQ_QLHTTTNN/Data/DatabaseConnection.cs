@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace BTL_LTTQ_QLHTTTNN
 {
-    public class Functions
+    public class DatabaseConnection
     {
         public static SqlConnection Conn;
 

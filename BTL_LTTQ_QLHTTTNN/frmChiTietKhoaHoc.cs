@@ -22,7 +22,7 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void frmChiTietKhoaHoc_Load(object sender, EventArgs e)
         {
-            Functions.Connect();
+            DatabaseConnection.Connect();
 
             // Đặt chữ gợi ý mờ
             SendMessage(txtMaKhoaHoc.Handle, EM_SETCUEBANNER, 0, "Hệ thống tự tạo ID");
@@ -59,7 +59,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private void LoadDataToEdit()
         {
             string sql = $"SELECT TenKhoaHoc, TrinhDo, SoBuoi, HocPhi, MoTa, TrangThai FROM KhoaHoc WHERE KhoaHocID = {_khoaHocID}";
-            DataTable dt = Functions.GetDataToTable(sql);
+            DataTable dt = DatabaseConnection.GetDataToTable(sql);
 
             if (dt.Rows.Count > 0)
             {
@@ -93,7 +93,7 @@ namespace BTL_LTTQ_QLHTTTNN
             {
                 string sqlInsert = $"INSERT INTO KhoaHoc (TenKhoaHoc, TrinhDo, SoBuoi, HocPhi, MoTa, TrangThai, IsDeleted, CreatedAt) " +
                                    $"VALUES (N'{tenKhoa}', N'{trinhDo}', {soBuoi}, {hocPhi}, N'{moTa}', N'{trangThai}', 0, GETDATE())";
-                Functions.RunSQL(sqlInsert);
+                DatabaseConnection.RunSQL(sqlInsert);
                 MessageBox.Show("Tạo khóa học mới thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -102,7 +102,7 @@ namespace BTL_LTTQ_QLHTTTNN
                                    $"SoBuoi = {soBuoi}, HocPhi = {hocPhi}, MoTa = N'{moTa}', " +
                                    $"TrangThai = N'{trangThai}', UpdatedAt = GETDATE() " +
                                    $"WHERE KhoaHocID = {_khoaHocID}";
-                Functions.RunSQL(sqlUpdate);
+                DatabaseConnection.RunSQL(sqlUpdate);
                 MessageBox.Show("Cập nhật thông tin khóa học thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 

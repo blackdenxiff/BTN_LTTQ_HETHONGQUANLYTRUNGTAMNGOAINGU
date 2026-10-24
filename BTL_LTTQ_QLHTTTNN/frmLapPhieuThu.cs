@@ -18,14 +18,14 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             try
             {
-                Functions.Connect();
+                DatabaseConnection.Connect();
 
                 // 1. Nạp danh sách học viên
                 string sqlHV = @"SELECT HocVienID, 
                                        HoTen + ' (HV-' + CAST(HocVienID AS NVARCHAR) + ' • ' + ISNULL(SoDienThoai, '') + ')' AS TenHV 
                                 FROM HocVien 
                                 WHERE ISNULL(IsDeleted, 0) = 0";
-                DataTable dtHV = Functions.GetDataToTable(sqlHV);
+                DataTable dtHV = DatabaseConnection.GetDataToTable(sqlHV);
 
                 DataRow drHV = dtHV.NewRow();
                 drHV["HocVienID"] = 0;
@@ -41,7 +41,7 @@ namespace BTL_LTTQ_QLHTTTNN
                                   FROM LopHoc l
                                   LEFT JOIN KhoaHoc k ON l.KhoaHocID = k.KhoaHocID
                                   WHERE ISNULL(l.IsDeleted, 0) = 0";
-                DataTable dtLop = Functions.GetDataToTable(sqlLop);
+                DataTable dtLop = DatabaseConnection.GetDataToTable(sqlLop);
 
                 DataRow drLop = dtLop.NewRow();
                 drLop["LopHocID"] = 0;
@@ -142,7 +142,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 string sqlInsert = $@"INSERT INTO HoaDon (HocVienID, NhanSuLapID, NgayLap, TongTien, GiamGia, TongPhaiTra, TrangThai, GhiChu, IsDeleted, CreatedAt)
                               VALUES ({hvID}, 1, GETDATE(), {strHocPhiGoc}, 0, {strHocPhiGoc}, N'{trangThai}', N'{ghiChuNoiDung}', 0, GETDATE())";
 
-                Functions.RunSQL(sqlInsert);
+                DatabaseConnection.RunSQL(sqlInsert);
                 MessageBox.Show("Lập phiếu thu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 this.DialogResult = DialogResult.OK;

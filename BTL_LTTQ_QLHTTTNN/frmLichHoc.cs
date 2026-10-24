@@ -17,7 +17,7 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void frmLichHoc_Load(object sender, EventArgs e)
         {
-            Functions.Connect();
+            DatabaseConnection.Connect();
 
             // Gán sự kiện CellClick trực tiếp trong Load để đảm bảo không bị sót
             dgvLichHoc.CellClick -= dgvLichHoc_CellClick;
@@ -47,7 +47,7 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             cboFilterLop.Items.Clear();
             cboFilterLop.Items.Add("-- Tất cả các lớp --");
-            DataTable dtLop = Functions.GetDataToTable("SELECT TenLop FROM LopHoc WHERE IsDeleted = 0");
+            DataTable dtLop = DatabaseConnection.GetDataToTable("SELECT TenLop FROM LopHoc WHERE IsDeleted = 0");
             foreach (DataRow dr in dtLop.Rows)
             {
                 cboFilterLop.Items.Add(dr["TenLop"].ToString());
@@ -94,7 +94,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 sql += $" AND l.TenLop = N'{filterLop}'";
             }
 
-            DataTable dtLich = Functions.GetDataToTable(sql);
+            DataTable dtLich = DatabaseConnection.GetDataToTable(sql);
 
             foreach (DataRow dr in dtLich.Rows)
             {

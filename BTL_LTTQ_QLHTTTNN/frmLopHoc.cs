@@ -20,7 +20,7 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void frmLopHoc_Load(object sender, EventArgs e)
         {
-            Functions.Connect();
+            DatabaseConnection.Connect();
 
             // 1. TẮT THEME MẶC ĐỊNH CỦA WINDOWS
             dgvLopHoc.EnableHeadersVisualStyles = false;
@@ -50,7 +50,7 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             cboFilterKhoaHoc.Items.Clear();
             cboFilterKhoaHoc.Items.Add("Tất cả khóa học");
-            DataTable dtKhoa = Functions.GetDataToTable("SELECT TenKhoaHoc FROM KhoaHoc WHERE IsDeleted = 0");
+            DataTable dtKhoa = DatabaseConnection.GetDataToTable("SELECT TenKhoaHoc FROM KhoaHoc WHERE IsDeleted = 0");
             foreach (DataRow dr in dtKhoa.Rows)
             {
                 cboFilterKhoaHoc.Items.Add(dr["TenKhoaHoc"].ToString());
@@ -98,7 +98,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 sql += $" AND l.TrangThai = N'{trangThai}'";
             }
 
-            DataTable dt = Functions.GetDataToTable(sql);
+            DataTable dt = DatabaseConnection.GetDataToTable(sql);
 
             dgvLopHoc.AutoGenerateColumns = false;
             colLopHocID.DataPropertyName = "LopHocID";
@@ -342,7 +342,7 @@ namespace BTL_LTTQ_QLHTTTNN
                     if (MessageBox.Show($"Bạn có chắc chắn muốn xóa lớp '{tenLop}' không?", "Xác nhận xóa",
                         MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                     {
-                        Functions.RunSQL($"UPDATE LopHoc SET IsDeleted = 1 WHERE LopHocID = {lopHocID}");
+                        DatabaseConnection.RunSQL($"UPDATE LopHoc SET IsDeleted = 1 WHERE LopHocID = {lopHocID}");
                         LoadDataLopHoc();
                     }
                 }

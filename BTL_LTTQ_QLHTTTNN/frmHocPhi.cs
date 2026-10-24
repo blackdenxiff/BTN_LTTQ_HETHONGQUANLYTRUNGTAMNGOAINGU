@@ -17,7 +17,7 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void frmHocPhi_Load(object sender, EventArgs e)
         {
-            Functions.Connect();
+            DatabaseConnection.Connect();
 
             // Cấu hình DataGridView
             dgvHocPhi.EnableHeadersVisualStyles = false;
@@ -78,7 +78,7 @@ namespace BTL_LTTQ_QLHTTTNN
 
             sql += " ORDER BY hd.NgayLap DESC";
 
-            DataTable dt = Functions.GetDataToTable(sql);
+            DataTable dt = DatabaseConnection.GetDataToTable(sql);
 
             decimal tongPhaiNop = 0;
             decimal tongDaThanhToan = 0;

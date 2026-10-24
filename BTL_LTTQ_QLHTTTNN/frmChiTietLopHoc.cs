@@ -16,10 +16,10 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void frmChiTietLopHoc_Load(object sender, EventArgs e)
         {
-            Functions.Connect();
+            DatabaseConnection.Connect();
 
             // 1. Nạp danh sách Khóa học từ CSDL SQL Server
-            DataTable dtKhoa = Functions.GetDataToTable("SELECT KhoaHocID, TenKhoaHoc FROM KhoaHoc WHERE IsDeleted = 0");
+            DataTable dtKhoa = DatabaseConnection.GetDataToTable("SELECT KhoaHocID, TenKhoaHoc FROM KhoaHoc WHERE IsDeleted = 0");
             DataRow drKhoa = dtKhoa.NewRow();
             drKhoa["KhoaHocID"] = 0;
             drKhoa["TenKhoaHoc"] = "-- Chọn khóa học --";
@@ -29,7 +29,7 @@ namespace BTL_LTTQ_QLHTTTNN
             cboKhoaHoc.ValueMember = "KhoaHocID";
 
             // 2. Nạp danh sách Cơ sở
-            DataTable dtCoSo = Functions.GetDataToTable("SELECT CoSoID, TenCoSo FROM CoSo");
+            DataTable dtCoSo = DatabaseConnection.GetDataToTable("SELECT CoSoID, TenCoSo FROM CoSo");
             DataRow drCoSo = dtCoSo.NewRow();
             drCoSo["CoSoID"] = 0;
             drCoSo["TenCoSo"] = "-- Chọn cơ sở --";
@@ -41,7 +41,7 @@ namespace BTL_LTTQ_QLHTTTNN
             // 3. Nạp danh sách Giáo viên từ bảng NhanSu
             string sqlGV = "SELECT NhanSuID AS GiaoVienID, HoTen AS TenGiaoVien FROM NhanSu " +
                            "WHERE LoaiNhanSu = N'Giáo viên' OR LoaiNhanSu = N'Cả hai'";
-            DataTable dtGiaoVien = Functions.GetDataToTable(sqlGV);
+            DataTable dtGiaoVien = DatabaseConnection.GetDataToTable(sqlGV);
 
             DataRow drGV = dtGiaoVien.NewRow();
             drGV["GiaoVienID"] = 0;
@@ -80,7 +80,7 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             string sql = $"SELECT TenLop, KhoaHocID, CoSoID, GiaoVienPhuTrachID, SiSoToiDa, NgayBatDau, NgayKetThuc, TrangThai " +
                          $"FROM LopHoc WHERE LopHocID = {_lopHocID}";
-            DataTable dt = Functions.GetDataToTable(sql);
+            DataTable dt = DatabaseConnection.GetDataToTable(sql);
 
             if (dt.Rows.Count > 0)
             {
@@ -136,7 +136,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 // Thêm mới Lớp học
                 string sqlInsert = $"INSERT INTO LopHoc (TenLop, KhoaHocID, CoSoID, GiaoVienPhuTrachID, SiSoToiDa, NgayBatDau, NgayKetThuc, TrangThai, IsDeleted) " +
                                    $"VALUES (N'{tenLop}', {khoaHocID}, {coSoID}, {giaoVienID}, {siSoToiDa}, '{ngayBatDau}', '{ngayKetThuc}', N'{trangThai}', 0)";
-                Functions.RunSQL(sqlInsert);
+                DatabaseConnection.RunSQL(sqlInsert);
                 MessageBox.Show("Mở lớp học mới thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
@@ -146,7 +146,7 @@ namespace BTL_LTTQ_QLHTTTNN
                                    $"GiaoVienPhuTrachID = {giaoVienID}, SiSoToiDa = {siSoToiDa}, NgayBatDau = '{ngayBatDau}', " +
                                    $"NgayKetThuc = '{ngayKetThuc}', TrangThai = N'{trangThai}' " +
                                    $"WHERE LopHocID = {_lopHocID}";
-                Functions.RunSQL(sqlUpdate);
+                DatabaseConnection.RunSQL(sqlUpdate);
                 MessageBox.Show("Cập nhật thông tin lớp học thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 

@@ -13,7 +13,7 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void frmKhoaHoc_Load(object sender, EventArgs e)
         {
-            Functions.Connect();
+            DatabaseConnection.Connect();
 
             // 1. Neo DataGridView co dãn tràn cả 4 hướng (Trên, Dưới, Trái, Phải)
             dgvKhoaHoc.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -40,10 +40,10 @@ namespace BTL_LTTQ_QLHTTTNN
         // 1. Nạp số liệu 4 thẻ thống kê
         private void LoadThongKe()
         {
-            lblValTongKH.Text = Functions.GetFieldValues("SELECT COUNT(*) FROM KhoaHoc WHERE IsDeleted = 0");
-            lblValDangMo.Text = Functions.GetFieldValues("SELECT COUNT(*) FROM KhoaHoc WHERE TrangThai = N'Đang mở' AND IsDeleted = 0");
-            lblValLopHD.Text = Functions.GetFieldValues("SELECT COUNT(*) FROM LopHoc WHERE TrangThai = N'Đang hoạt động'");
-            lblValTongBuoi.Text = Functions.GetFieldValues("SELECT ISNULL(SUM(SoBuoi), 0) FROM KhoaHoc WHERE IsDeleted = 0");
+            lblValTongKH.Text = DatabaseConnection.GetFieldValues("SELECT COUNT(*) FROM KhoaHoc WHERE IsDeleted = 0");
+            lblValDangMo.Text = DatabaseConnection.GetFieldValues("SELECT COUNT(*) FROM KhoaHoc WHERE TrangThai = N'Đang mở' AND IsDeleted = 0");
+            lblValLopHD.Text = DatabaseConnection.GetFieldValues("SELECT COUNT(*) FROM LopHoc WHERE TrangThai = N'Đang hoạt động'");
+            lblValTongBuoi.Text = DatabaseConnection.GetFieldValues("SELECT ISNULL(SUM(SoBuoi), 0) FROM KhoaHoc WHERE IsDeleted = 0");
         }
 
         // 2. Nạp dữ liệu danh sách khóa học
@@ -69,7 +69,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 sql += $" AND TrangThai = N'{trangThai}'";
             }
 
-            DataTable dt = Functions.GetDataToTable(sql);
+            DataTable dt = DatabaseConnection.GetDataToTable(sql);
 
             dgvKhoaHoc.AutoGenerateColumns = false;
             colMaKhoa.DataPropertyName = "MaKhoaHoc";
@@ -88,7 +88,7 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             cboTrinhDo.Items.Clear();
             cboTrinhDo.Items.Add("-- Tất cả trình độ --");
-            DataTable dtTrinhDo = Functions.GetDataToTable("SELECT DISTINCT TrinhDo FROM KhoaHoc WHERE TrinhDo IS NOT NULL AND IsDeleted = 0");
+            DataTable dtTrinhDo = DatabaseConnection.GetDataToTable("SELECT DISTINCT TrinhDo FROM KhoaHoc WHERE TrinhDo IS NOT NULL AND IsDeleted = 0");
             foreach (DataRow r in dtTrinhDo.Rows)
             {
                 cboTrinhDo.Items.Add(r["TrinhDo"].ToString());
@@ -97,7 +97,7 @@ namespace BTL_LTTQ_QLHTTTNN
 
             cboTrangThai.Items.Clear();
             cboTrangThai.Items.Add("-- Tất cả trạng thái --");
-            DataTable dtTrangThai = Functions.GetDataToTable("SELECT DISTINCT TrangThai FROM KhoaHoc WHERE TrangThai IS NOT NULL AND IsDeleted = 0");
+            DataTable dtTrangThai = DatabaseConnection.GetDataToTable("SELECT DISTINCT TrangThai FROM KhoaHoc WHERE TrangThai IS NOT NULL AND IsDeleted = 0");
             foreach (DataRow r in dtTrangThai.Rows)
             {
                 cboTrangThai.Items.Add(r["TrangThai"].ToString());
@@ -171,7 +171,7 @@ namespace BTL_LTTQ_QLHTTTNN
                     {
                         // Xóa mềm trong CSDL
                         string sqlDelete = $"UPDATE KhoaHoc SET IsDeleted = 1, DeletedAt = GETDATE() WHERE KhoaHocID = {maKhoaID}";
-                        Functions.RunSQL(sqlDelete);
+                        DatabaseConnection.RunSQL(sqlDelete);
 
                         MessageBox.Show("Đã xóa khóa học thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

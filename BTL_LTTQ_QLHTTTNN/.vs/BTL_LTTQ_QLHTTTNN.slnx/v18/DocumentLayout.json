@@ -3,8 +3,20 @@
   "WorkspaceRootPath": "D:\\Hoc code\\He_Thong_Qly_T.anh\\LTTQ\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|d:\\hoc code\\he_thong_qly_t.anh\\lttq\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\forms\\frmmainhocvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:forms\\frmmainhocvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|d:\\hoc code\\he_thong_qly_t.anh\\lttq\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\forms\\frmhocvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:forms\\frmhocvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|d:\\hoc code\\he_thong_qly_t.anh\\lttq\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\forms\\frmlapphieuthu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:forms\\frmlapphieuthu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|d:\\hoc code\\he_thong_qly_t.anh\\lttq\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\forms\\frmhocphi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:forms\\frmhocphi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|d:\\hoc code\\he_thong_qly_t.anh\\lttq\\btn_lttq_hethongquanlytrungtamngoaingu\\btl_lttq_qlhtttnn\\forms\\frmlapphieuthu.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -51,19 +63,58 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "frmMainHocVien.cs",
+              "DocumentMoniker": "D:\\Hoc code\\He_Thong_Qly_T.anh\\LTTQ\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Forms\\frmMainHocVien.cs",
+              "RelativeDocumentMoniker": "Forms\\frmMainHocVien.cs",
+              "ToolTip": "D:\\Hoc code\\He_Thong_Qly_T.anh\\LTTQ\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Forms\\frmMainHocVien.cs",
+              "RelativeToolTip": "Forms\\frmMainHocVien.cs",
+              "ViewState": "AgIAALgBAAAAAAAAAAAiwMwBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T14:56:39.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmHocVien.cs",
+              "DocumentMoniker": "D:\\Hoc code\\He_Thong_Qly_T.anh\\LTTQ\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Forms\\frmHocVien.cs",
+              "RelativeDocumentMoniker": "Forms\\frmHocVien.cs",
+              "ToolTip": "D:\\Hoc code\\He_Thong_Qly_T.anh\\LTTQ\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Forms\\frmHocVien.cs",
+              "RelativeToolTip": "Forms\\frmHocVien.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T14:43:29.124Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "frmHocPhi.cs",
+              "DocumentMoniker": "D:\\Hoc code\\He_Thong_Qly_T.anh\\LTTQ\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Forms\\frmHocPhi.cs",
+              "RelativeDocumentMoniker": "Forms\\frmHocPhi.cs",
+              "ToolTip": "D:\\Hoc code\\He_Thong_Qly_T.anh\\LTTQ\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Forms\\frmHocPhi.cs",
+              "RelativeToolTip": "Forms\\frmHocPhi.cs",
+              "ViewState": "AgIAAEcBAAAAAAAAAAAiwGABAABgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T13:48:47.795Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "frmLapPhieuThu.cs",
               "DocumentMoniker": "D:\\Hoc code\\He_Thong_Qly_T.anh\\LTTQ\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Forms\\frmLapPhieuThu.cs",
               "RelativeDocumentMoniker": "Forms\\frmLapPhieuThu.cs",
               "ToolTip": "D:\\Hoc code\\He_Thong_Qly_T.anh\\LTTQ\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Forms\\frmLapPhieuThu.cs",
               "RelativeToolTip": "Forms\\frmLapPhieuThu.cs",
-              "ViewState": "AgIAAFIBAAAAAAAAAAAcwIwBAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAIwBAAAAAAAAAAAAAIwBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-10-25T09:49:39.999Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "frmLapPhieuThu.Designer.cs",
               "DocumentMoniker": "D:\\Hoc code\\He_Thong_Qly_T.anh\\LTTQ\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Forms\\frmLapPhieuThu.Designer.cs",
               "RelativeDocumentMoniker": "Forms\\frmLapPhieuThu.Designer.cs",
@@ -76,7 +127,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
               "Title": "frmMainAdmin.cs",
               "DocumentMoniker": "D:\\Hoc code\\He_Thong_Qly_T.anh\\LTTQ\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\Forms\\frmMainAdmin.cs",
               "RelativeDocumentMoniker": "Forms\\frmMainAdmin.cs",

@@ -8,7 +8,9 @@ namespace BTL_LTTQ_QLHTTTNN
     {
         private int _lopHocID = 0; // 0: Thêm mới | >0: Chỉnh sửa
 
-        public frmChiTietLopHoc(int lopHocID = 0)
+        public frmChiTietLopHoc() : this(0) { }
+
+        public frmChiTietLopHoc(int lopHocID)
         {
             InitializeComponent();
             _lopHocID = lopHocID;

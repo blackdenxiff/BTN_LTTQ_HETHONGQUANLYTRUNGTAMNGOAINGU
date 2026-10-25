@@ -39,17 +39,14 @@ namespace BTL_LTTQ_QLHTTTNN.Services.Models
 
     public sealed class TaiKhoanTaoDto
     {
-        public string TenDangNhap { get; set; }
-        public string MatKhau { get; set; }
+        public int HoSoID { get; set; }
+        public string LoaiHoSo { get; set; }
         public string VaiTro { get; set; }
-        public int? NhanSuID { get; set; }
-        public int? HocVienID { get; set; }
     }
 
     public sealed class TaiKhoanSuaDto
     {
         public int NguoiDungID { get; set; }
-        public string TenDangNhap { get; set; }
         public string VaiTro { get; set; }
     }
 
@@ -58,7 +55,19 @@ namespace BTL_LTTQ_QLHTTTNN.Services.Models
         public int HoSoID { get; set; }
         public string HoTen { get; set; }
         public string LoaiHoSo { get; set; }
+        public string TenDangNhapDuKien { get; set; }
+        public bool DaChon { get; set; }
         public override string ToString() { return HoTen + " (#" + HoSoID + ")"; }
+    }
+
+    public sealed class KetQuaTaoTaiKhoan
+    {
+        public int HoSoID { get; set; }
+        public string HoTen { get; set; }
+        public string LoaiHoSo { get; set; }
+        public bool ThanhCong { get; set; }
+        public bool BoQua { get; set; }
+        public string LyDo { get; set; }
     }
 
     public sealed class KetQuaPhanTrang<T>

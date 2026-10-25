@@ -8,7 +8,9 @@ namespace BTL_LTTQ_QLHTTTNN
     {
         private int _lichHocID = 0;
 
-        public frmTaoLichHoc(int lichHocID = 0)
+        public frmTaoLichHoc() : this(0) { }
+
+        public frmTaoLichHoc(int lichHocID)
         {
             InitializeComponent();
             _lichHocID = lichHocID;

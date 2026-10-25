@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using BTL_LTTQ_QLHTTTNN.Data;
 using BTL_LTTQ_QLHTTTNN.Services.Models;
 
@@ -30,13 +31,43 @@ namespace BTL_LTTQ_QLHTTTNN.Services
         public static int TaoTaiKhoan(TaiKhoanTaoDto duLieu)
         {
             PhanQuyenService.YeuCauQuyen("TaoTaiKhoan"); if (duLieu == null) throw new ArgumentNullException("duLieu");
-            if (string.IsNullOrWhiteSpace(duLieu.TenDangNhap) || string.IsNullOrEmpty(duLieu.MatKhau)) throw new InvalidOperationException("Tên đăng nhập và mật khẩu không được để trống.");
-            if (duLieu.TenDangNhap.Trim().Length > 50 || duLieu.MatKhau.Length > 128) throw new InvalidOperationException("Tên đăng nhập hoặc mật khẩu vượt quá độ dài cho phép.");
-            if (duLieu.MatKhau.Length < 8) throw new InvalidOperationException("Mật khẩu khởi tạo cần ít nhất 8 ký tự.");
-            duLieu.TenDangNhap = duLieu.TenDangNhap.Trim(); return TaiKhoanData.TaoTaiKhoan(duLieu, MatKhauService.BamMatKhau(duLieu.MatKhau));
+            if (duLieu.HoSoID <= 0 || string.IsNullOrWhiteSpace(duLieu.VaiTro) || duLieu.VaiTro == "Admin") throw new InvalidOperationException("Chọn hồ sơ và vai trò phù hợp.");
+            var hoSo = TaiKhoanData.LayThongTinHoSoCapTaiKhoan(duLieu.VaiTro, duLieu.HoSoID);
+            string matKhau = TaoMatKhauMacDinh(hoSo.NgaySinh);
+            return TaiKhoanData.TaoTaiKhoan(duLieu, hoSo.NgaySinh, MatKhauService.BamMatKhau(matKhau));
         }
         public static void SuaTaiKhoan(TaiKhoanSuaDto duLieu)
-        { PhanQuyenService.YeuCauQuyen("SuaTaiKhoan"); if (duLieu == null || string.IsNullOrWhiteSpace(duLieu.TenDangNhap) || duLieu.TenDangNhap.Trim().Length > 50) throw new InvalidOperationException("Thông tin tài khoản chưa hợp lệ."); duLieu.TenDangNhap = duLieu.TenDangNhap.Trim(); TaiKhoanData.SuaTaiKhoan(duLieu); }
+        { PhanQuyenService.YeuCauQuyen("SuaTaiKhoan"); if (duLieu == null || duLieu.NguoiDungID <= 0 || string.IsNullOrWhiteSpace(duLieu.VaiTro)) throw new InvalidOperationException("Thông tin tài khoản chưa hợp lệ."); TaiKhoanData.SuaTaiKhoan(duLieu); }
+        public static void DatLaiMatKhauMacDinh(int maTaiKhoan)
+        {
+            PhanQuyenService.YeuCauQuyen("DatLaiMatKhau");
+            DateTime? ngaySinh = TaiKhoanData.LayNgaySinhLienKetTaiKhoan(maTaiKhoan);
+            TaiKhoanData.CapNhatMatKhauMacDinh(maTaiKhoan, ngaySinh, MatKhauService.BamMatKhau(TaoMatKhauMacDinh(ngaySinh)));
+        }
+        public static IList<KetQuaTaoTaiKhoan> TaoTaiKhoanHangLoat(IList<TaiKhoanTaoDto> hoSo, Action<int, int> tienDo)
+        {
+            PhanQuyenService.YeuCauQuyen("TaoTaiKhoan");
+            if (hoSo == null) throw new ArgumentNullException("hoSo");
+            var ketQua = new List<KetQuaTaoTaiKhoan>();
+            for (int i = 0; i < hoSo.Count; i++)
+            {
+                var yeuCau = hoSo[i]; var dong = new KetQuaTaoTaiKhoan { HoSoID = yeuCau == null ? 0 : yeuCau.HoSoID, LoaiHoSo = yeuCau == null ? "" : yeuCau.VaiTro };
+                try { TaoTaiKhoan(yeuCau); dong.ThanhCong = true; dong.LyDo = "Đã cấp tài khoản."; }
+                catch (InvalidOperationException ex)
+                {
+                    dong.ThanhCong = false; dong.LyDo = ex.Message;
+                    dong.BoQua = ex.Message.IndexOf("đã có tài khoản", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                        ex.Message.IndexOf("đã được liên kết", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                        ex.Message.IndexOf("đã được cấp tài khoản", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                        ex.Message.IndexOf("không còn đủ điều kiện", StringComparison.OrdinalIgnoreCase) >= 0;
+                }
+                catch (Exception ex) { dong.ThanhCong = false; dong.LyDo = ex.Message; }
+                ketQua.Add(dong); if (tienDo != null) tienDo(i + 1, hoSo.Count);
+            }
+            return ketQua;
+        }
+        private static string TaoMatKhauMacDinh(DateTime? ngaySinh)
+        { return ngaySinh.HasValue ? ngaySinh.Value.ToString("ddMMyyyy", CultureInfo.InvariantCulture) : "12345678"; }
         public static void DoiTrangThaiTaiKhoan(int maTaiKhoan, bool biKhoa)
         { PhanQuyenService.YeuCauQuyen("KhoaTaiKhoan"); TaiKhoanData.DoiTrangThai(maTaiKhoan, biKhoa, SessionContext.NguoiDungHienTai.NguoiDungID); }
         public static void XoaMemTaiKhoan(int maTaiKhoan)

@@ -41,6 +41,7 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Deployment" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Net.Http" />
@@ -53,6 +54,12 @@
     </Compile>
     <Compile Include="Forms\frmChiTietKhoaHoc.Designer.cs">
       <DependentUpon>frmChiTietKhoaHoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmCapTaiKhoanHangLoat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCapTaiKhoanHangLoat.Designer.cs">
+      <DependentUpon>frmCapTaiKhoanHangLoat.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmChiTietLopHoc.cs">
       <SubType>Form</SubType>

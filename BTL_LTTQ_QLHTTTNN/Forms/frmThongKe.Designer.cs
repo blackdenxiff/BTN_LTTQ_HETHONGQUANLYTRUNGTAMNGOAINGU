@@ -32,10 +32,12 @@ namespace BTL_LTTQ_QLHTTTNN
             this.cboCoSo = new System.Windows.Forms.ComboBox();
             this.btnXem = new System.Windows.Forms.Button();
             this.btnDatLai = new System.Windows.Forms.Button();
-            this.btnTongQuan = new System.Windows.Forms.Button();
+            this.btnXuatExcel = new System.Windows.Forms.Button();
             this.lblTrangThai = new System.Windows.Forms.Label();
             this.lblTongHop = new System.Windows.Forms.Label();
-            this.pnlBieuDo = new System.Windows.Forms.Panel();
+            this.lblHoaDonTong = new System.Windows.Forms.Label();
+            this.lblThanhToanTong = new System.Windows.Forms.Label();
+            this.lblDangKyTong = new System.Windows.Forms.Label();
             this.tabs = new System.Windows.Forms.TabControl();
             this.tabHoaDon = new System.Windows.Forms.TabPage();
             this.tabThanhToan = new System.Windows.Forms.TabPage();
@@ -110,19 +112,20 @@ namespace BTL_LTTQ_QLHTTTNN
             this.btnDatLai.Text = "Đặt lại";
             this.btnDatLai.Click += new System.EventHandler(this.btnDatLai_Click);
             // 
-            // btnTongQuan
+            // btnXuatExcel
             // 
-            this.btnTongQuan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTongQuan.Location = new System.Drawing.Point(2036, 60);
-            this.btnTongQuan.Name = "btnTongQuan";
-            this.btnTongQuan.Size = new System.Drawing.Size(100, 34);
-            this.btnTongQuan.TabIndex = 6;
-            this.btnTongQuan.Text = "Tổng quan";
-            this.btnTongQuan.Click += new System.EventHandler(this.btnTongQuan_Click);
+            this.btnXuatExcel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnXuatExcel.Location = new System.Drawing.Point(1010, 60);
+            this.btnXuatExcel.Name = "btnXuatExcel";
+            this.btnXuatExcel.Size = new System.Drawing.Size(140, 34);
+            this.btnXuatExcel.TabIndex = 6;
+            this.btnXuatExcel.Text = "Xuất Excel";
+            this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
             // 
             // lblTrangThai
             // 
-            this.lblTrangThai.Location = new System.Drawing.Point(24, 750);
+            this.lblTrangThai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblTrangThai.Location = new System.Drawing.Point(24, 635);
             this.lblTrangThai.Name = "lblTrangThai";
             this.lblTrangThai.Size = new System.Drawing.Size(800, 24);
             this.lblTrangThai.TabIndex = 11;
@@ -136,15 +139,6 @@ namespace BTL_LTTQ_QLHTTTNN
             this.lblTongHop.TabIndex = 7;
             this.lblTongHop.Text = "Chọn khoảng ngày rồi xem thống kê.";
             // 
-            // pnlBieuDo
-            // 
-            this.pnlBieuDo.BackColor = System.Drawing.Color.White;
-            this.pnlBieuDo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlBieuDo.Location = new System.Drawing.Point(24, 148);
-            this.pnlBieuDo.Name = "pnlBieuDo";
-            this.pnlBieuDo.Size = new System.Drawing.Size(1060, 134);
-            this.pnlBieuDo.TabIndex = 8;
-            this.pnlBieuDo.Paint += new System.Windows.Forms.PaintEventHandler(this.pnlBieuDo_Paint);
             // 
             // tabs
             // 
@@ -154,35 +148,56 @@ namespace BTL_LTTQ_QLHTTTNN
             this.tabs.Controls.Add(this.tabHoaDon);
             this.tabs.Controls.Add(this.tabThanhToan);
             this.tabs.Controls.Add(this.tabDangKy);
-            this.tabs.Location = new System.Drawing.Point(24, 334);
+            this.tabs.Location = new System.Drawing.Point(24, 176);
             this.tabs.Name = "tabs";
             this.tabs.SelectedIndex = 0;
-            this.tabs.Size = new System.Drawing.Size(2096, 947);
+            this.tabs.Size = new System.Drawing.Size(1148, 440);
             this.tabs.TabIndex = 10;
             // 
             // tabHoaDon
             // 
             this.tabHoaDon.Location = new System.Drawing.Point(4, 25);
             this.tabHoaDon.Name = "tabHoaDon";
-            this.tabHoaDon.Size = new System.Drawing.Size(2088, 918);
+            this.tabHoaDon.Size = new System.Drawing.Size(1140, 244);
             this.tabHoaDon.TabIndex = 0;
             this.tabHoaDon.Text = "Hóa đơn trong kỳ";
+            this.lblHoaDonTong.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblHoaDonTong.Name = "lblHoaDonTong";
+            this.lblHoaDonTong.Padding = new System.Windows.Forms.Padding(8);
+            this.lblHoaDonTong.Size = new System.Drawing.Size(1132, 38);
+            this.lblHoaDonTong.Text = "Tổng hợp hóa đơn";
+            this.lblHoaDonTong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tabHoaDon.Controls.Add(this.lblHoaDonTong);
             // 
             // tabThanhToan
             // 
             this.tabThanhToan.Location = new System.Drawing.Point(4, 25);
             this.tabThanhToan.Name = "tabThanhToan";
-            this.tabThanhToan.Size = new System.Drawing.Size(1052, 375);
+            this.tabThanhToan.Size = new System.Drawing.Size(2088, 918);
             this.tabThanhToan.TabIndex = 1;
             this.tabThanhToan.Text = "Thanh toán phát sinh";
+            this.lblThanhToanTong.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblThanhToanTong.Name = "lblThanhToanTong";
+            this.lblThanhToanTong.Padding = new System.Windows.Forms.Padding(8);
+            this.lblThanhToanTong.Size = new System.Drawing.Size(1132, 38);
+            this.lblThanhToanTong.Text = "Tổng hợp thanh toán";
+            this.lblThanhToanTong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tabThanhToan.Controls.Add(this.lblThanhToanTong);
             // 
             // tabDangKy
             // 
             this.tabDangKy.Location = new System.Drawing.Point(4, 25);
             this.tabDangKy.Name = "tabDangKy";
-            this.tabDangKy.Size = new System.Drawing.Size(1052, 375);
+            this.tabDangKy.Size = new System.Drawing.Size(2088, 918);
             this.tabDangKy.TabIndex = 2;
             this.tabDangKy.Text = "Đăng ký trong kỳ";
+            this.lblDangKyTong.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblDangKyTong.Name = "lblDangKyTong";
+            this.lblDangKyTong.Padding = new System.Windows.Forms.Padding(8);
+            this.lblDangKyTong.Size = new System.Drawing.Size(1132, 38);
+            this.lblDangKyTong.Text = "Tổng hợp đăng ký";
+            this.lblDangKyTong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tabDangKy.Controls.Add(this.lblDangKyTong);
             // 
             // dgvHoaDon
             // 
@@ -276,9 +291,9 @@ namespace BTL_LTTQ_QLHTTTNN
             // 
             // lblGiaiThich
             // 
-            this.lblGiaiThich.Location = new System.Drawing.Point(24, 288);
+            this.lblGiaiThich.Location = new System.Drawing.Point(21, 290);
             this.lblGiaiThich.Name = "lblGiaiThich";
-            this.lblGiaiThich.Size = new System.Drawing.Size(1060, 42);
+            this.lblGiaiThich.Size = new System.Drawing.Size(1063, 42);
             this.lblGiaiThich.TabIndex = 9;
             this.lblGiaiThich.Text = "Thực thu theo ngày thanh toán; hóa đơn theo ngày lập, số phải thu được tính tới h" +
     "ết ngày cuối kỳ.";
@@ -288,17 +303,16 @@ namespace BTL_LTTQ_QLHTTTNN
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(250)))), ((int)(((byte)(252)))));
-            this.ClientSize = new System.Drawing.Size(1184, 543);
+            this.ClientSize = new System.Drawing.Size(1184, 676);
+            this.Controls.Add(this.lblGiaiThich);
             this.Controls.Add(this.lblTieuDe);
             this.Controls.Add(this.dtpTuNgay);
             this.Controls.Add(this.dtpDenNgay);
             this.Controls.Add(this.cboCoSo);
             this.Controls.Add(this.btnXem);
             this.Controls.Add(this.btnDatLai);
-            this.Controls.Add(this.btnTongQuan);
+            this.Controls.Add(this.btnXuatExcel);
             this.Controls.Add(this.lblTongHop);
-            this.Controls.Add(this.pnlBieuDo);
-            this.Controls.Add(this.lblGiaiThich);
             this.Controls.Add(this.tabs);
             this.Controls.Add(this.lblTrangThai);
             this.Name = "frmThongKe";
@@ -315,8 +329,8 @@ namespace BTL_LTTQ_QLHTTTNN
         private System.Windows.Forms.Label lblTieuDe, lblTongHop, lblGiaiThich, lblTrangThai, lblHoaDonTrang, lblThanhToanTrang, lblDangKyTrang;
         private System.Windows.Forms.DateTimePicker dtpTuNgay, dtpDenNgay;
         private System.Windows.Forms.ComboBox cboCoSo;
-        private System.Windows.Forms.Button btnXem, btnDatLai, btnTongQuan, btnHoaDonTruoc, btnHoaDonSau, btnThanhToanTruoc, btnThanhToanSau, btnDangKyTruoc, btnDangKySau;
-        private System.Windows.Forms.Panel pnlBieuDo;
+        private System.Windows.Forms.Button btnXem, btnDatLai, btnXuatExcel, btnHoaDonTruoc, btnHoaDonSau, btnThanhToanTruoc, btnThanhToanSau, btnDangKyTruoc, btnDangKySau;
+        private System.Windows.Forms.Label lblHoaDonTong, lblThanhToanTong, lblDangKyTong;
         private System.Windows.Forms.TabControl tabs;
         private System.Windows.Forms.TabPage tabHoaDon, tabThanhToan, tabDangKy;
         private System.Windows.Forms.DataGridView dgvHoaDon, dgvThanhToan, dgvDangKy;

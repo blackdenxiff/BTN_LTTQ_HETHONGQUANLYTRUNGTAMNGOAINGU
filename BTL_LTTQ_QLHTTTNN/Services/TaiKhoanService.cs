@@ -19,6 +19,10 @@ namespace BTL_LTTQ_QLHTTTNN.Services
 
         public static KetQuaPhanTrang<TaiKhoanDto> LayTaiKhoanTheoTrang(TaiKhoanBoLoc boLoc, int soTrang)
         { PhanQuyenService.YeuCauQuyen("QuanLyTaiKhoan"); return TaiKhoanData.LayTaiKhoanTheoTrang(boLoc ?? new TaiKhoanBoLoc(), soTrang); }
+        public static KetQuaPhanTrang<TaiKhoanDto> LayTaiKhoanDaXoaTheoTrang(TaiKhoanBoLoc boLoc, int soTrang)
+        { PhanQuyenService.YeuCauQuyen("QuanLyTaiKhoan"); return TaiKhoanData.LayTaiKhoanDaXoaTheoTrang(boLoc ?? new TaiKhoanBoLoc(), soTrang); }
+        public static void KhoiPhucTaiKhoan(int maTaiKhoan)
+        { PhanQuyenService.YeuCauQuyen("QuanLyTaiKhoan"); TaiKhoanData.KhoiPhucTaiKhoan(maTaiKhoan); }
         public static TaiKhoanDto LayChiTietTaiKhoan(int maTaiKhoan)
         { PhanQuyenService.YeuCauQuyen("QuanLyTaiKhoan"); return TaiKhoanData.LayChiTiet(maTaiKhoan); }
         public static IList<HoSoTaiKhoanDto> LayHoSoChuaCoTaiKhoanTheoTrang(string loaiHoSo, string tuKhoa, int soTrang, out int tongBanGhi)

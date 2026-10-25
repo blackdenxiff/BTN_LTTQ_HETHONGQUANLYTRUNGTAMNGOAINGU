@@ -17,6 +17,12 @@ namespace BTL_LTTQ_QLHTTTNN.Services
         { PhanQuyenService.YeuCauQuyen("XemThongKe"); return ThongKeData.LaySoLopTheoTrangThai(KiemTra(boLoc)); }
         public static KetQuaPhanTrang<TinhHinhHoaDonDto> LayTinhHinhThuTheoTrang(ThongKeBoLoc boLoc, int soTrang)
         { PhanQuyenService.YeuCauQuyen("XemThongKe"); return ThongKeData.LayTinhHinhThuTheoTrang(KiemTra(boLoc), soTrang); }
+        public static TongHopThongKeDto LayTongHopHoaDon(ThongKeBoLoc boLoc)
+        { PhanQuyenService.YeuCauQuyen("XemThongKe"); return ThongKeData.LayTongHopHoaDon(KiemTra(boLoc)); }
+        public static TongHopThongKeDto LayTongHopThanhToan(ThongKeBoLoc boLoc)
+        { PhanQuyenService.YeuCauQuyen("XemThongKe"); return ThongKeData.LayTongHopThanhToan(KiemTra(boLoc)); }
+        public static TongHopThongKeDto LayTongHopDangKy(ThongKeBoLoc boLoc)
+        { PhanQuyenService.YeuCauQuyen("XemThongKe"); return ThongKeData.LayTongHopDangKy(KiemTra(boLoc)); }
         public static KetQuaPhanTrang<ChiTietThanhToanDto> LayChiTietThanhToanTheoTrang(ThongKeBoLoc boLoc, int soTrang)
         { PhanQuyenService.YeuCauQuyen("XemThongKe"); return ThongKeData.LayChiTietThanhToanTheoTrang(KiemTra(boLoc), soTrang); }
         public static KetQuaPhanTrang<ChiTietDangKyDto> LayChiTietDangKyTheoTrang(ThongKeBoLoc boLoc, int soTrang)

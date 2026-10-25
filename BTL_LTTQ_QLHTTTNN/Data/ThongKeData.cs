@@ -62,6 +62,37 @@ OUTER APPLY(SELECT SUM(t.SoTien) DaThanhToan FROM ThanhToan t WHERE t.HoaDonID=h
                 { ThemKhoang(cmd, f); cmd.Parameters.AddWithValue("@skip", (Math.Max(1, page) - 1) * 10); using (var r = cmd.ExecuteReader()) while (r.Read()) rows.Add(new TinhHinhHoaDonDto { HoaDonID = Convert.ToInt32(r[0]), NgayLap = Convert.ToDateTime(r[1]), HocVien = Convert.ToString(r[2]), TenLop = Convert.ToString(r[3]), CoSo = Convert.ToString(r[4]), TongPhaiTra = Convert.ToDecimal(r[5]), DaThanhToan = Convert.ToDecimal(r[6]), ConPhaiThu = Convert.ToDecimal(r[7]), ThuVuot = Convert.ToDecimal(r[7]) < 0 }); }
             } return new KetQuaPhanTrang<TinhHinhHoaDonDto>(rows, count, page, 10);
         }
+
+        internal static TongHopThongKeDto LayTongHopHoaDon(ThongKeBoLoc f)
+        {
+            const string sql = @"WITH ThanhToanTheoHoaDon AS
+(SELECT t.HoaDonID,SUM(t.SoTien) Tong FROM ThanhToan t WHERE t.IsDeleted=0 AND t.NgayThanhToan<@den GROUP BY t.HoaDonID)
+SELECT COUNT(*),COALESCE(SUM(h.TongPhaiTra),0),COALESCE(SUM(COALESCE(p.Tong,0)),0),COALESCE(SUM(h.TongPhaiTra-COALESCE(p.Tong,0)),0)
+FROM HoaDon h LEFT JOIN DangKy d ON d.DangKyID=h.DangKyID LEFT JOIN LopHoc l ON l.LopHocID=d.LopHocID
+LEFT JOIN ThanhToanTheoHoaDon p ON p.HoaDonID=h.HoaDonID
+WHERE h.IsDeleted=0 AND h.NgayLap>=@tu AND h.NgayLap<@den AND (@coSo IS NULL OR l.CoSoID=@coSo)";
+            using (var c = DatabaseConnection.TaoKetNoi()) using (var cmd = new SqlCommand(sql, c))
+            {
+                ThemKhoang(cmd, f); c.Open(); using (var r = cmd.ExecuteReader()) { r.Read(); return new TongHopThongKeDto { TongSoLuong = Convert.ToInt32(r[0]), TongPhaiTra = Convert.ToDecimal(r[1]), TongDaThanhToanCuoiKy = Convert.ToDecimal(r[2]), TongConPhaiThu = Convert.ToDecimal(r[3]) }; }
+            }
+        }
+
+        internal static TongHopThongKeDto LayTongHopThanhToan(ThongKeBoLoc f)
+        {
+            const string sql = @"SELECT COUNT(*),COALESCE(SUM(t.SoTien),0) FROM ThanhToan t
+JOIN HoaDon h ON h.HoaDonID=t.HoaDonID AND h.IsDeleted=0 LEFT JOIN DangKy d ON d.DangKyID=h.DangKyID
+LEFT JOIN LopHoc l ON l.LopHocID=d.LopHocID WHERE t.IsDeleted=0 AND t.NgayThanhToan>=@tu AND t.NgayThanhToan<@den AND (@coSo IS NULL OR l.CoSoID=@coSo)";
+            using (var c = DatabaseConnection.TaoKetNoi()) using (var cmd = new SqlCommand(sql, c))
+            { ThemKhoang(cmd, f); c.Open(); using (var r = cmd.ExecuteReader()) { r.Read(); return new TongHopThongKeDto { TongSoLuong = Convert.ToInt32(r[0]), TongThucThuTrongKy = Convert.ToDecimal(r[1]) }; } }
+        }
+
+        internal static TongHopThongKeDto LayTongHopDangKy(ThongKeBoLoc f)
+        {
+            const string sql = @"SELECT COUNT(*),COUNT(DISTINCT d.HocVienID) FROM DangKy d JOIN HocVien hv ON hv.HocVienID=d.HocVienID AND hv.IsDeleted=0
+JOIN LopHoc l ON l.LopHocID=d.LopHocID AND l.IsDeleted=0 WHERE d.IsDeleted=0 AND d.NgayDangKy>=@tu AND d.NgayDangKy<@den AND (@coSo IS NULL OR l.CoSoID=@coSo)";
+            using (var c = DatabaseConnection.TaoKetNoi()) using (var cmd = new SqlCommand(sql, c))
+            { ThemKhoang(cmd, f); c.Open(); using (var r = cmd.ExecuteReader()) { r.Read(); return new TongHopThongKeDto { TongSoLuong = Convert.ToInt32(r[0]), TongHocVienKhacNhau = Convert.ToInt32(r[1]) }; } }
+        }
         internal static KetQuaPhanTrang<ChiTietThanhToanDto> LayChiTietThanhToanTheoTrang(ThongKeBoLoc f, int page)
         {
             const string from = " FROM ThanhToan t JOIN HoaDon h ON h.HoaDonID=t.HoaDonID LEFT JOIN HocVien hv ON hv.HocVienID=h.HocVienID LEFT JOIN DangKy d ON d.DangKyID=h.DangKyID LEFT JOIN LopHoc l ON l.LopHocID=d.LopHocID ";

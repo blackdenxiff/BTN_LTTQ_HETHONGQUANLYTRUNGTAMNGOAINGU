@@ -89,6 +89,7 @@
             // 
             // dgvTaiKhoan
             // 
+            this.dgvTaiKhoan.AutoGenerateColumns = false;
             this.dgvTaiKhoan.AllowUserToAddRows = false;
             this.dgvTaiKhoan.AllowUserToDeleteRows = false;
             this.dgvTaiKhoan.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -550,7 +551,7 @@
             this.lblTieuDe.Name = "lblTieuDe";
             this.lblTieuDe.Size = new System.Drawing.Size(800, 32);
             this.lblTieuDe.TabIndex = 7;
-            this.lblTieuDe.Text = "Tài khoản & phân quyền";
+            this.lblTieuDe.Text = "Tài khoản và phân quyền";
             this.lblTieuDe.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblMoTa
@@ -581,7 +582,7 @@
             this.MinimumSize = new System.Drawing.Size(980, 650);
             this.Name = "frmTaiKhoan";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Tài khoản & phân quyền";
+            this.Text = "Tài khoản và phân quyền";
             this.pnlDanhSach.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTaiKhoan)).EndInit();
             this.pnlNhapLieu.ResumeLayout(false);

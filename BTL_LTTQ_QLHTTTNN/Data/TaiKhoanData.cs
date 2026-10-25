@@ -69,6 +69,58 @@ CASE WHEN n.IsDeleted=1 THEN N'Đã xóa' WHEN n.TrangThai=0 THEN N'Đã khóa' 
             }
             return new KetQuaPhanTrang<TaiKhoanDto>(items, count, trang, 10);
         }
+
+        internal static KetQuaPhanTrang<TaiKhoanDto> LayTaiKhoanDaXoaTheoTrang(TaiKhoanBoLoc f, int trang)
+        {
+            f = f ?? new TaiKhoanBoLoc();
+            const string from = @" FROM NguoiDung n JOIN VaiTro v ON v.VaiTroID=n.VaiTroID
+LEFT JOIN NhanSu ns ON ns.NguoiDungID=n.NguoiDungID LEFT JOIN HocVien h ON h.NguoiDungID=n.NguoiDungID ";
+            const string where = @" WHERE n.IsDeleted=1 AND (@role=N'' OR v.TenVaiTro=@role)
+AND (@q=N'' OR CHARINDEX(@q,n.TenDangNhap)>0 OR CHARINDEX(@q,COALESCE(ns.HoTen,h.HoTen,''))>0 OR CONVERT(varchar(20),n.NguoiDungID)=@q)";
+            int count; var rows = new List<TaiKhoanDto>();
+            using (var c = DatabaseConnection.TaoKetNoi())
+            {
+                c.Open(); using (var cmd = new SqlCommand("SELECT COUNT(*)" + from + where, c)) { cmd.Parameters.AddWithValue("@role", f.VaiTro ?? ""); cmd.Parameters.AddWithValue("@q", f.TuKhoa ?? ""); count = Convert.ToInt32(cmd.ExecuteScalar()); }
+                using (var cmd = new SqlCommand(@"SELECT n.NguoiDungID,n.TenDangNhap,COALESCE(ns.HoTen,h.HoTen,''),v.TenVaiTro,
+CASE WHEN n.TrangThai=0 THEN N'Đã khóa' ELSE N'Hoạt động' END,n.IsDeleted,ns.NhanSuID,h.HocVienID,n.DeletedAt" + from + where +
+" ORDER BY n.DeletedAt DESC,n.NguoiDungID DESC OFFSET @skip ROWS FETCH NEXT 10 ROWS ONLY", c))
+                {
+                    cmd.Parameters.AddWithValue("@role", f.VaiTro ?? ""); cmd.Parameters.AddWithValue("@q", f.TuKhoa ?? ""); cmd.Parameters.AddWithValue("@skip", (Math.Max(1, trang) - 1) * 10);
+                    using (var r = cmd.ExecuteReader()) while (r.Read()) rows.Add(new TaiKhoanDto { NguoiDungID = Convert.ToInt32(r[0]), TenDangNhap = Convert.ToString(r[1]), HoTen = Convert.ToString(r[2]), VaiTro = Convert.ToString(r[3]), TrangThai = Convert.ToString(r[4]), IsDeleted = true, NhanSuID = r[6] == DBNull.Value ? (int?)null : Convert.ToInt32(r[6]), HocVienID = r[7] == DBNull.Value ? (int?)null : Convert.ToInt32(r[7]), DeletedAt = r[8] == DBNull.Value ? (DateTime?)null : Convert.ToDateTime(r[8]) });
+                }
+            }
+            return new KetQuaPhanTrang<TaiKhoanDto>(rows, count, trang, 10);
+        }
+
+        internal static void KhoiPhucTaiKhoan(int id)
+        {
+            using (var c = DatabaseConnection.TaoKetNoi())
+            {
+                c.Open(); using (var tx = c.BeginTransaction(IsolationLevel.Serializable)) try
+                {
+                    KiemTraAdminHienTai(c, tx);
+                    string role, loai; int? ns, hv; bool deleted;
+                    using (var cmd = new SqlCommand(@"SELECT v.TenVaiTro,ns.NhanSuID,h.HocVienID,ns.LoaiNhanSu,n.IsDeleted
+FROM NguoiDung n WITH(UPDLOCK,HOLDLOCK) JOIN VaiTro v ON v.VaiTroID=n.VaiTroID AND ISNULL(v.IsDeleted,0)=0
+LEFT JOIN NhanSu ns ON ns.NguoiDungID=n.NguoiDungID AND ns.IsDeleted=0 LEFT JOIN HocVien h ON h.NguoiDungID=n.NguoiDungID AND h.IsDeleted=0
+WHERE n.NguoiDungID=@id", c, tx))
+                    {
+                        cmd.Parameters.AddWithValue("@id", id); using (var r = cmd.ExecuteReader())
+                        {
+                            if (!r.Read()) throw new InvalidOperationException("Tài khoản không còn tồn tại hoặc vai trò đã bị xóa.");
+                            role = Convert.ToString(r[0]); ns = r[1] == DBNull.Value ? (int?)null : Convert.ToInt32(r[1]); hv = r[2] == DBNull.Value ? (int?)null : Convert.ToInt32(r[2]); loai = r[3] == DBNull.Value ? null : Convert.ToString(r[3]); deleted = Convert.ToBoolean(r[4]);
+                        }
+                    }
+                    if (!deleted) throw new InvalidOperationException("Tài khoản này không còn ở thùng rác.");
+                    bool valid = role == "Admin" ? !ns.HasValue && !hv.HasValue : role == "Học viên" ? hv.HasValue && !ns.HasValue : role == "Giáo viên" ? ns.HasValue && !hv.HasValue && (loai == "Giáo viên" || loai == "Cả hai") : role == "Nhân viên" && ns.HasValue && !hv.HasValue && (loai == "Nhân viên" || loai == "Cả hai");
+                    if (!valid) throw new InvalidOperationException("Không thể khôi phục vì hồ sơ liên kết không còn hợp lệ hoặc đã bị xóa.");
+                    using (var cmd = new SqlCommand("UPDATE NguoiDung SET IsDeleted=0,DeletedAt=NULL,UpdatedAt=GETDATE() WHERE NguoiDungID=@id AND IsDeleted=1", c, tx))
+                    { cmd.Parameters.AddWithValue("@id", id); if (cmd.ExecuteNonQuery() != 1) throw new InvalidOperationException("Tài khoản vừa thay đổi. Hãy tải lại danh sách."); }
+                    tx.Commit();
+                }
+                catch { tx.Rollback(); throw; }
+            }
+        }
         private static void ThemLoc(SqlCommand cmd, TaiKhoanBoLoc f)
         { string state = f == null ? "Tất cả" : f.TrangThai; cmd.Parameters.AddWithValue("@deleted", state == "Đã xóa" ? 1 : 0); cmd.Parameters.AddWithValue("@role", (object)(f == null ? null : f.VaiTro) ?? ""); cmd.Parameters.AddWithValue("@state", (object)state ?? "Tất cả"); cmd.Parameters.AddWithValue("@q", (object)(f == null ? null : f.TuKhoa) ?? ""); }
 

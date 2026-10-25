@@ -51,4 +51,14 @@ namespace BTL_LTTQ_QLHTTTNN.Services.Models
         public string LopHoc { get; set; }
         public string TrangThai { get; set; }
     }
+
+    public sealed class TongHopThongKeDto
+    {
+        public int TongSoLuong { get; set; }
+        public int TongHocVienKhacNhau { get; set; }
+        public decimal TongPhaiTra { get; set; }
+        public decimal TongDaThanhToanCuoiKy { get; set; }
+        public decimal TongConPhaiThu { get; set; }
+        public decimal TongThucThuTrongKy { get; set; }
+    }
 }

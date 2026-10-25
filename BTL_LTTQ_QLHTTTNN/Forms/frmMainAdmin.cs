@@ -15,11 +15,22 @@ namespace BTL_LTTQ_QLHTTTNN
         public string MaChucNangYeuCau { get; private set; }
         private Control noiDungDangMo;
         private int maYeuCauThongKe;
+        private Button menuDangChon;
+        private readonly Color mauMenuThuong = Color.FromArgb(30, 41, 59);
+        private readonly Color mauMenuChon = Color.FromArgb(37, 99, 235);
         public frmMainAdmin()
         {
             InitializeComponent();
             var btnThongKe = new Button { Name = "btnThongKe", Text = "Thống kê", Tag = "frmThongKe", Location = new Point(14, 712), Size = new Size(232, 40), FlatStyle = FlatStyle.Flat, BackColor = Color.FromArgb(30, 41, 59), ForeColor = Color.White, TextAlign = ContentAlignment.MiddleLeft, Padding = new Padding(10, 0, 0, 0), Cursor = Cursors.Hand };
             btnThongKe.FlatAppearance.BorderSize = 0; btnThongKe.Click += MenuChucNang_Click; pnlMenuNoiDung.Controls.Add(btnThongKe);
+            foreach (Control control in pnlMenuNoiDung.Controls)
+            {
+                Button button = control as Button;
+                if (button == null) continue;
+                button.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
+                button.MouseEnter += delegate { if (button != menuDangChon) button.BackColor = Color.FromArgb(51, 65, 85); };
+                button.MouseLeave += delegate { if (button != menuDangChon) button.BackColor = mauMenuThuong; };
+            }
             Load += delegate { QuayVeTongQuan(); };
         }
         public void DatTenNguoiDung(string hoTen)
@@ -36,6 +47,8 @@ namespace BTL_LTTQ_QLHTTTNN
         }
         public void MoNoiDung(Control noiDung)
         {
+            if (noiDung == null) throw new ArgumentNullException("noiDung");
+            if (noiDungDangMo != null && noiDungDangMo.GetType() == noiDung.GetType()) { if (!object.ReferenceEquals(noiDungDangMo, noiDung)) noiDung.Dispose(); DatMenuTheoNoiDung(noiDung); return; }
             if (noiDungDangMo != null) {
                 pnlNoiDung.Controls.Remove(noiDungDangMo); noiDungDangMo.Dispose(); noiDungDangMo = null;
             }
@@ -48,11 +61,11 @@ namespace BTL_LTTQ_QLHTTTNN
             }
             noiDung.Dock = DockStyle.Fill;
             pnlNoiDung.Controls.Add(noiDung); noiDungDangMo = noiDung; noiDung.BringToFront(); noiDung.Show();
+            DatMenuTheoNoiDung(noiDung);
         }
         private void mnuDoiMatKhau_Click(object sender, EventArgs e)
         {
-            frmDoiMatKhau giaoDien = new frmDoiMatKhau();
-            MoNoiDung(giaoDien);
+            using (frmDoiMatKhau giaoDien = new frmDoiMatKhau()) giaoDien.ShowDialog(this);
         }
         public void MoFormThongKe()
         {
@@ -103,7 +116,11 @@ namespace BTL_LTTQ_QLHTTTNN
         }
         private void MenuChucNang_Click(object sender, EventArgs e)
         {
-            MaChucNangYeuCau = Convert.ToString(((Button)sender).Tag);
+            var clicked = sender as Button;
+            if (clicked == null) return;
+            string maChucNang = Convert.ToString(clicked.Tag);
+            if (menuDangChon == clicked && noiDungDangMo != null) return;
+            MaChucNangYeuCau = maChucNang;
             if (MaChucNangYeuCau == "frmThongKe") { MoFormThongKe(); return; }
             if (ChucNangYeuCau != null) { ChucNangYeuCau(this, EventArgs.Empty); return; }
             switch (MaChucNangYeuCau)
@@ -114,6 +131,19 @@ namespace BTL_LTTQ_QLHTTTNN
                 case "frmNhapDiem": MoNoiDung(new frmNhapDiem()); return;
             }
             MessageBox.Show(this, "Chức năng này cần được nối với dữ liệu hoặc form của thành viên phụ trách.", "Chức năng chưa kết nối", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void DatMenuTheoNoiDung(Control noiDung)
+        {
+            string tag = noiDung is frmThongKe ? "frmThongKe" : noiDung is frmTaiKhoan ? "frmTaiKhoan" :
+                noiDung is frmGiaoVien ? "frmGiaoVien" : noiDung is frmDiemDanh ? "frmDiemDanh" :
+                noiDung is frmNhapDiem ? "frmNhapDiem" : null;
+            Button nut = null;
+            foreach (Control control in pnlMenuNoiDung.Controls)
+                if (control is Button && Convert.ToString(control.Tag) == tag) { nut = (Button)control; break; }
+            if (nut == null) return;
+            if (menuDangChon != null) menuDangChon.BackColor = mauMenuThuong;
+            menuDangChon = nut; menuDangChon.BackColor = mauMenuChon; menuDangChon.ForeColor = Color.White;
         }
     }
 }

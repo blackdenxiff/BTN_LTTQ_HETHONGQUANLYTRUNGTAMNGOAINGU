@@ -34,6 +34,7 @@ namespace BTL_LTTQ_QLHTTTNN.Services.Models
         public bool IsDeleted { get; set; }
         public int? NhanSuID { get; set; }
         public int? HocVienID { get; set; }
+        public DateTime? DeletedAt { get; set; }
     }
 
     public sealed class TaiKhoanTaoDto

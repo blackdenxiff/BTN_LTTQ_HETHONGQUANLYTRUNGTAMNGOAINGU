@@ -160,6 +160,12 @@
     <Compile Include="Forms\frmMainNhanVien.Designer.cs">
       <DependentUpon>frmMainNhanVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\frmNhatKyGiangDay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmNhatKyGiangDay.Designer.cs">
+      <DependentUpon>frmNhatKyGiangDay.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmNhapDiem.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +177,12 @@
     </Compile>
     <Compile Include="Forms\frmTaiKhoan.Designer.cs">
       <DependentUpon>frmTaiKhoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmThongBao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmThongBao.Designer.cs">
+      <DependentUpon>frmThongBao.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmThongKe.cs">
       <SubType>Form</SubType>
@@ -191,6 +203,7 @@
     <Compile Include="Services\SessionContext.cs" />
     <Compile Include="Services\TaiKhoanService.cs" />
     <Compile Include="Services\ThongKeService.cs" />
+    <Compile Include="Services\NhatKyGiangDayPresenter.cs" />
     <Compile Include="Services\XuatThongKeExcelService.cs" />
     <Compile Include="Services\Models\TaiKhoanModels.cs" />
     <Compile Include="Services\Models\ThongKeModels.cs" />

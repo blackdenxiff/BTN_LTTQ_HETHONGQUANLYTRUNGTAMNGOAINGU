@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using BTL_LTTQ_QLHTTTNN.Services;
 
 namespace BTL_LTTQ_QLHTTTNN
 {
@@ -60,16 +61,44 @@ namespace BTL_LTTQ_QLHTTTNN
 
             dtpNgayHoc.Value = DateTime.Now;
 
+            // =========================================================
+            // PHÂN QUYỀN NGUỜI DÙNG: CHỈ ADMIN VÀ NHÂN VIÊN ĐƯỢC SỬA / XÓA
+            // =========================================================
+            var user = SessionContext.NguoiDungHienTai;
+            bool isQuanLy = false;
+
+            if (user != null && !string.IsNullOrEmpty(user.VaiTro))
+            {
+                string vaiTro = user.VaiTro.Trim().ToLower();
+                if (vaiTro.Contains("admin") || vaiTro.Contains("nhân viên") || vaiTro.Contains("nhan vien"))
+                {
+                    isQuanLy = true;
+                }
+            }
+
             if (_lichHocID > 0)
             {
-                lblTieuDe.Text = "✏️ Chi Tiết & Cập Nhật Lịch Học";
-                btnXoa.Visible = true;
+                lblTieuDe.Text = isQuanLy ? "✏️ Chi Tiết & Cập Nhật Lịch Học" : "👁️ Chi Tiết Lịch Học";
+                btnXoa.Visible = isQuanLy;
                 LoadChiTietLichHoc();
             }
             else
             {
                 lblTieuDe.Text = "📅 Xếp Lịch Học Mới";
                 btnXoa.Visible = false;
+            }
+
+            // Nếu là Giáo viên hoặc Học viên -> Khóa giao diện chỉ xem
+            if (!isQuanLy)
+            {
+                btnLuu.Visible = false;
+                btnXoa.Visible = false;
+
+                cboLopHoc.Enabled = false;
+                cboPhongHoc.Enabled = false;
+                cboCaHoc.Enabled = false;
+                cboGiaoVien.Enabled = false;
+                dtpNgayHoc.Enabled = false;
             }
         }
 
@@ -124,6 +153,18 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
+            // Kiểm tra phân quyền an toàn phía Backend
+            var user = SessionContext.NguoiDungHienTai;
+            if (user != null && !string.IsNullOrEmpty(user.VaiTro))
+            {
+                string vaiTro = user.VaiTro.Trim().ToLower();
+                if (!vaiTro.Contains("admin") && !vaiTro.Contains("nhân viên") && !vaiTro.Contains("nhan vien"))
+                {
+                    MessageBox.Show("Bạn không có quyền lưu thông tin lịch học!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
             if (cboLopHoc.SelectedValue == null || Convert.ToInt32(cboLopHoc.SelectedValue) == 0)
             {
                 MessageBox.Show("Vui lòng chọn Lớp học!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -190,6 +231,18 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
+            // Kiểm tra phân quyền an toàn phía Backend
+            var user = SessionContext.NguoiDungHienTai;
+            if (user != null && !string.IsNullOrEmpty(user.VaiTro))
+            {
+                string vaiTro = user.VaiTro.Trim().ToLower();
+                if (!vaiTro.Contains("admin") && !vaiTro.Contains("nhân viên") && !vaiTro.Contains("nhan vien"))
+                {
+                    MessageBox.Show("Bạn không có quyền xóa lịch học!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
             if (MessageBox.Show("Bạn có chắc chắn muốn xóa lịch học này không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 DatabaseConnection.RunSQL($"UPDATE LichHoc SET IsDeleted = 1 WHERE LichHocID = {_lichHocID}");

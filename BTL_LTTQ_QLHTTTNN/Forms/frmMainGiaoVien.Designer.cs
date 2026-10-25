@@ -1,4 +1,4 @@
-﻿namespace BTL_LTTQ_QLHTTTNN
+namespace BTL_LTTQ_QLHTTTNN
 {
     partial class frmMainGiaoVien
     {
@@ -47,6 +47,7 @@
             this.btnLichHoc = new System.Windows.Forms.Button();
             this.btnDiemDanh = new System.Windows.Forms.Button();
             this.btnNhapDiem = new System.Windows.Forms.Button();
+            this.btnNhatKyGiangDay = new System.Windows.Forms.Button();
             this.pnlThuongHieu = new System.Windows.Forms.Panel();
             this.lblLogo = new System.Windows.Forms.Label();
             this.lblTenHeThong = new System.Windows.Forms.Label();
@@ -191,6 +192,7 @@
             this.pnlMenuNoiDung.Controls.Add(this.btnLopHoc);
             this.pnlMenuNoiDung.Controls.Add(this.btnLichHoc);
             this.pnlMenuNoiDung.Controls.Add(this.btnDiemDanh);
+            this.pnlMenuNoiDung.Controls.Add(this.btnNhatKyGiangDay);
             this.pnlMenuNoiDung.Controls.Add(this.btnNhapDiem);
             this.pnlMenuNoiDung.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMenuNoiDung.Location = new System.Drawing.Point(0, 100);
@@ -224,7 +226,7 @@
             this.btnHoSo.Size = new System.Drawing.Size(232, 40);
             this.btnHoSo.TabIndex = 20;
             this.btnHoSo.Tag = "HoSo";
-            this.btnHoSo.Text = "Thông tin cá nhân";
+            this.btnHoSo.Text = "Trang chủ";
             this.btnHoSo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnHoSo.UseVisualStyleBackColor = false;
             this.btnHoSo.Click += new System.EventHandler(this.MenuChucNang_Click);
@@ -300,6 +302,26 @@
             this.btnDiemDanh.UseVisualStyleBackColor = false;
             this.btnDiemDanh.Click += new System.EventHandler(this.MenuChucNang_Click);
             // 
+            // btnNhatKyGiangDay
+            // 
+            this.btnNhatKyGiangDay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.btnNhatKyGiangDay.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnNhatKyGiangDay.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
+            this.btnNhatKyGiangDay.FlatAppearance.BorderSize = 0;
+            this.btnNhatKyGiangDay.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
+            this.btnNhatKyGiangDay.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnNhatKyGiangDay.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
+            this.btnNhatKyGiangDay.Location = new System.Drawing.Point(14, 292);
+            this.btnNhatKyGiangDay.Name = "btnNhatKyGiangDay";
+            this.btnNhatKyGiangDay.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnNhatKyGiangDay.Size = new System.Drawing.Size(232, 40);
+            this.btnNhatKyGiangDay.TabIndex = 25;
+            this.btnNhatKyGiangDay.Tag = "frmNhatKyGiangDay";
+            this.btnNhatKyGiangDay.Text = "Nhật ký giảng dạy";
+            this.btnNhatKyGiangDay.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnNhatKyGiangDay.UseVisualStyleBackColor = false;
+            this.btnNhatKyGiangDay.Click += new System.EventHandler(this.MenuChucNang_Click);
+            // 
             // btnNhapDiem
             // 
             this.btnNhapDiem.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
@@ -309,11 +331,11 @@
             this.btnNhapDiem.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
             this.btnNhapDiem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNhapDiem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
-            this.btnNhapDiem.Location = new System.Drawing.Point(14, 292);
+            this.btnNhapDiem.Location = new System.Drawing.Point(14, 336);
             this.btnNhapDiem.Name = "btnNhapDiem";
             this.btnNhapDiem.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnNhapDiem.Size = new System.Drawing.Size(232, 40);
-            this.btnNhapDiem.TabIndex = 25;
+            this.btnNhapDiem.TabIndex = 26;
             this.btnNhapDiem.Tag = "frmNhapDiem";
             this.btnNhapDiem.Text = "Nhập điểm";
             this.btnNhapDiem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -440,6 +462,7 @@
         private System.Windows.Forms.Button btnLopHoc;
         private System.Windows.Forms.Button btnLichHoc;
         private System.Windows.Forms.Button btnDiemDanh;
+        private System.Windows.Forms.Button btnNhatKyGiangDay;
         private System.Windows.Forms.Button btnNhapDiem;
     }
 }

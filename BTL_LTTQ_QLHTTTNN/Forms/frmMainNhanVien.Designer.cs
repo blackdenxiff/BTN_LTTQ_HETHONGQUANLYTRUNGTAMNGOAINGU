@@ -48,6 +48,8 @@
             this.btnLichHocPhongHoc = new System.Windows.Forms.Button();
             this.lblNhom3 = new System.Windows.Forms.Label();
             this.btnQuanLyHoaDon = new System.Windows.Forms.Button();
+            this.lblNhom4 = new System.Windows.Forms.Label();
+            this.btnThongBao = new System.Windows.Forms.Button();
             this.pnlThuongHieu = new System.Windows.Forms.Panel();
             this.lblLogo = new System.Windows.Forms.Label();
             this.lblTenHeThong = new System.Windows.Forms.Label();
@@ -196,6 +198,8 @@
             this.pnlMenuNoiDung.Controls.Add(this.btnLichHocPhongHoc);
             this.pnlMenuNoiDung.Controls.Add(this.lblNhom3);
             this.pnlMenuNoiDung.Controls.Add(this.btnQuanLyHoaDon);
+            this.pnlMenuNoiDung.Controls.Add(this.lblNhom4);
+            this.pnlMenuNoiDung.Controls.Add(this.btnThongBao);
             this.pnlMenuNoiDung.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMenuNoiDung.Location = new System.Drawing.Point(0, 100);
             this.pnlMenuNoiDung.Name = "pnlMenuNoiDung";
@@ -335,6 +339,37 @@
             this.btnQuanLyHoaDon.UseVisualStyleBackColor = false;
             this.btnQuanLyHoaDon.Click += new System.EventHandler(this.btnQuanLyHoaDon_Click);
             // 
+            // lblNhom4
+            // 
+            this.lblNhom4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.lblNhom4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(189)))), ((int)(((byte)(248)))));
+            this.lblNhom4.Location = new System.Drawing.Point(24, 398);
+            this.lblNhom4.Name = "lblNhom4";
+            this.lblNhom4.Size = new System.Drawing.Size(230, 28);
+            this.lblNhom4.TabIndex = 27;
+            this.lblNhom4.Text = "CHĂM SÓC && THÔNG BÁO";
+            this.lblNhom4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnThongBao
+            // 
+            this.btnThongBao.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.btnThongBao.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnThongBao.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
+            this.btnThongBao.FlatAppearance.BorderSize = 0;
+            this.btnThongBao.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
+            this.btnThongBao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnThongBao.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.btnThongBao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
+            this.btnThongBao.Location = new System.Drawing.Point(14, 436);
+            this.btnThongBao.Name = "btnThongBao";
+            this.btnThongBao.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnThongBao.Size = new System.Drawing.Size(232, 40);
+            this.btnThongBao.TabIndex = 28;
+            this.btnThongBao.Text = "📧  Gửi Email / Thông báo";
+            this.btnThongBao.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnThongBao.UseVisualStyleBackColor = false;
+            this.btnThongBao.Click += new System.EventHandler(this.btnThongBao_Click);
+            // 
             // pnlThuongHieu
             // 
             this.pnlThuongHieu.Controls.Add(this.lblLogo);
@@ -457,5 +492,7 @@
         private System.Windows.Forms.Button btnLichHocPhongHoc;
         private System.Windows.Forms.Label lblNhom3;
         private System.Windows.Forms.Button btnQuanLyHoaDon;
+        private System.Windows.Forms.Label lblNhom4;
+        private System.Windows.Forms.Button btnThongBao;
     }
 }

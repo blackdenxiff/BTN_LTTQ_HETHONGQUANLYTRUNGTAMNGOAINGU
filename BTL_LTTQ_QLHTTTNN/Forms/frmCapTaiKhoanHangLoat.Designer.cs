@@ -205,24 +205,25 @@ namespace BTL_LTTQ_QLHTTTNN
             //
             // progressCap
             //
-            this.progressCap.Location = new System.Drawing.Point(600, 6);
-            this.progressCap.Size = new System.Drawing.Size(200, 22);
+            this.progressCap.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
+            this.progressCap.Location = new System.Drawing.Point(410, 45);
+            this.progressCap.Size = new System.Drawing.Size(125, 18);
             this.progressCap.Visible = false;
             //
             // btnCapTaiKhoan
             //
-            this.btnCapTaiKhoan.Anchor = System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right;
-            this.btnCapTaiKhoan.Location = new System.Drawing.Point(820, 0);
-            this.btnCapTaiKhoan.Size = new System.Drawing.Size(190, 34);
-            this.btnCapTaiKhoan.Text = "Cấp tài khoản đã chọn";
+            this.btnCapTaiKhoan.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
+            this.btnCapTaiKhoan.Location = new System.Drawing.Point(780, 37);
+            this.btnCapTaiKhoan.Size = new System.Drawing.Size(220, 34);
+            this.btnCapTaiKhoan.Text = "Xác nhận cấp tài khoản";
             this.btnCapTaiKhoan.Enabled = false;
             this.btnCapTaiKhoan.Click += new System.EventHandler(this.btnCapTaiKhoan_Click);
             //
             // lblTrangThai
             //
-            this.lblTrangThai.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right | System.Windows.Forms.AnchorStyles.Bottom;
+            this.lblTrangThai.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Bottom;
             this.lblTrangThai.Location = new System.Drawing.Point(0, 37);
-            this.lblTrangThai.Size = new System.Drawing.Size(1010, 30);
+            this.lblTrangThai.Size = new System.Drawing.Size(390, 30);
             this.lblTrangThai.Text = "Chọn các hồ sơ đủ điều kiện cần cấp tài khoản.";
             //
             // frmCapTaiKhoanHangLoat

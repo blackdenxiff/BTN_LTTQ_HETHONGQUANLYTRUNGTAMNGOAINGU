@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using BTL_LTTQ_QLHTTTNN.Services;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -8,6 +9,59 @@ namespace BTL_LTTQ_QLHTTTNN
 {
     internal static class HocVienData
     {
+        // Luôn lấy chủ sở hữu từ phiên đã xác thực, không tin ID do form truyền vào.
+        public static DataRow OwnProfile(int? requestedUserId)
+        {
+            PhanQuyenService.YeuCauQuyen("XemHoSoCaNhan");
+            var session = SessionContext.NguoiDungHienTai;
+            if (!requestedUserId.HasValue || requestedUserId.Value != session.NguoiDungID)
+                throw new UnauthorizedAccessException("Không được truy cập hồ sơ của tài khoản khác.");
+            var table = Query(@"SELECT h.*,n.TenDangNhap FROM HocVien h
+JOIN NguoiDung n ON n.NguoiDungID=h.NguoiDungID
+JOIN VaiTro v ON v.VaiTroID=n.VaiTroID
+WHERE h.HocVienID=@student AND h.NguoiDungID=@user AND h.IsDeleted=0
+AND n.IsDeleted=0 AND n.TrangThai=1 AND n.DoiMatKhauLanDau=0
+AND v.IsDeleted=0 AND v.TenVaiTro=N'Học viên'
+AND NOT EXISTS(SELECT 1 FROM NhanSu ns WHERE ns.NguoiDungID=n.NguoiDungID AND ns.IsDeleted=0)",
+                P("@student", session.HocVienID), P("@user", session.NguoiDungID));
+            if (table.Rows.Count != 1) throw new UnauthorizedAccessException("Hồ sơ hoặc quyền truy cập đã thay đổi. Vui lòng đăng nhập lại.");
+            return table.Rows[0];
+        }
+        private static void RequireStudentRead(int student, string permission)
+        {
+            if (PhanQuyenService.KiemTraQuyen("QuanLyHocVien")) return;
+            PhanQuyenService.YeuCauQuyen(permission);
+            var row = OwnProfile(SessionContext.NguoiDungHienTai.NguoiDungID);
+            if (Convert.ToInt32(row["HocVienID"]) != student)
+                throw new UnauthorizedAccessException("Chỉ được xem dữ liệu của chính mình.");
+        }
+        public static DataTable ScheduleForCurrentUser(int? requestedUserId, DateTime from, DateTime to)
+        {
+            var profile = OwnProfile(requestedUserId);
+            if (to.Date < from.Date) throw new InvalidOperationException("Khoảng ngày không hợp lệ.");
+            return Query(@"SELECT lh.NgayHoc,
+CONVERT(varchar(5),lh.GioBatDau,108) AS GioBatDau,
+CONVERT(varchar(5),lh.GioKetThuc,108) AS GioKetThuc,
+l.TenLop,k.TenKhoaHoc,p.TenPhong,c.TenCoSo,lh.TrangThai,lh.GhiChu
+FROM LichHoc lh
+JOIN LopHoc l ON l.LopHocID=lh.LopHocID AND l.IsDeleted=0
+JOIN KhoaHoc k ON k.KhoaHocID=l.KhoaHocID AND k.IsDeleted=0
+LEFT JOIN PhongHoc p ON p.PhongHocID=lh.PhongHocID AND p.IsDeleted=0
+LEFT JOIN CoSo c ON c.CoSoID=p.CoSoID AND c.IsDeleted=0
+WHERE lh.IsDeleted=0 AND lh.NgayHoc BETWEEN @from AND @to
+AND EXISTS(SELECT 1 FROM DangKy d
+JOIN HocVien h ON h.HocVienID=d.HocVienID
+JOIN NguoiDung n ON n.NguoiDungID=h.NguoiDungID
+JOIN VaiTro v ON v.VaiTroID=n.VaiTroID
+WHERE d.LopHocID=lh.LopHocID AND d.HocVienID=@student AND d.IsDeleted=0
+AND h.NguoiDungID=@user AND h.IsDeleted=0
+AND n.IsDeleted=0 AND n.TrangThai=1 AND n.DoiMatKhauLanDau=0
+AND v.IsDeleted=0 AND v.TenVaiTro=N'Học viên'
+AND NOT EXISTS(SELECT 1 FROM NhanSu ns WHERE ns.NguoiDungID=n.NguoiDungID AND ns.IsDeleted=0))
+ORDER BY lh.NgayHoc,lh.GioBatDau,l.TenLop,lh.LichHocID",
+                P("@student", Convert.ToInt32(profile["HocVienID"])), P("@user", requestedUserId.Value),
+                P("@from", from.Date), P("@to", to.Date));
+        }
         public static SqlConnection Open()
         {
             var setting = ConfigurationManager.ConnectionStrings["QLTrungTamTiengAnh"];
@@ -39,7 +93,7 @@ namespace BTL_LTTQ_QLHTTTNN
             {
                 string message = ex.Number == 2601 || ex.Number == 2627
                     ? "Dữ liệu bị trùng. Nếu thêm học viên chưa có tài khoản, hãy chạy SQL/01_ChoPhepHocVienChuaCoTaiKhoan.sql một lần."
-                    : "Không thực hiện được thao tác SQL. Kiểm tra Server name trong App.config và database QLTrungTamTiengAnh.\n\n" + ex.Message;
+                    : "Không thực hiện được thao tác SQL. Kiểm tra Server name trong App.config và tên database trong chuỗi kết nối.\n\n" + ex.Message;
                 MessageBox.Show(message, "SQL Server", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
@@ -63,6 +117,7 @@ namespace BTL_LTTQ_QLHTTTNN
         }
         public static DataTable Students(string keyword, string status)
         {
+            PhanQuyenService.YeuCauQuyen("QuanLyHocVien");
             // CHARINDEX searches a literal substring; %, _ and [ are not wildcard characters.
             return Query(@"SELECT h.*, n.TenDangNhap FROM HocVien h
 LEFT JOIN NguoiDung n ON n.NguoiDungID=h.NguoiDungID AND n.IsDeleted=0
@@ -73,6 +128,7 @@ OR CONVERT(varchar(20),h.HocVienID)=@q) ORDER BY h.HocVienID DESC", P("@s",statu
         public static int SaveStudent(int? id, string name, DateTime? birth, string gender, string phone,
             string email, string level, decimal? score, string note, string status)
         {
+            PhanQuyenService.YeuCauQuyen("QuanLyHocVien");
             string sql = id.HasValue
                 ? @"UPDATE HocVien SET HoTen=@name,NgaySinh=@birth,GioiTinh=@gender,SoDienThoai=@phone,
 Email=@email,TrinhDoDauVao=@level,DiemDauVao=@score,NhanXetDauVao=@note,TrangThai=@status,UpdatedAt=GETDATE()
@@ -90,6 +146,7 @@ OUTPUT INSERTED.HocVienID VALUES(@name,@birth,@gender,@phone,@email,@level,@scor
         private static object Empty(string value) { return string.IsNullOrWhiteSpace(value) ? (object)DBNull.Value : value.Trim(); }
         public static DataTable Enrollments(int id)
         {
+            RequireStudentRead(id, "XemLopCaNhan");
             return Query(@"SELECT d.*,l.TenLop,k.TenKhoaHoc,c.TenCoSo,l.NgayBatDau,l.NgayKetThuc
 FROM DangKy d JOIN LopHoc l ON l.LopHocID=d.LopHocID
 JOIN KhoaHoc k ON k.KhoaHocID=l.KhoaHocID JOIN CoSo c ON c.CoSoID=l.CoSoID
@@ -97,6 +154,7 @@ WHERE d.HocVienID=@id AND d.IsDeleted=0 ORDER BY d.NgayDangKy DESC",P("@id",id))
         }
         public static DataTable Fees(int id)
         {
+            RequireStudentRead(id, "XemHocPhiCaNhan");
             // Aggregate payments per invoice before joining to avoid multiplying amounts.
             return Query(@"SELECT l.TenLop,h.HoaDonID,h.TongPhaiTra,ISNULL(t.DaThanhToan,0) DaThanhToan,
 CASE WHEN h.TongPhaiTra>ISNULL(t.DaThanhToan,0) THEN h.TongPhaiTra-ISNULL(t.DaThanhToan,0) ELSE 0 END ConPhaiTra,
@@ -112,6 +170,7 @@ AND NOT EXISTS(SELECT 1 FROM HoaDon h WHERE h.DangKyID=d.DangKyID AND h.HocVienI
         }
         public static DataTable Classes(int site, int course)
         {
+            PhanQuyenService.YeuCauQuyen("DangKyLopCaNhan");
             return Query(@"SELECT l.*,k.TenKhoaHoc,k.HocPhi,c.TenCoSo,ISNULL(d.SoLuong,0) SiSoHienTai,
 l.SiSoToiDa-ISNULL(d.SoLuong,0) ChoConLai FROM LopHoc l
 JOIN KhoaHoc k ON k.KhoaHocID=l.KhoaHocID JOIN CoSo c ON c.CoSoID=l.CoSoID
@@ -123,10 +182,24 @@ ORDER BY l.NgayBatDau,l.TenLop",P("@site",site),P("@course",course));
         }
         public static void Register(int student, int classroom, DateTime date, string note, decimal expectedFee, bool save)
         {
+            PhanQuyenService.YeuCauQuyen("DangKyLopCaNhan");
+            var session = SessionContext.NguoiDungHienTai;
+            if (session.HocVienID != student)
+                throw new UnauthorizedAccessException("Chỉ được đăng ký lớp cho chính mình.");
             using(var c=Open()) using(var tx=c.BeginTransaction(IsolationLevel.Serializable))
             {
                 try
                 {
+                    // Kiểm tra và giữ khóa quyền sở hữu trong cùng giao dịch ghi đăng ký.
+                    var owner = Query(c, tx, @"SELECT h.HocVienID FROM HocVien h WITH(HOLDLOCK)
+JOIN NguoiDung n WITH(HOLDLOCK) ON n.NguoiDungID=h.NguoiDungID
+JOIN VaiTro v WITH(HOLDLOCK) ON v.VaiTroID=n.VaiTroID
+WHERE h.HocVienID=@student AND n.NguoiDungID=@user AND h.IsDeleted=0
+AND n.IsDeleted=0 AND n.TrangThai=1 AND n.DoiMatKhauLanDau=0
+AND v.IsDeleted=0 AND v.TenVaiTro=N'Học viên'
+AND NOT EXISTS(SELECT 1 FROM NhanSu ns WITH(HOLDLOCK) WHERE ns.NguoiDungID=n.NguoiDungID AND ns.IsDeleted=0)",
+                        P("@student", student), P("@user", session.NguoiDungID));
+                    if (owner.Rows.Count != 1) throw new UnauthorizedAccessException("Tài khoản không còn quyền đăng ký lớp.");
                     var cl=Query(c,tx,@"SELECT l.*,k.HocPhi FROM LopHoc l WITH(UPDLOCK,HOLDLOCK)
 JOIN KhoaHoc k ON k.KhoaHocID=l.KhoaHocID JOIN CoSo cs ON cs.CoSoID=l.CoSoID
 WHERE l.LopHocID=@id AND l.IsDeleted=0 AND k.IsDeleted=0 AND cs.IsDeleted=0 AND cs.TrangThai=1

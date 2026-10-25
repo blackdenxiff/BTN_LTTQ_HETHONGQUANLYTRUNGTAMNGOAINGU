@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using BTL_LTTQ_QLHTTTNN.Services;
 using System.Data;
 using System.Globalization;
 using System.Net.Mail;
@@ -36,6 +37,7 @@ namespace BTL_LTTQ_QLHTTTNN
         }
         private void LoadStatuses()
         {
+            PhanQuyenService.YeuCauQuyen("QuanLyHocVien");
             string current=cboLocTrangThai.Text;
             cboLocTrangThai.Items.Clear();cboLocTrangThai.Items.Add("Tất cả");cboTrangThai.Items.Clear();cboTrangThai.Items.Add("Đang học");
             foreach(DataRow r in HocVienData.Query("SELECT DISTINCT TrangThai FROM HocVien WHERE IsDeleted=0 ORDER BY TrangThai").Rows)
@@ -59,6 +61,7 @@ namespace BTL_LTTQ_QLHTTTNN
         }
         private void ShowStudent()
         {
+            PhanQuyenService.YeuCauQuyen("QuanLyHocVien");
             ClearProfile();selectedId=null;
             var row=HocVienData.Row(dgvHocVien);
             if(row!=null)

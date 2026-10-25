@@ -10,12 +10,24 @@ namespace BTL_LTTQ_QLHTTTNN
 {
     public partial class frmHocVien : Form
     {
+        private Button btnDangKyLopAdmin;
         private GridPager studentPager;
         private bool editing;
         private int? selectedId;
         public frmHocVien()
         {
             InitializeComponent();
+            btnDangKyLopAdmin = new Button { Text = "Đăng ký lớp", Size = btnChiTiet.Size,
+                Location = new System.Drawing.Point(btnChiTiet.Right + 12, btnChiTiet.Top),
+                FlatStyle = btnChiTiet.FlatStyle, BackColor = btnChiTiet.BackColor };
+            Controls.Add(btnDangKyLopAdmin);
+            btnDangKyLopAdmin.Click += delegate { HocVienData.Run(delegate
+            {
+                PhanQuyenService.YeuCauQuyen("DangKyLopCaNhan");
+                using (var form = new frmDangKyHoc { HocVienDuocChon = selectedId }) form.ShowDialog(this);
+                ShowStudent();
+            }); };
+
             foreach(var grid in new[]{dgvHocVien,dgvtabLop,dgvtabKetQua,dgvtabHocPhi}) HocVienData.Grid(grid);
             foreach (var grid in new[] { dgvHocVien, dgvtabLop, dgvtabKetQua, dgvtabHocPhi })
             {
@@ -91,6 +103,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private void SetEditing(bool value)
         {
             editing=value;
+            btnDangKyLopAdmin.Enabled = !value;
             foreach(var t in new[]{txtHoTen,txtSoDienThoai,txtEmail,txtTrinhDoDauVao,txtDiemDauVao,txtNhanXetDauVao})t.ReadOnly=!value;
             dtpNgaySinh.Enabled=value;cboGioiTinh.Enabled=value;cboTrangThai.Enabled=value;
             txtHocVienID.ReadOnly=true;txtTaiKhoan.ReadOnly=true;

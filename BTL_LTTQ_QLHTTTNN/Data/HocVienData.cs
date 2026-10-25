@@ -184,22 +184,17 @@ ORDER BY l.NgayBatDau,l.TenLop",P("@site",site),P("@course",course));
         {
             PhanQuyenService.YeuCauQuyen("DangKyLopCaNhan");
             var session = SessionContext.NguoiDungHienTai;
-            if (session.HocVienID != student)
-                throw new UnauthorizedAccessException("Chỉ được đăng ký lớp cho chính mình.");
             using(var c=Open()) using(var tx=c.BeginTransaction(IsolationLevel.Serializable))
             {
                 try
                 {
-                    // Kiểm tra và giữ khóa quyền sở hữu trong cùng giao dịch ghi đăng ký.
-                    var owner = Query(c, tx, @"SELECT h.HocVienID FROM HocVien h WITH(HOLDLOCK)
-JOIN NguoiDung n WITH(HOLDLOCK) ON n.NguoiDungID=h.NguoiDungID
+                    // Giữ khóa tài khoản và vai trò Admin trong giao dịch đăng ký.
+                    var admin = Query(c, tx, @"SELECT n.NguoiDungID FROM NguoiDung n WITH(HOLDLOCK)
 JOIN VaiTro v WITH(HOLDLOCK) ON v.VaiTroID=n.VaiTroID
-WHERE h.HocVienID=@student AND n.NguoiDungID=@user AND h.IsDeleted=0
-AND n.IsDeleted=0 AND n.TrangThai=1 AND n.DoiMatKhauLanDau=0
-AND v.IsDeleted=0 AND v.TenVaiTro=N'Học viên'
-AND NOT EXISTS(SELECT 1 FROM NhanSu ns WITH(HOLDLOCK) WHERE ns.NguoiDungID=n.NguoiDungID AND ns.IsDeleted=0)",
-                        P("@student", student), P("@user", session.NguoiDungID));
-                    if (owner.Rows.Count != 1) throw new UnauthorizedAccessException("Tài khoản không còn quyền đăng ký lớp.");
+WHERE n.NguoiDungID=@user AND n.IsDeleted=0 AND n.TrangThai=1
+AND n.DoiMatKhauLanDau=0 AND v.IsDeleted=0 AND v.TenVaiTro=N'Admin'",
+                        P("@user", session.NguoiDungID));
+                    if (admin.Rows.Count != 1) throw new UnauthorizedAccessException("Chỉ Admin được đăng ký lớp cho học viên.");
                     var cl=Query(c,tx,@"SELECT l.*,k.HocPhi FROM LopHoc l WITH(UPDLOCK,HOLDLOCK)
 JOIN KhoaHoc k ON k.KhoaHocID=l.KhoaHocID JOIN CoSo cs ON cs.CoSoID=l.CoSoID
 WHERE l.LopHocID=@id AND l.IsDeleted=0 AND k.IsDeleted=0 AND cs.IsDeleted=0 AND cs.TrangThai=1

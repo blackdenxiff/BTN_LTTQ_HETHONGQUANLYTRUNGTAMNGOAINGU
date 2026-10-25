@@ -264,7 +264,8 @@ namespace BTL_LTTQ_QLHTTTNN
            
             btnKetQua.Click += btnKetQua_Click;
             btnHocPhi.Click += btnHocPhi_Click;
-            btnDangKyLop.Click += btnDangKyLop_Click;
+            btnDangKyLop.Visible = false;
+            btnDangKyLop.Enabled = false;
             SetupAppearance();
             SetupAccountMenu();
             foreach (var grid in new[] { dgvLopHoc, dgvKetQua, dgvHocPhi, scheduleGrid })
@@ -285,29 +286,6 @@ namespace BTL_LTTQ_QLHTTTNN
             accountButton.Text = lblNguoiDangNhap.Text + "  ▾";
             var classes = HocVienData.Enrollments(id); dgvLopHoc.DataSource = classes; dgvKetQua.DataSource = classes.Copy();
             dgvHocPhi.DataSource = HocVienData.Fees(id);
-        }
-
-        private void btnDangKyLop_Click(object sender, EventArgs e)
-        {
-            if (!nguoiDungID.HasValue || nguoiDungID.Value <= 0)
-            {
-                MessageBox.Show("Vui lòng đăng nhập bằng tài khoản học viên.");
-                return;
-            }
-            HocVienData.Run(delegate
-            {
-                HocVienData.OwnProfile(nguoiDungID);
-                string previousTitle = lblTieuDeTrang.Text;
-                Button previousButton = activeButton;
-                lblTieuDeTrang.Text = "ĐĂNG KÝ LỚP";
-                SelectMenu(btnDangKyLop);
-                try
-                {
-                    using (var form = new frmDangKyHoc(nguoiDungID.Value)) form.ShowDialog(this);
-                }
-                finally { lblTieuDeTrang.Text = previousTitle; SelectMenu(previousButton); }
-                LoadProfile();
-            });
         }
 
         private void btnThongTin_Click(object sender, EventArgs e)

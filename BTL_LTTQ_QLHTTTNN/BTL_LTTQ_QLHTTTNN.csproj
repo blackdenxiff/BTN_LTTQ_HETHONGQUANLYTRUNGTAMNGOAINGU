@@ -187,6 +187,10 @@
     <Compile Include="Services\XuatThongKeExcelService.cs" />
     <Compile Include="Services\Models\TaiKhoanModels.cs" />
     <Compile Include="Services\Models\ThongKeModels.cs" />
+    <Compile Include="Services\Models\HocPhiModels.cs" />
+    <Compile Include="Services\HocPhiService.cs" />
+    <Compile Include="Services\PhieuThuService.cs" />
+    <Compile Include="Data\HocPhiData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Forms\thongtincanha.cs">
       <SubType>Form</SubType>

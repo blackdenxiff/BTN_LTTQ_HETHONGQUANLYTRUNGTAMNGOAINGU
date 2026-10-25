@@ -1,8 +1,11 @@
-﻿using System;
-using System.Data;
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Text;
 using System.Windows.Forms;
+using BTL_LTTQ_QLHTTTNN.Services;
+using BTL_LTTQ_QLHTTTNN.Services.Models;
 
 namespace BTL_LTTQ_QLHTTTNN
 {
@@ -42,99 +45,63 @@ namespace BTL_LTTQ_QLHTTTNN
             LoadDataHocPhi();
         }
 
-        // 1. TÍNH TOÁN KPI & NẠP DỮ LIỆU TỪ SQL SERVER
+        // 1. TÍNH TOÁN KPI & NẠP DỮ LIỆU QUA SERVICE
         private void LoadDataHocPhi()
         {
-            dgvHocPhi.Rows.Clear();
-
-            string timKiem = (txtTimKiem.Text.Trim() == PLACEHOLDER_SEARCH) ? "" : txtTimKiem.Text.Trim();
-            string trangThai = cboTrangThai.SelectedItem?.ToString() ?? "";
-
-            // Câu truy vấn SQL đã khớp 100% với tên cột thực tế trong bảng HoaDon và HocVien
-            string sql = @"SELECT hd.HoaDonID, 
-                          'HD-' + CAST(hd.HoaDonID AS NVARCHAR) AS MaHoaDon, 
-                          hv.HoTen AS TenHocVien, 
-                          'HV-' + CAST(hv.HocVienID AS NVARCHAR) AS MaHocVien, 
-                          ISNULL(hv.SoDienThoai, '') AS SoDienThoai,
-                          N'Khóa học ngoại ngữ' AS TenKhoanThu,
-                          hd.NgayLap, 
-                          ISNULL(hd.TongTien, 0) AS TongTien, 
-                          ISNULL(hd.GiamGia, 0) AS GiamGia,
-                          ISNULL(hd.TongPhaiTra, ISNULL(hd.TongTien, 0) - ISNULL(hd.GiamGia, 0)) AS PhaiThu,
-                          hd.TrangThai
-                   FROM HoaDon hd
-                   LEFT JOIN HocVien hv ON hd.HocVienID = hv.HocVienID
-                   WHERE ISNULL(hd.IsDeleted, 0) = 0";
-
-            if (!string.IsNullOrEmpty(timKiem))
+            try
             {
-                sql += $" AND (CAST(hd.HoaDonID AS NVARCHAR) LIKE N'%{timKiem}%' OR hv.HoTen LIKE N'%{timKiem}%' OR hv.SoDienThoai LIKE N'%{timKiem}%')";
-            }
+                dgvHocPhi.Rows.Clear();
 
-            if (!string.IsNullOrEmpty(trangThai) && trangThai != "-- Tất cả trạng thái --")
-            {
-                sql += $" AND hd.TrangThai = N'{trangThai}'";
-            }
+                string timKiem = (txtTimKiem.Text.Trim() == PLACEHOLDER_SEARCH) ? "" : txtTimKiem.Text.Trim();
+                string trangThai = cboTrangThai.SelectedItem?.ToString() ?? "";
 
-            sql += " ORDER BY hd.NgayLap DESC";
+                // Gọi Service lấy danh sách học phí chuẩn xác
+                var danhSachHocPhi = HocPhiService.LayDanhSachHocPhi(timKiem, trangThai);
 
-            DataTable dt = DatabaseConnection.GetDataToTable(sql);
-
-            decimal tongPhaiNop = 0;
-            decimal tongDaThanhToan = 0;
-            decimal tongConPhaiDong = 0;
-            int countChuaThanhToan = 0;
-
-            foreach (DataRow dr in dt.Rows)
-            {
-                int hdID = Convert.ToInt32(dr["HoaDonID"]);
-                string maHD = dr["MaHoaDon"].ToString();
-                string tenHV = dr["TenHocVien"].ToString();
-                string maHV = dr["MaHocVien"].ToString();
-                string sdt = dr["SoDienThoai"].ToString();
-                string khoảnThu = dr["TenKhoanThu"].ToString();
-                DateTime ngayLap = Convert.ToDateTime(dr["NgayLap"]);
-
-                decimal tongTien = Convert.ToDecimal(dr["TongTien"]);
-                decimal giamGia = Convert.ToDecimal(dr["GiamGia"]);
-                decimal phaiThu = Convert.ToDecimal(dr["PhaiThu"]);
-                string status = dr["TrangThai"].ToString();
-
-                // Tính tiền thu thực tế dựa trên cột TrangThai
-                decimal daThu = (status == "Đã thu đủ") ? phaiThu : 0;
-                decimal conThieu = phaiThu - daThu;
-                if (conThieu < 0) conThieu = 0;
-
-                tongPhaiNop += phaiThu;
-                tongDaThanhToan += daThu;
-                tongConPhaiDong += conThieu;
-
-                if (status == "Chưa thanh toán" || conThieu > 0)
+                foreach (var hp in danhSachHocPhi)
                 {
-                    countChuaThanhToan++;
+                    string statusDetails;
+                    if (hp.TrangThai == "Đã thu đủ")
+                    {
+                        statusDetails = $"{hp.TrangThai}|Đã thu: {hp.DaThanhToan:N0} đ";
+                    }
+                    else if (hp.TrangThai == "Thanh toán 1 phần")
+                    {
+                        statusDetails = $"{hp.TrangThai}|Đã thu: {hp.DaThanhToan:N0} đ (Còn: {hp.ConPhaiDong:N0} đ)";
+                    }
+                    else
+                    {
+                        statusDetails = $"{hp.TrangThai}|Chưa nộp đợt nào";
+                    }
+
+                    int rowIndex = dgvHocPhi.Rows.Add(
+                        hp.MaHoaDon,
+                        $"{hp.TenHocVien}|{hp.MaHocVien} • {hp.SoDienThoai}",
+                        hp.TenKhoanThu,
+                        hp.NgayLap.HasValue ? hp.NgayLap.Value.ToString("dd/MM/yyyy") : "",
+                        $"{hp.TongTien:N0} đ",
+                        $"-{hp.GiamGia:N0} đ",
+                        $"{hp.TongPhaiTra:N0} đ",
+                        statusDetails,
+                        "🖨"
+                    );
+
+                    dgvHocPhi.Rows[rowIndex].Tag = hp;
                 }
 
-                int rowIndex = dgvHocPhi.Rows.Add(
-                    maHD,
-                    $"{tenHV}|{maHV} • {sdt}",
-                    khoảnThu,
-                    ngayLap.ToString("dd/MM/yyyy"),
-                    $"{tongTien:N0} đ",
-                    $"-{giamGia:N0} đ",
-                    $"{phaiThu:N0} đ",
-                    $"{status}|Đã thu: {daThu:N0} đ",
-                    "🖨"
-                );
-
-                dgvHocPhi.Rows[rowIndex].Tag = hdID;
+                // Cập nhật các thẻ Thống kê KPI trên cùng
+                var kpi = HocPhiService.LayThongKeKPI();
+                lblTongPhaiNop.Text = $"{kpi.TongPhaiNop:N0} đ";
+                lblDaThanhToan.Text = $"{kpi.TongDaThanhToan:N0} đ";
+                lblConPhaiDong.Text = $"{kpi.TongConPhaiDong:N0} đ";
+                lblChuaThanhToanCount.Text = kpi.SoChuaThanhToan.ToString();
             }
-
-            // Cập nhật các ô Thống kê KPI trên cùng
-            lblTongPhaiNop.Text = $"{tongPhaiNop:N0} đ";
-            lblDaThanhToan.Text = $"{tongDaThanhToan:N0} đ";
-            lblConPhaiDong.Text = $"{tongConPhaiDong:N0} đ";
-            lblChuaThanhToanCount.Text = countChuaThanhToan.ToString();
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tải danh sách học phí: " + ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
         // 2. BỘ LỌC VÀ TÌM KIẾM
         private void btnLoc_Click(object sender, EventArgs e)
         {
@@ -184,8 +151,53 @@ namespace BTL_LTTQ_QLHTTTNN
 
             if (dgvHocPhi.Columns[e.ColumnIndex].Name == "colThaoTac")
             {
-                int hdID = Convert.ToInt32(dgvHocPhi.Rows[e.RowIndex].Tag);
-                MessageBox.Show($"Đang chuẩn bị in Phiếu Thu / Hóa Đơn mã ID: {hdID}...", "Thông báo In Phiếu", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                var hp = dgvHocPhi.Rows[e.RowIndex].Tag as HocPhiDto;
+                if (hp == null || !hp.HoaDonID.HasValue)
+                {
+                    MessageBox.Show("Khoản đăng ký này chưa phát sinh hóa đơn chính thức.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                var danhSachPhieu = PhieuThuService.LayPhieuThuTheoHoaDon(hp.HoaDonID.Value);
+
+                var sb = new StringBuilder();
+                sb.AppendLine("════════════════════════════════════════════");
+                sb.AppendLine("       THÔNG TIN HÓA ĐƠN & PHIẾU THU        ");
+                sb.AppendLine("════════════════════════════════════════════");
+                sb.AppendLine($"Mã hóa đơn:       {hp.MaHoaDon}");
+                sb.AppendLine($"Học viên:         {hp.TenHocVien} ({hp.MaHocVien})");
+                sb.AppendLine($"Số điện thoại:    {hp.SoDienThoai}");
+                sb.AppendLine($"Khoản thu:        {hp.TenKhoanThu}");
+                sb.AppendLine($"Ngày lập HĐ:      {(hp.NgayLap.HasValue ? hp.NgayLap.Value.ToString("dd/MM/yyyy") : "N/A")}");
+                sb.AppendLine($"Tổng mức học phí: {hp.TongTien:N0} đ");
+                sb.AppendLine($"Giảm giá:         {hp.GiamGia:N0} đ");
+                sb.AppendLine($"Tổng phải thu:    {hp.TongPhaiTra:N0} đ");
+                sb.AppendLine($"Thực tế đã thu:   {hp.DaThanhToan:N0} đ");
+                sb.AppendLine($"Số tiền còn lại:  {hp.ConPhaiDong:N0} đ");
+                sb.AppendLine($"Trạng thái:       {hp.TrangThai}");
+                sb.AppendLine("────────────────────────────────────────────");
+                sb.AppendLine("LỊCH SỬ CÁC ĐỢT NỘP TIỀN (PHIẾU THU):");
+
+                if (danhSachPhieu.Count == 0)
+                {
+                    sb.AppendLine("  (Chưa có giao dịch thanh toán nào được ghi nhận)");
+                }
+                else
+                {
+                    int stt = 1;
+                    foreach (var pt in danhSachPhieu)
+                    {
+                        sb.AppendLine($"  Đợt {stt++}: Mã {pt.MaPhieuThu} - Ngày: {pt.NgayThanhToan:dd/MM/yyyy HH:mm}");
+                        sb.AppendLine($"         Số tiền: {pt.SoTien:N0} đ ({pt.PhuongThuc}) - Người thu: {pt.TenNhanVienThu}");
+                        if (!string.IsNullOrEmpty(pt.GhiChu))
+                        {
+                            sb.AppendLine($"         Ghi chú: {pt.GhiChu}");
+                        }
+                    }
+                }
+                sb.AppendLine("════════════════════════════════════════════");
+
+                MessageBox.Show(sb.ToString(), "Chi tiết Phiếu Thu / Hóa Đơn " + hp.MaHoaDon, MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -288,7 +300,7 @@ namespace BTL_LTTQ_QLHTTTNN
                     textColor = Color.FromArgb(146, 64, 14);
                 }
 
-                Rectangle tagRect = new Rectangle(e.CellBounds.X + 5, e.CellBounds.Y + 12, 100, 22);
+                Rectangle tagRect = new Rectangle(e.CellBounds.X + 5, e.CellBounds.Y + 12, 110, 22);
                 using (GraphicsPath path = GetRoundedPath(tagRect, 10))
                 using (SolidBrush bg = new SolidBrush(bgColor))
                 using (SolidBrush text = new SolidBrush(textColor))

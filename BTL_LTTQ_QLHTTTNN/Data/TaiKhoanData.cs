@@ -49,8 +49,8 @@ WHERE n.NguoiDungID=@id AND n.TrangThai=1 AND n.IsDeleted=0 AND ISNULL(v.IsDelet
 
         internal static KetQuaPhanTrang<TaiKhoanDto> LayTaiKhoanTheoTrang(TaiKhoanBoLoc f, int trang)
         {
-            const string where = @"WHERE ((@deleted=1 AND n.IsDeleted=1) OR (@deleted=0 AND n.IsDeleted=0)) AND (@role=N'' OR v.TenVaiTro=@role)
-AND (@state=N'Tất cả' OR (@state=N'Hoạt động' AND n.TrangThai=1 AND n.IsDeleted=0) OR (@state=N'Đã khóa' AND n.TrangThai=0 AND n.IsDeleted=0) OR (@state=N'Đã xóa' AND n.IsDeleted=1))
+            const string where = @"WHERE n.IsDeleted=0 AND (@role=N'' OR v.TenVaiTro=@role)
+AND (@state=N'Tất cả' OR (@state=N'Hoạt động' AND n.TrangThai=1) OR (@state=N'Đã khóa' AND n.TrangThai=0))
 AND (@q=N'' OR CHARINDEX(@q,n.TenDangNhap)>0 OR CHARINDEX(@q,COALESCE(ns.HoTen,h.HoTen,''))>0 OR CONVERT(varchar(20),n.NguoiDungID)=@q)";
             string from = @" FROM NguoiDung n JOIN VaiTro v ON v.VaiTroID=n.VaiTroID
 LEFT JOIN NhanSu ns ON ns.NguoiDungID=n.NguoiDungID LEFT JOIN HocVien h ON h.NguoiDungID=n.NguoiDungID ";
@@ -112,6 +112,8 @@ WHERE n.NguoiDungID=@id", c, tx))
                         }
                     }
                     if (!deleted) throw new InvalidOperationException("Tài khoản này không còn ở thùng rác.");
+                    using (var cmd = new SqlCommand("SELECT COUNT(*) FROM NguoiDung WITH(UPDLOCK,HOLDLOCK) WHERE TenDangNhap=(SELECT TenDangNhap FROM NguoiDung WHERE NguoiDungID=@id) AND NguoiDungID<>@id", c, tx))
+                    { cmd.Parameters.AddWithValue("@id", id); if (Convert.ToInt32(cmd.ExecuteScalar()) > 0) throw new InvalidOperationException("Tên đăng nhập đã được một tài khoản khác sử dụng."); }
                     bool valid = role == "Admin" ? !ns.HasValue && !hv.HasValue : role == "Học viên" ? hv.HasValue && !ns.HasValue : role == "Giáo viên" ? ns.HasValue && !hv.HasValue && (loai == "Giáo viên" || loai == "Cả hai") : role == "Nhân viên" && ns.HasValue && !hv.HasValue && (loai == "Nhân viên" || loai == "Cả hai");
                     if (!valid) throw new InvalidOperationException("Không thể khôi phục vì hồ sơ liên kết không còn hợp lệ hoặc đã bị xóa.");
                     using (var cmd = new SqlCommand("UPDATE NguoiDung SET IsDeleted=0,DeletedAt=NULL,UpdatedAt=GETDATE() WHERE NguoiDungID=@id AND IsDeleted=1", c, tx))
@@ -122,7 +124,7 @@ WHERE n.NguoiDungID=@id", c, tx))
             }
         }
         private static void ThemLoc(SqlCommand cmd, TaiKhoanBoLoc f)
-        { string state = f == null ? "Tất cả" : f.TrangThai; cmd.Parameters.AddWithValue("@deleted", state == "Đã xóa" ? 1 : 0); cmd.Parameters.AddWithValue("@role", (object)(f == null ? null : f.VaiTro) ?? ""); cmd.Parameters.AddWithValue("@state", (object)state ?? "Tất cả"); cmd.Parameters.AddWithValue("@q", (object)(f == null ? null : f.TuKhoa) ?? ""); }
+        { string state = f == null ? "Tất cả" : f.TrangThai; cmd.Parameters.AddWithValue("@role", (object)(f == null ? null : f.VaiTro) ?? ""); cmd.Parameters.AddWithValue("@state", (object)state ?? "Tất cả"); cmd.Parameters.AddWithValue("@q", (object)(f == null ? null : f.TuKhoa) ?? ""); }
 
         internal static TaiKhoanDto LayChiTiet(int id)
         {

@@ -16,8 +16,10 @@ namespace BTL_LTTQ_QLHTTTNN
         private Control noiDungDangMo;
         private int maYeuCauThongKe;
         private Button menuDangChon;
+        private Button menuChoMo;
         private readonly Color mauMenuThuong = Color.FromArgb(30, 41, 59);
         private readonly Color mauMenuChon = Color.FromArgb(37, 99, 235);
+        private readonly Color mauMenuHover = Color.FromArgb(51, 65, 85);
         public frmMainAdmin()
         {
             InitializeComponent();
@@ -27,9 +29,9 @@ namespace BTL_LTTQ_QLHTTTNN
             {
                 Button button = control as Button;
                 if (button == null) continue;
-                button.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
-                button.MouseEnter += delegate { if (button != menuDangChon) button.BackColor = Color.FromArgb(51, 65, 85); };
-                button.MouseLeave += delegate { if (button != menuDangChon) button.BackColor = mauMenuThuong; };
+                button.MouseEnter += (s, e) => ApDungMauMenu((Button)s, true);
+                button.MouseLeave += (s, e) => ApDungMauMenu((Button)s, false);
+                ApDungMauMenu(button, false);
             }
             Load += delegate { QuayVeTongQuan(); };
         }
@@ -49,18 +51,30 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             if (noiDung == null) throw new ArgumentNullException("noiDung");
             if (noiDungDangMo != null && noiDungDangMo.GetType() == noiDung.GetType()) { if (!object.ReferenceEquals(noiDungDangMo, noiDung)) noiDung.Dispose(); DatMenuTheoNoiDung(noiDung); return; }
-            if (noiDungDangMo != null) {
-                pnlNoiDung.Controls.Remove(noiDungDangMo); noiDungDangMo.Dispose(); noiDungDangMo = null;
-            }
-            lblChaoMung.Visible = false; lblHuongDan.Visible = false; lblThongBao.Visible = false;
             Form form = noiDung as Form;
             if (form != null) {
                 form.TopLevel = false;
                 form.FormBorderStyle = FormBorderStyle.None;
                 form.MinimumSize = Size.Empty;
             }
-            noiDung.Dock = DockStyle.Fill;
-            pnlNoiDung.Controls.Add(noiDung); noiDungDangMo = noiDung; noiDung.BringToFront(); noiDung.Show();
+            Control noiDungCu = noiDungDangMo;
+            try
+            {
+                noiDung.Dock = DockStyle.Fill;
+                pnlNoiDung.Controls.Add(noiDung);
+                noiDung.BringToFront();
+                noiDung.Show();
+            }
+            catch
+            {
+                pnlNoiDung.Controls.Remove(noiDung);
+                noiDung.Dispose();
+                menuChoMo = null;
+                throw;
+            }
+            if (noiDungCu != null) { pnlNoiDung.Controls.Remove(noiDungCu); noiDungCu.Dispose(); }
+            noiDungDangMo = noiDung;
+            lblChaoMung.Visible = false; lblHuongDan.Visible = false; lblThongBao.Visible = false;
             DatMenuTheoNoiDung(noiDung);
         }
         private void mnuDoiMatKhau_Click(object sender, EventArgs e)
@@ -70,10 +84,11 @@ namespace BTL_LTTQ_QLHTTTNN
         public void MoFormThongKe()
         {
             try { PhanQuyenService.YeuCauQuyen("XemThongKe"); MoNoiDung(new frmThongKe(QuayVeTongQuan)); }
-            catch (Exception ex) { MessageBox.Show(this, ex.Message, "Thống kê", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+            catch (Exception ex) { menuChoMo = null; MessageBox.Show(this, ex.Message, "Thống kê", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
         }
         public void QuayVeTongQuan()
         {
+            DatMenuDangChon(null); menuChoMo = null;
             maYeuCauThongKe++; if (noiDungDangMo != null) { pnlNoiDung.Controls.Remove(noiDungDangMo); noiDungDangMo.Dispose(); noiDungDangMo = null; }
             pnlNoiDung.Controls.Clear(); pnlNoiDung.Controls.Add(lblChaoMung); pnlNoiDung.Controls.Add(lblHuongDan); pnlNoiDung.Controls.Add(lblThongBao);
             lblChaoMung.Visible = true; lblHuongDan.Visible = true; lblThongBao.Visible = true;
@@ -123,8 +138,15 @@ namespace BTL_LTTQ_QLHTTTNN
             string maChucNang = Convert.ToString(clicked.Tag);
             if (menuDangChon == clicked && noiDungDangMo != null) return;
             MaChucNangYeuCau = maChucNang;
+            menuChoMo = clicked;
             if (MaChucNangYeuCau == "frmThongKe") { MoFormThongKe(); return; }
-            if (ChucNangYeuCau != null) { ChucNangYeuCau(this, EventArgs.Empty); return; }
+            if (ChucNangYeuCau != null)
+            {
+                try { ChucNangYeuCau(this, EventArgs.Empty); }
+                catch (Exception ex) { menuChoMo = null; MessageBox.Show(this, ex.Message, "Không thể mở chức năng", MessageBoxButtons.OK, MessageBoxIcon.Warning); }
+                finally { menuChoMo = null; }
+                return;
+            }
             switch (MaChucNangYeuCau)
             {
                 case "frmTaiKhoan": MoNoiDung(new frmTaiKhoan()); return;
@@ -132,20 +154,68 @@ namespace BTL_LTTQ_QLHTTTNN
                 case "frmDiemDanh": MoNoiDung(new frmDiemDanh()); return;
                 case "frmNhapDiem": MoNoiDung(new frmNhapDiem()); return;
             }
+            menuChoMo = null;
             MessageBox.Show(this, "Chức năng này cần được nối với dữ liệu hoặc form của thành viên phụ trách.", "Chức năng chưa kết nối", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void DatMenuTheoNoiDung(Control noiDung)
         {
-            string tag = noiDung is frmThongKe ? "frmThongKe" : noiDung is frmTaiKhoan ? "frmTaiKhoan" :
-                noiDung is frmGiaoVien ? "frmGiaoVien" : noiDung is frmDiemDanh ? "frmDiemDanh" :
-                noiDung is frmNhapDiem ? "frmNhapDiem" : null;
-            Button nut = null;
-            foreach (Control control in pnlMenuNoiDung.Controls)
-                if (control is Button && Convert.ToString(control.Tag) == tag) { nut = (Button)control; break; }
+            Button nut = menuChoMo;
+            if (nut == null)
+            {
+                string tag = LayMaChucNang(noiDung);
+                if (tag != null) nut = TimNutMenu(pnlMenuNoiDung, tag);
+            }
+            if (nut != null) DatMenuDangChon(nut);
+            menuChoMo = null;
+        }
+
+        private static string LayMaChucNang(Control noiDung)
+        {
+            if (noiDung is frmThongKe) return "frmThongKe";
+            if (noiDung is frmTaiKhoan) return "frmTaiKhoan";
+            if (noiDung is frmHocVien) return "frmHocVien";
+            if (noiDung is frmDangKyHoc) return "frmDangKyHoc";
+            if (noiDung is frmKhoaHoc) return "frmKhoaHoc";
+            if (noiDung is frmLopHoc) return "frmLopHoc";
+            if (noiDung is frmLichHoc) return "frmLichHoc";
+            if (noiDung is frmGiaoVien) return "frmGiaoVien";
+            if (noiDung is frmDiemDanh) return "frmDiemDanh";
+            if (noiDung is frmNhapDiem) return "frmNhapDiem";
+            if (noiDung is frmHocPhi) return "frmHocPhi";
+            if (noiDung is frmLapPhieuThu) return "frmPhieuThu";
+            return null;
+        }
+
+        private static Button TimNutMenu(Control cha, string maChucNang)
+        {
+            foreach (Control control in cha.Controls)
+            {
+                Button button = control as Button;
+                if (button != null && Convert.ToString(button.Tag) == maChucNang) return button;
+                Button child = TimNutMenu(control, maChucNang);
+                if (child != null) return child;
+            }
+            return null;
+        }
+
+        private void DatMenuDangChon(Button nutMoi)
+        {
+            if (menuDangChon == nutMoi) { ApDungMauMenu(menuDangChon, false); return; }
+            Button nutCu = menuDangChon;
+            menuDangChon = null;
+            ApDungMauMenu(nutCu, false);
+            menuDangChon = nutMoi;
+            ApDungMauMenu(menuDangChon, false);
+        }
+
+        private void ApDungMauMenu(Button nut, bool hover)
+        {
             if (nut == null) return;
-            if (menuDangChon != null) menuDangChon.BackColor = mauMenuThuong;
-            menuDangChon = nut; menuDangChon.BackColor = mauMenuChon; menuDangChon.ForeColor = Color.White;
+            bool dangChon = nut == menuDangChon;
+            nut.BackColor = dangChon ? mauMenuChon : hover ? mauMenuHover : mauMenuThuong;
+            nut.ForeColor = Color.White;
+            nut.FlatAppearance.MouseOverBackColor = dangChon ? mauMenuChon : mauMenuHover;
         }
     }
 }

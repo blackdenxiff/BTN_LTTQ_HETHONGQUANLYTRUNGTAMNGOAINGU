@@ -10,6 +10,12 @@ namespace BTL_LTTQ_QLHTTTNN
     public partial class frmTaiKhoan : Form
     {
         private int trang = 1, tongTrang = 1, trangHoSo = 1, tongTrangHoSo = 1;
+        private int trangDanhSach = 1;
+        private int trangLichSuXoa = 1;
+        private bool dangXemLichSuXoa;
+        private string tuKhoaTruoc = "";
+        private string vaiTroTruoc = "Tất cả";
+        private string trangThaiTruoc = "Tất cả";
         private readonly Button nutTruoc = new Button(), nutSau = new Button(), nutXoaMem = new Button();
         private readonly Label nhanTrang = new Label();
         private readonly Button hoSoTruoc = new Button(), hoSoSau = new Button();
@@ -31,7 +37,7 @@ namespace BTL_LTTQ_QLHTTTNN
             InitializeComponent();
             if (DangOCheDoThietKe()) return;
 
-            colMaTaiKhoan.DataPropertyName = "NguoiDungID"; cboLocVaiTro.SelectedIndex = 0; cboLocTrangThai.Items.Add("Đã xóa"); cboLocTrangThai.SelectedIndex = 0;
+            colMaTaiKhoan.DataPropertyName = "NguoiDungID"; cboLocVaiTro.SelectedIndex = 0; cboLocTrangThai.SelectedIndex = 0;
             cboVaiTro.SelectedIndexChanged += delegate { TaiHoSo(); };
             dgvTaiKhoan.SelectionChanged += delegate { ChonTaiKhoan(); };
             TaoDieuKhienPhanTrang();
@@ -65,8 +71,13 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             try
             {
-                var ketQua = TaiKhoanService.LayTaiKhoanTheoTrang(new TaiKhoanBoLoc { TuKhoa = TuKhoa, VaiTro = cboLocVaiTro.Text == "Tất cả" ? "" : cboLocVaiTro.Text, TrangThai = cboLocTrangThai.Text }, trang);
-                tongTrang = ketQua.TongSoTrang; nhanTrang.Text = string.Format("{0}/{1} • {2} tài khoản", ketQua.SoTrang, ketQua.TongSoTrang, ketQua.TongBanGhi); dgvTaiKhoan.DataSource = ketQua.DanhSach; lblTrangThai.Text = "Đã tải " + ketQua.DanhSach.Count + " tài khoản.";
+                var boLoc = new TaiKhoanBoLoc { TuKhoa = TuKhoa, VaiTro = cboLocVaiTro.Text == "Tất cả" ? "" : cboLocVaiTro.Text, TrangThai = dangXemLichSuXoa ? "Tất cả" : cboLocTrangThai.Text };
+                var ketQua = dangXemLichSuXoa ? TaiKhoanService.LayTaiKhoanDaXoaTheoTrang(boLoc, trang) : TaiKhoanService.LayTaiKhoanTheoTrang(boLoc, trang);
+                tongTrang = Math.Max(1, ketQua.TongSoTrang);
+                if (trang > tongTrang) { trang = tongTrang; ketQua = dangXemLichSuXoa ? TaiKhoanService.LayTaiKhoanDaXoaTheoTrang(boLoc, trang) : TaiKhoanService.LayTaiKhoanTheoTrang(boLoc, trang); }
+                nhanTrang.Text = string.Format("{0}/{1} • {2} tài khoản", ketQua.SoTrang, ketQua.TongSoTrang, ketQua.TongBanGhi); dgvTaiKhoan.DataSource = ketQua.DanhSach;
+                nutTruoc.Enabled = trang > 1; nutSau.Enabled = trang < tongTrang; btnKhoiPhuc.Enabled = dangXemLichSuXoa && dgvTaiKhoan.CurrentRow != null;
+                lblTrangThai.Text = ketQua.TongBanGhi == 0 ? "Không có tài khoản phù hợp." : "Đã tải " + ketQua.DanhSach.Count + " tài khoản.";
             }
             catch (Exception ex) { HienThongBao(ex.Message); }
         }
@@ -82,6 +93,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private void ChonTaiKhoan()
         {
             var row = dgvTaiKhoan.CurrentRow == null ? null : dgvTaiKhoan.CurrentRow.DataBoundItem as TaiKhoanDto; if (row == null) return;
+            if (dangXemLichSuXoa) { btnKhoiPhuc.Enabled = row.IsDeleted; return; }
             txtMaTaiKhoan.Text = row.NguoiDungID.ToString(); txtTenDangNhap.Text = row.TenDangNhap; cboVaiTro.SelectedItem = row.VaiTro;
             hoSoTruoc.Visible = hoSoSau.Visible = nhanTrangHoSo.Visible = false;
             cboHoSoLienKet.Enabled = false; txtMatKhauKhoiTao.Clear(); txtXacNhanMatKhau.Clear(); txtMatKhauKhoiTao.Enabled = false; txtXacNhanMatKhau.Enabled = false;
@@ -90,10 +102,11 @@ namespace BTL_LTTQ_QLHTTTNN
         private void chkHienMatKhau_CheckedChanged(object sender, EventArgs e)
         { txtMatKhauKhoiTao.UseSystemPasswordChar = !chkHienMatKhau.Checked; txtXacNhanMatKhau.UseSystemPasswordChar = !chkHienMatKhau.Checked; }
         private void btnThemMoi_Click(object sender, EventArgs e)
-        { txtMaTaiKhoan.Clear(); txtTenDangNhap.Clear(); txtMatKhauKhoiTao.Clear(); txtXacNhanMatKhau.Clear(); txtMatKhauKhoiTao.Enabled = txtXacNhanMatKhau.Enabled = true; trangHoSo = 1; cboVaiTro.SelectedIndex = -1; cboHoSoLienKet.Enabled = true; cboHoSoLienKet.SelectedIndex = -1; nutXoaMem.Enabled = false; btnKhoa.Enabled = btnMoKhoa.Enabled = false; chkHienMatKhau.Checked = false; txtTenDangNhap.Focus(); }
+        { if (dangXemLichSuXoa) return; txtMaTaiKhoan.Clear(); txtTenDangNhap.Clear(); txtMatKhauKhoiTao.Clear(); txtXacNhanMatKhau.Clear(); txtMatKhauKhoiTao.Enabled = txtXacNhanMatKhau.Enabled = true; trangHoSo = 1; cboVaiTro.SelectedIndex = -1; cboHoSoLienKet.Enabled = true; cboHoSoLienKet.SelectedIndex = -1; nutXoaMem.Enabled = false; btnKhoa.Enabled = btnMoKhoa.Enabled = false; chkHienMatKhau.Checked = false; txtTenDangNhap.Focus(); }
         private void btnHuy_Click(object sender, EventArgs e) { btnThemMoi_Click(sender, e); }
         private void btnLuu_Click(object sender, EventArgs e)
         {
+            if (dangXemLichSuXoa) return;
             try
             {
                 if (TenDangNhapNhap.Length == 0 || cboVaiTro.SelectedIndex < 0) { HienThongBao("Nhập tên đăng nhập và chọn vai trò."); return; }
@@ -110,15 +123,53 @@ namespace BTL_LTTQ_QLHTTTNN
             catch (Exception ex) { HienThongBao(ex.Message); }
         }
         private void btnTimKiem_Click(object sender, EventArgs e)
-        { trang = trangHoSo = 1; TaiDanhSach(); TaiHoSo(); if (TimKiemYeuCau != null) TimKiemYeuCau(this, EventArgs.Empty); }
+        { trang = trangHoSo = 1; if (dangXemLichSuXoa) trangLichSuXoa = 1; else trangDanhSach = 1; TaiDanhSach(); if (!dangXemLichSuXoa) TaiHoSo(); if (TimKiemYeuCau != null) TimKiemYeuCau(this, EventArgs.Empty); }
         private void btnLamMoi_Click(object sender, EventArgs e)
         { txtTimKiem.Clear(); cboLocVaiTro.SelectedIndex = 0; cboLocTrangThai.SelectedIndex = 0; trang = 1; TaiDanhSach(); }
         private void btnKhoa_Click(object sender, EventArgs e)
-        { try { TaiKhoanService.DoiTrangThaiTaiKhoan(ChonID(), true); TaiDanhSach(); } catch (Exception ex) { HienThongBao(ex.Message); } }
+        { if (dangXemLichSuXoa) return; try { TaiKhoanService.DoiTrangThaiTaiKhoan(ChonID(), true); TaiDanhSach(); } catch (Exception ex) { HienThongBao(ex.Message); } }
         private void btnMoKhoa_Click(object sender, EventArgs e)
-        { try { TaiKhoanService.DoiTrangThaiTaiKhoan(ChonID(), false); TaiDanhSach(); } catch (Exception ex) { HienThongBao(ex.Message); } }
+        { if (dangXemLichSuXoa) return; try { TaiKhoanService.DoiTrangThaiTaiKhoan(ChonID(), false); TaiDanhSach(); } catch (Exception ex) { HienThongBao(ex.Message); } }
         private int ChonID() { var row = dgvTaiKhoan.CurrentRow == null ? null : dgvTaiKhoan.CurrentRow.DataBoundItem as TaiKhoanDto; if (row == null) throw new InvalidOperationException("Chọn tài khoản cần thao tác."); return row.NguoiDungID; }
         private void XoaMem()
-        { try { int id = ChonID(); if (MessageBox.Show(this, "Đánh dấu tài khoản này là đã xóa?", "Xóa mềm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) { TaiKhoanService.XoaMemTaiKhoan(id); TaiDanhSach(); } } catch (Exception ex) { HienThongBao(ex.Message); } }
+        { if (dangXemLichSuXoa) return; try { int id = ChonID(); if (MessageBox.Show(this, "Đánh dấu tài khoản này là đã xóa?", "Xóa mềm", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) { TaiKhoanService.XoaMemTaiKhoan(id); TaiDanhSach(); } } catch (Exception ex) { HienThongBao(ex.Message); } }
+
+        private void btnLichSuXoa_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtTenDangNhap.Text) || txtMaTaiKhoan.Text.Length == 0 && !string.IsNullOrWhiteSpace(txtMatKhauKhoiTao.Text))
+            {
+                if (MessageBox.Show(this, "Bỏ nội dung tài khoản đang nhập và mở lịch sử xóa?", "Lịch sử xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            }
+            tuKhoaTruoc = txtTimKiem.Text; vaiTroTruoc = cboLocVaiTro.Text; trangThaiTruoc = cboLocTrangThai.Text; trangDanhSach = trang;
+            dangXemLichSuXoa = true; trang = trangLichSuXoa = 1; dgvTaiKhoan.ClearSelection(); dgvTaiKhoan.DataSource = null;
+            txtMaTaiKhoan.Clear(); txtTenDangNhap.Clear(); txtMatKhauKhoiTao.Clear(); txtXacNhanMatKhau.Clear();
+            pnlNhapLieu.Visible = false; cboLocTrangThai.Visible = lblLocTrangThai.Visible = false; btnLichSuXoa.Visible = false; btnKhoiPhuc.Visible = btnThoatLichSu.Visible = true;
+            colNgayXoa.Visible = true; colTrangThai.HeaderText = "Trạng thái khóa";
+            lblTieuDe.Text = "Lịch sử xóa tài khoản"; lblMoTa.Text = "Tài khoản đã xóa mềm; khôi phục không thay đổi mật khẩu hoặc trạng thái khóa.";
+            TaiDanhSach();
+        }
+
+        private void btnThoatLichSu_Click(object sender, EventArgs e)
+        {
+            dangXemLichSuXoa = false; trang = trangDanhSach; trangLichSuXoa = Math.Max(1, trang);
+            txtTimKiem.Text = tuKhoaTruoc; cboLocVaiTro.SelectedItem = vaiTroTruoc; cboLocTrangThai.SelectedItem = trangThaiTruoc;
+            pnlNhapLieu.Visible = true; cboLocTrangThai.Visible = lblLocTrangThai.Visible = true; btnLichSuXoa.Visible = true; btnKhoiPhuc.Visible = btnThoatLichSu.Visible = false;
+            colNgayXoa.Visible = false; colTrangThai.HeaderText = "Trạng thái";
+            lblTieuDe.Text = "Tài khoản và phân quyền"; lblMoTa.Text = "Tìm tài khoản, cấp tài khoản và quản lý trạng thái truy cập.";
+            btnThemMoi_Click(sender, e); TaiDanhSach();
+        }
+
+        private void btnKhoiPhuc_Click(object sender, EventArgs e)
+        {
+            var row = dgvTaiKhoan.CurrentRow == null ? null : dgvTaiKhoan.CurrentRow.DataBoundItem as TaiKhoanDto;
+            if (!dangXemLichSuXoa || row == null || !row.IsDeleted) { btnKhoiPhuc.Enabled = false; return; }
+            if (MessageBox.Show(this, "Khôi phục tài khoản '" + row.TenDangNhap + "'? Trạng thái khóa hiện tại sẽ được giữ nguyên.", "Xác nhận khôi phục", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+            try
+            {
+                btnKhoiPhuc.Enabled = false; TaiKhoanService.KhoiPhucTaiKhoan(row.NguoiDungID); trangLichSuXoa = trang; TaiDanhSach();
+                HienThongBao(row.TrangThai == "Đã khóa" ? "Đã khôi phục tài khoản; tài khoản vẫn đang khóa." : "Đã khôi phục tài khoản.");
+            }
+            catch (Exception ex) { HienThongBao(ex.Message); TaiDanhSach(); }
+        }
     }
 }

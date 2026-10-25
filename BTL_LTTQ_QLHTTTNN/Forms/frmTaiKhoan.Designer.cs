@@ -36,6 +36,7 @@
             this.colHoTen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colVaiTro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNgayXoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlNhapLieu = new System.Windows.Forms.Panel();
             this.lblMaTaiKhoan = new System.Windows.Forms.Label();
             this.txtMaTaiKhoan = new System.Windows.Forms.TextBox();
@@ -69,6 +70,9 @@
             this.pnlTieuDe = new System.Windows.Forms.Panel();
             this.lblTieuDe = new System.Windows.Forms.Label();
             this.lblMoTa = new System.Windows.Forms.Label();
+            this.btnLichSuXoa = new System.Windows.Forms.Button();
+            this.btnKhoiPhuc = new System.Windows.Forms.Button();
+            this.btnThoatLichSu = new System.Windows.Forms.Button();
             this.pnlDanhSach.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTaiKhoan)).BeginInit();
             this.pnlNhapLieu.SuspendLayout();
@@ -110,6 +114,7 @@
             this.colHoTen,
             this.colVaiTro,
             this.colTrangThai});
+            this.dgvTaiKhoan.Columns.Add(this.colNgayXoa);
             this.dgvTaiKhoan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTaiKhoan.EnableHeadersVisualStyles = false;
             this.dgvTaiKhoan.Location = new System.Drawing.Point(24, 8);
@@ -162,6 +167,15 @@
             this.colTrangThai.MinimumWidth = 6;
             this.colTrangThai.Name = "colTrangThai";
             this.colTrangThai.ReadOnly = true;
+            // 
+            // colNgayXoa
+            // 
+            this.colNgayXoa.DataPropertyName = "DeletedAt";
+            this.colNgayXoa.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
+            this.colNgayXoa.HeaderText = "Ngày xóa";
+            this.colNgayXoa.Name = "colNgayXoa";
+            this.colNgayXoa.ReadOnly = true;
+            this.colNgayXoa.Visible = false;
             // 
             // pnlNhapLieu
             // 
@@ -537,6 +551,9 @@
             // 
             this.pnlTieuDe.Controls.Add(this.lblTieuDe);
             this.pnlTieuDe.Controls.Add(this.lblMoTa);
+            this.pnlTieuDe.Controls.Add(this.btnLichSuXoa);
+            this.pnlTieuDe.Controls.Add(this.btnKhoiPhuc);
+            this.pnlTieuDe.Controls.Add(this.btnThoatLichSu);
             this.pnlTieuDe.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlTieuDe.Location = new System.Drawing.Point(0, 0);
             this.pnlTieuDe.Name = "pnlTieuDe";
@@ -549,7 +566,7 @@
             this.lblTieuDe.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(41)))), ((int)(((byte)(55)))));
             this.lblTieuDe.Location = new System.Drawing.Point(24, 14);
             this.lblTieuDe.Name = "lblTieuDe";
-            this.lblTieuDe.Size = new System.Drawing.Size(800, 32);
+            this.lblTieuDe.Size = new System.Drawing.Size(740, 32);
             this.lblTieuDe.TabIndex = 7;
             this.lblTieuDe.Text = "Tài khoản và phân quyền";
             this.lblTieuDe.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -560,10 +577,45 @@
             this.lblMoTa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(116)))), ((int)(((byte)(139)))));
             this.lblMoTa.Location = new System.Drawing.Point(27, 63);
             this.lblMoTa.Name = "lblMoTa";
-            this.lblMoTa.Size = new System.Drawing.Size(900, 24);
+            this.lblMoTa.Size = new System.Drawing.Size(740, 24);
             this.lblMoTa.TabIndex = 8;
             this.lblMoTa.Text = "Tìm tài khoản, cấp tài khoản và quản lý trạng thái truy cập.";
             this.lblMoTa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnLichSuXoa
+            // 
+            this.btnLichSuXoa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnLichSuXoa.Location = new System.Drawing.Point(800, 25);
+            this.btnLichSuXoa.Name = "btnLichSuXoa";
+            this.btnLichSuXoa.Size = new System.Drawing.Size(210, 36);
+            this.btnLichSuXoa.TabIndex = 9;
+            this.btnLichSuXoa.Text = "Lịch sử xóa";
+            this.btnLichSuXoa.UseVisualStyleBackColor = true;
+            this.btnLichSuXoa.Click += new System.EventHandler(this.btnLichSuXoa_Click);
+            // 
+            // btnKhoiPhuc
+            // 
+            this.btnKhoiPhuc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnKhoiPhuc.Location = new System.Drawing.Point(800, 25);
+            this.btnKhoiPhuc.Name = "btnKhoiPhuc";
+            this.btnKhoiPhuc.Size = new System.Drawing.Size(100, 36);
+            this.btnKhoiPhuc.TabIndex = 10;
+            this.btnKhoiPhuc.Text = "Khôi phục";
+            this.btnKhoiPhuc.UseVisualStyleBackColor = true;
+            this.btnKhoiPhuc.Visible = false;
+            this.btnKhoiPhuc.Click += new System.EventHandler(this.btnKhoiPhuc_Click);
+            // 
+            // btnThoatLichSu
+            // 
+            this.btnThoatLichSu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnThoatLichSu.Location = new System.Drawing.Point(910, 25);
+            this.btnThoatLichSu.Name = "btnThoatLichSu";
+            this.btnThoatLichSu.Size = new System.Drawing.Size(100, 36);
+            this.btnThoatLichSu.TabIndex = 11;
+            this.btnThoatLichSu.Text = "Quay lại";
+            this.btnThoatLichSu.UseVisualStyleBackColor = true;
+            this.btnThoatLichSu.Visible = false;
+            this.btnThoatLichSu.Click += new System.EventHandler(this.btnThoatLichSu_Click);
             // 
             // frmTaiKhoan
             // 
@@ -605,6 +657,9 @@
         private System.Windows.Forms.Panel pnlTieuDe;
         private System.Windows.Forms.Label lblTieuDe;
         private System.Windows.Forms.Label lblMoTa;
+        private System.Windows.Forms.Button btnLichSuXoa;
+        private System.Windows.Forms.Button btnKhoiPhuc;
+        private System.Windows.Forms.Button btnThoatLichSu;
         private System.Windows.Forms.Label lblTimKiem;
         private System.Windows.Forms.TextBox txtTimKiem;
         private System.Windows.Forms.Label lblLocVaiTro;
@@ -619,6 +674,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colHoTen;
         private System.Windows.Forms.DataGridViewTextBoxColumn colVaiTro;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTrangThai;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colNgayXoa;
         private System.Windows.Forms.Label lblMaTaiKhoan;
         private System.Windows.Forms.TextBox txtMaTaiKhoan;
         private System.Windows.Forms.Label lblTenDangNhap;

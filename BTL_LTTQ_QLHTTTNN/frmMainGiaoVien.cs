@@ -1,6 +1,8 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using BTL_LTTQ_QLHTTTNN.Services;
+using BTL_LTTQ_QLHTTTNN.Services.Models;
 
 namespace BTL_LTTQ_QLHTTTNN
 {
@@ -11,15 +13,20 @@ namespace BTL_LTTQ_QLHTTTNN
         public event EventHandler ChucNangYeuCau;
         public string MaChucNangYeuCau { get; private set; }
         private Control noiDungDangMo;
+        private int? _nhanSuId;
 
         public frmMainGiaoVien()
         {
             InitializeComponent();
+            btnHoSo.Text = "Trang chủ";
         }
 
         public frmMainGiaoVien(int nhanSuId) : this()
         {
-            SessionContext.NhanSuID = nhanSuId;
+            if (nhanSuId > 0)
+            {
+                _nhanSuId = nhanSuId;
+            }
         }
 
         public void DatTenNguoiDung(string hoTen)
@@ -104,7 +111,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 case "HoSo":
                 case "frmGiaoVien":
                 case "thongtincanha":
-                    MoNoiDung(new thongtincanha());
+                    MoNoiDung(_nhanSuId.HasValue ? new thongtincanha(_nhanSuId.Value) : new thongtincanha());
                     break;
 
                 case "frmLopHoc":
@@ -116,11 +123,15 @@ namespace BTL_LTTQ_QLHTTTNN
                     break;
 
                 case "frmDiemDanh":
-                    MoNoiDung(new frmDiemDanh());
+                    MoNoiDung(_nhanSuId.HasValue ? new frmDiemDanh(_nhanSuId.Value) : new frmDiemDanh());
                     break;
 
                 case "frmNhapDiem":
                     MoNoiDung(new frmNhapDiem());
+                    break;
+
+                case "frmNhatKyGiangDay":
+                    MoNoiDung(_nhanSuId.HasValue ? new frmNhatKyGiangDay(_nhanSuId.Value) : new frmNhatKyGiangDay());
                     break;
             }
         }

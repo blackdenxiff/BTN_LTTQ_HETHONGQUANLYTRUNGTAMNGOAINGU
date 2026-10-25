@@ -59,23 +59,25 @@
     <Compile Include="frmChiTietLopHoc.Designer.cs">
       <DependentUpon>frmChiTietLopHoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmDoiMatKhau.cs">
+    <Compile Include="Forms\Shared\frmDoiMatKhau.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDoiMatKhau.Designer.cs">
+    <Compile Include="Forms\Shared\frmDoiMatKhau.Designer.cs">
       <DependentUpon>frmDoiMatKhau.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\HocVienData.cs" />
+    <Compile Include="Data\TaiKhoanData.cs" />
+    <Compile Include="Data\ThongKeData.cs" />
     <Compile Include="frmDangKyHoc.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmDangKyHoc.Designer.cs">
       <DependentUpon>frmDangKyHoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmDangNhap.cs">
+    <Compile Include="Forms\Shared\frmDangNhap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmDangNhap.Designer.cs">
+    <Compile Include="Forms\Shared\frmDangNhap.Designer.cs">
       <DependentUpon>frmDangNhap.cs</DependentUpon>
     </Compile>
     <Compile Include="frmDiemDanh.cs">
@@ -126,10 +128,10 @@
     <Compile Include="frmLopHoc.Designer.cs">
       <DependentUpon>frmLopHoc.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmMainAdmin.cs">
+    <Compile Include="Forms\Admin\frmMainAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMainAdmin.Designer.cs">
+    <Compile Include="Forms\Admin\frmMainAdmin.Designer.cs">
       <DependentUpon>frmMainAdmin.cs</DependentUpon>
     </Compile>
     <Compile Include="frmMainGiaoVien.cs">
@@ -153,14 +155,27 @@
     <Compile Include="frmNhapDiem.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="frmNhatKyGiangDay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmNhatKyGiangDay.Designer.cs">
+      <DependentUpon>frmNhatKyGiangDay.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NhatKyGiangDayPresenter.cs" />
     <Compile Include="frmNhapDiem.Designer.cs">
       <DependentUpon>frmNhapDiem.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmTaiKhoan.cs">
+    <Compile Include="Forms\Admin\frmTaiKhoan.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmTaiKhoan.Designer.cs">
+    <Compile Include="Forms\Admin\frmTaiKhoan.Designer.cs">
       <DependentUpon>frmTaiKhoan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\Admin\frmThongKe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\Admin\frmThongKe.Designer.cs">
+      <DependentUpon>frmThongKe.cs</DependentUpon>
     </Compile>
     <Compile Include="frmTaoLichHoc.cs">
       <SubType>Form</SubType>
@@ -169,8 +184,14 @@
       <DependentUpon>frmTaoLichHoc.cs</DependentUpon>
     </Compile>
     <Compile Include="Data\DatabaseConnection.cs" />
-    <Compile Include="SessionContext.cs" />
     <Compile Include="Program.cs" />
+    <Compile Include="Services\MatKhauService.cs" />
+    <Compile Include="Services\PhanQuyenService.cs" />
+    <Compile Include="Services\SessionContext.cs" />
+    <Compile Include="Services\TaiKhoanService.cs" />
+    <Compile Include="Services\ThongKeService.cs" />
+    <Compile Include="Services\Models\TaiKhoanModels.cs" />
+    <Compile Include="Services\Models\ThongKeModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="thongtincanha.cs">
       <SubType>Form</SubType>
@@ -190,8 +211,14 @@
     <EmbeddedResource Include="frmDangKyHoc.resx">
       <DependentUpon>frmDangKyHoc.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMainAdmin.resx">
+    <EmbeddedResource Include="Forms\Admin\frmMainAdmin.resx">
       <DependentUpon>frmMainAdmin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Admin\frmThongKe.resx">
+      <DependentUpon>frmThongKe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\Shared\frmDangNhap.resx">
+      <DependentUpon>frmDangNhap.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMainGiaoVien.resx">
       <DependentUpon>frmMainGiaoVien.cs</DependentUpon>
@@ -222,8 +249,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

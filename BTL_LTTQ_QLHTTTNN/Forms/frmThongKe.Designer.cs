@@ -33,6 +33,7 @@ namespace BTL_LTTQ_QLHTTTNN
             this.btnXem = new System.Windows.Forms.Button();
             this.btnDatLai = new System.Windows.Forms.Button();
             this.btnXuatExcel = new System.Windows.Forms.Button();
+            this.btnTongQuan = new System.Windows.Forms.Button();
             this.lblTrangThai = new System.Windows.Forms.Label();
             this.lblTongHop = new System.Windows.Forms.Label();
             this.lblHoaDonTong = new System.Windows.Forms.Label();
@@ -121,6 +122,16 @@ namespace BTL_LTTQ_QLHTTTNN
             this.btnXuatExcel.TabIndex = 6;
             this.btnXuatExcel.Text = "Xuất Excel";
             this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
+            // 
+            // btnTongQuan
+            // 
+            this.btnTongQuan.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnTongQuan.Location = new System.Drawing.Point(1060, 15);
+            this.btnTongQuan.Name = "btnTongQuan";
+            this.btnTongQuan.Size = new System.Drawing.Size(100, 34);
+            this.btnTongQuan.TabIndex = 12;
+            this.btnTongQuan.Text = "Tổng quan";
+            this.btnTongQuan.Click += new System.EventHandler(this.btnTongQuan_Click);
             // 
             // lblTrangThai
             // 
@@ -312,6 +323,7 @@ namespace BTL_LTTQ_QLHTTTNN
             this.Controls.Add(this.btnXem);
             this.Controls.Add(this.btnDatLai);
             this.Controls.Add(this.btnXuatExcel);
+            this.Controls.Add(this.btnTongQuan);
             this.Controls.Add(this.lblTongHop);
             this.Controls.Add(this.tabs);
             this.Controls.Add(this.lblTrangThai);
@@ -329,7 +341,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private System.Windows.Forms.Label lblTieuDe, lblTongHop, lblGiaiThich, lblTrangThai, lblHoaDonTrang, lblThanhToanTrang, lblDangKyTrang;
         private System.Windows.Forms.DateTimePicker dtpTuNgay, dtpDenNgay;
         private System.Windows.Forms.ComboBox cboCoSo;
-        private System.Windows.Forms.Button btnXem, btnDatLai, btnXuatExcel, btnHoaDonTruoc, btnHoaDonSau, btnThanhToanTruoc, btnThanhToanSau, btnDangKyTruoc, btnDangKySau;
+        private System.Windows.Forms.Button btnXem, btnDatLai, btnXuatExcel, btnTongQuan, btnHoaDonTruoc, btnHoaDonSau, btnThanhToanTruoc, btnThanhToanSau, btnDangKyTruoc, btnDangKySau;
         private System.Windows.Forms.Label lblHoaDonTong, lblThanhToanTong, lblDangKyTong;
         private System.Windows.Forms.TabControl tabs;
         private System.Windows.Forms.TabPage tabHoaDon, tabThanhToan, tabDangKy;

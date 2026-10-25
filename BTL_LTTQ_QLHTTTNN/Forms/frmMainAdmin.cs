@@ -84,9 +84,11 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             int request = ++maYeuCauThongKe; var dangTai = new Label { Name = "lblThongKeDangTai", Text = "Đang tải số liệu…", AutoSize = true, Location = new Point(36, 155), Font = new Font("Segoe UI", 11F) };
             var nutLamMoi = new Button { Name = "btnLamMoiThongKe", Text = "Làm mới", Location = new Point(840, 28), Size = new Size(120, 36), Anchor = AnchorStyles.Top | AnchorStyles.Right };
+            var nutThongKeChiTiet = new Button { Name = "btnThongKeChiTiet", Text = "Thống kê chi tiết", Location = new Point(650, 28), Size = new Size(170, 36), Anchor = AnchorStyles.Top | AnchorStyles.Right };
             var thoiDiem = new Label { Name = "lblThoiDiemCapNhat", Text = "", AutoSize = true, Location = new Point(36, 122), ForeColor = Color.DimGray };
-            pnlNoiDung.Controls.Clear(); pnlNoiDung.Controls.Add(dangTai); pnlNoiDung.Controls.Add(nutLamMoi); pnlNoiDung.Controls.Add(thoiDiem);
+            pnlNoiDung.Controls.Clear(); pnlNoiDung.Controls.Add(dangTai); pnlNoiDung.Controls.Add(nutLamMoi); pnlNoiDung.Controls.Add(nutThongKeChiTiet); pnlNoiDung.Controls.Add(thoiDiem);
             nutLamMoi.Click += delegate { TaiThongKeTongQuan(); };
+            nutThongKeChiTiet.Click += delegate { MoFormThongKe(); };
             try
             {
                 var result = await Task.Run(() => ThongKeService.LayThongKeTongQuan(new ThongKeBoLoc { TuNgay = DateTime.Today, DenNgay = DateTime.Today }));

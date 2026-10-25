@@ -89,6 +89,15 @@ namespace BTL_LTTQ_QLHTTTNN
             DatMenuDangChon(null); menuChoMo = null;
             maYeuCauThongKe++; if (noiDungDangMo != null) { pnlNoiDung.Controls.Remove(noiDungDangMo); noiDungDangMo.Dispose(); noiDungDangMo = null; }
             pnlNoiDung.Controls.Clear(); pnlNoiDung.Controls.Add(tlpTongQuan); tlpTongQuan.Visible = true;
+            pnlDashTieuDe.Visible = true;
+            lblChaoMung.Visible = true;
+            lblHuongDan.Visible = true;
+            lblThongBao.Visible = true;
+            btnThongKeChiTiet.Visible = true;
+            btnLamMoiThongKe.Visible = true;
+            pnlDashTieuDe.BringToFront();
+            btnThongKeChiTiet.BringToFront();
+            btnLamMoiThongKe.BringToFront();
             lblThongBao.Text = "Đang tải số liệu…";
             TaiThongKeTongQuan();
         }

@@ -37,6 +37,15 @@ namespace BTL_LTTQ_QLHTTTNN
             this.colVaiTro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colNgayXoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pnlPhanTrang = new System.Windows.Forms.Panel();
+            this.btnTrangTruoc = new System.Windows.Forms.Button();
+            this.lblPhanTrang = new System.Windows.Forms.Label();
+            this.btnTrangSau = new System.Windows.Forms.Button();
+            this.btnCapTaiKhoanHangLoat = new System.Windows.Forms.Button();
+            this.btnXoaMem = new System.Windows.Forms.Button();
+            this.btnLichSuXoa = new System.Windows.Forms.Button();
+            this.btnKhoiPhuc = new System.Windows.Forms.Button();
+            this.btnThoatLichSu = new System.Windows.Forms.Button();
             this.pnlNhapLieu = new System.Windows.Forms.Panel();
             this.lblMaTaiKhoan = new System.Windows.Forms.Label();
             this.txtMaTaiKhoan = new System.Windows.Forms.TextBox();
@@ -46,11 +55,18 @@ namespace BTL_LTTQ_QLHTTTNN
             this.cboVaiTro = new System.Windows.Forms.ComboBox();
             this.lblHoSoLienKet = new System.Windows.Forms.Label();
             this.cboHoSoLienKet = new System.Windows.Forms.ComboBox();
+            this.lblTimHoSo = new System.Windows.Forms.Label();
+            this.txtTimHoSo = new System.Windows.Forms.TextBox();
+            this.btnTimHoSo = new System.Windows.Forms.Button();
+            this.btnHoSoTruoc = new System.Windows.Forms.Button();
+            this.lblTrangHoSo = new System.Windows.Forms.Label();
+            this.btnHoSoSau = new System.Windows.Forms.Button();
             this.btnThemMoi = new System.Windows.Forms.Button();
             this.btnLuu = new System.Windows.Forms.Button();
             this.btnHuy = new System.Windows.Forms.Button();
             this.btnKhoa = new System.Windows.Forms.Button();
             this.btnMoKhoa = new System.Windows.Forms.Button();
+            this.btnDatLaiMatKhau = new System.Windows.Forms.Button();
             this.pnlChan = new System.Windows.Forms.Panel();
             this.lblTrangThai = new System.Windows.Forms.Label();
             this.pnlBoLoc = new System.Windows.Forms.Panel();
@@ -65,24 +81,9 @@ namespace BTL_LTTQ_QLHTTTNN
             this.pnlTieuDe = new System.Windows.Forms.Panel();
             this.lblTieuDe = new System.Windows.Forms.Label();
             this.lblMoTa = new System.Windows.Forms.Label();
-            this.btnLichSuXoa = new System.Windows.Forms.Button();
-            this.btnKhoiPhuc = new System.Windows.Forms.Button();
-            this.btnThoatLichSu = new System.Windows.Forms.Button();
-            this.lblTimHoSo = new System.Windows.Forms.Label();
-            this.txtTimHoSo = new System.Windows.Forms.TextBox();
-            this.btnTimHoSo = new System.Windows.Forms.Button();
-            this.btnHoSoTruoc = new System.Windows.Forms.Button();
-            this.lblTrangHoSo = new System.Windows.Forms.Label();
-            this.btnHoSoSau = new System.Windows.Forms.Button();
-            this.pnlPhanTrang = new System.Windows.Forms.Panel();
-            this.btnTrangTruoc = new System.Windows.Forms.Button();
-            this.lblPhanTrang = new System.Windows.Forms.Label();
-            this.btnTrangSau = new System.Windows.Forms.Button();
-            this.btnXoaMem = new System.Windows.Forms.Button();
-            this.btnDatLaiMatKhau = new System.Windows.Forms.Button();
-            this.btnCapTaiKhoanHangLoat = new System.Windows.Forms.Button();
             this.pnlDanhSach.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTaiKhoan)).BeginInit();
+            this.pnlPhanTrang.SuspendLayout();
             this.pnlNhapLieu.SuspendLayout();
             this.pnlChan.SuspendLayout();
             this.pnlBoLoc.SuspendLayout();
@@ -122,8 +123,8 @@ namespace BTL_LTTQ_QLHTTTNN
             this.colTenDangNhap,
             this.colHoTen,
             this.colVaiTro,
-            this.colTrangThai});
-            this.dgvTaiKhoan.Columns.Add(this.colNgayXoa);
+            this.colTrangThai,
+            this.colNgayXoa});
             this.dgvTaiKhoan.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvTaiKhoan.EnableHeadersVisualStyles = false;
             this.dgvTaiKhoan.Location = new System.Drawing.Point(24, 8);
@@ -134,57 +135,127 @@ namespace BTL_LTTQ_QLHTTTNN
             this.dgvTaiKhoan.RowHeadersWidth = 51;
             this.dgvTaiKhoan.RowTemplate.Height = 34;
             this.dgvTaiKhoan.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTaiKhoan.Size = new System.Drawing.Size(992, 445);
+            this.dgvTaiKhoan.Size = new System.Drawing.Size(992, 403);
             this.dgvTaiKhoan.TabIndex = 0;
-            //
-            // colMaTaiKhoan
-            //
             this.colMaTaiKhoan.DataPropertyName = "NguoiDungID";
-            this.colMaTaiKhoan.HeaderText = "Mã TK";
-            this.colMaTaiKhoan.MinimumWidth = 6;
+            this.colMaTaiKhoan.HeaderText = "Mã tài khoản";
             this.colMaTaiKhoan.Name = "colMaTaiKhoan";
             this.colMaTaiKhoan.ReadOnly = true;
-            //
-            // colTenDangNhap
-            //
             this.colTenDangNhap.DataPropertyName = "TenDangNhap";
             this.colTenDangNhap.HeaderText = "Tên đăng nhập";
-            this.colTenDangNhap.MinimumWidth = 6;
             this.colTenDangNhap.Name = "colTenDangNhap";
             this.colTenDangNhap.ReadOnly = true;
-            //
-            // colHoTen
-            //
             this.colHoTen.DataPropertyName = "HoTen";
             this.colHoTen.HeaderText = "Họ tên";
-            this.colHoTen.MinimumWidth = 6;
             this.colHoTen.Name = "colHoTen";
             this.colHoTen.ReadOnly = true;
-            //
-            // colVaiTro
-            //
             this.colVaiTro.DataPropertyName = "VaiTro";
             this.colVaiTro.HeaderText = "Vai trò";
-            this.colVaiTro.MinimumWidth = 6;
             this.colVaiTro.Name = "colVaiTro";
             this.colVaiTro.ReadOnly = true;
-            //
-            // colTrangThai
-            //
             this.colTrangThai.DataPropertyName = "TrangThai";
             this.colTrangThai.HeaderText = "Trạng thái";
-            this.colTrangThai.MinimumWidth = 6;
             this.colTrangThai.Name = "colTrangThai";
             this.colTrangThai.ReadOnly = true;
-            //
-            // colNgayXoa
-            //
             this.colNgayXoa.DataPropertyName = "DeletedAt";
             this.colNgayXoa.DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
             this.colNgayXoa.HeaderText = "Ngày xóa";
             this.colNgayXoa.Name = "colNgayXoa";
             this.colNgayXoa.ReadOnly = true;
             this.colNgayXoa.Visible = false;
+            //
+            // pnlPhanTrang
+            //
+            this.pnlPhanTrang.Controls.Add(this.btnTrangTruoc);
+            this.pnlPhanTrang.Controls.Add(this.lblPhanTrang);
+            this.pnlPhanTrang.Controls.Add(this.btnTrangSau);
+            this.pnlPhanTrang.Controls.Add(this.btnCapTaiKhoanHangLoat);
+            this.pnlPhanTrang.Controls.Add(this.btnXoaMem);
+            this.pnlPhanTrang.Controls.Add(this.btnLichSuXoa);
+            this.pnlPhanTrang.Controls.Add(this.btnKhoiPhuc);
+            this.pnlPhanTrang.Controls.Add(this.btnThoatLichSu);
+            this.pnlPhanTrang.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.pnlPhanTrang.Location = new System.Drawing.Point(24, 411);
+            this.pnlPhanTrang.Name = "pnlPhanTrang";
+            this.pnlPhanTrang.Size = new System.Drawing.Size(992, 42);
+            this.pnlPhanTrang.TabIndex = 1;
+            //
+            // btnTrangTruoc
+            //
+            this.btnTrangTruoc.Location = new System.Drawing.Point(24, 6);
+            this.btnTrangTruoc.Name = "btnTrangTruoc";
+            this.btnTrangTruoc.Size = new System.Drawing.Size(80, 30);
+            this.btnTrangTruoc.TabIndex = 0;
+            this.btnTrangTruoc.Text = "Trước";
+            this.btnTrangTruoc.Click += new System.EventHandler(this.btnTrangTruoc_Click);
+            //
+            // lblPhanTrang
+            //
+            this.lblPhanTrang.Location = new System.Drawing.Point(110, 6);
+            this.lblPhanTrang.Name = "lblPhanTrang";
+            this.lblPhanTrang.Size = new System.Drawing.Size(210, 30);
+            this.lblPhanTrang.TabIndex = 1;
+            this.lblPhanTrang.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            //
+            // btnTrangSau
+            //
+            this.btnTrangSau.Location = new System.Drawing.Point(326, 6);
+            this.btnTrangSau.Name = "btnTrangSau";
+            this.btnTrangSau.Size = new System.Drawing.Size(80, 30);
+            this.btnTrangSau.TabIndex = 2;
+            this.btnTrangSau.Text = "Sau";
+            this.btnTrangSau.Click += new System.EventHandler(this.btnTrangSau_Click);
+            //
+            // btnCapTaiKhoanHangLoat
+            //
+            this.btnCapTaiKhoanHangLoat.Location = new System.Drawing.Point(414, 6);
+            this.btnCapTaiKhoanHangLoat.Name = "btnCapTaiKhoanHangLoat";
+            this.btnCapTaiKhoanHangLoat.Size = new System.Drawing.Size(140, 30);
+            this.btnCapTaiKhoanHangLoat.TabIndex = 3;
+            this.btnCapTaiKhoanHangLoat.Text = "Cấp tài khoản hàng loạt";
+            this.btnCapTaiKhoanHangLoat.Click += new System.EventHandler(this.btnCapTaiKhoanHangLoat_Click);
+            //
+            // btnXoaMem
+            //
+            this.btnXoaMem.Enabled = false;
+            this.btnXoaMem.Location = new System.Drawing.Point(560, 6);
+            this.btnXoaMem.Name = "btnXoaMem";
+            this.btnXoaMem.Size = new System.Drawing.Size(100, 30);
+            this.btnXoaMem.TabIndex = 4;
+            this.btnXoaMem.Text = "Xóa mềm";
+            this.btnXoaMem.Click += new System.EventHandler(this.btnXoaMem_Click);
+            //
+            // btnLichSuXoa
+            //
+            this.btnLichSuXoa.Location = new System.Drawing.Point(670, 6);
+            this.btnLichSuXoa.Name = "btnLichSuXoa";
+            this.btnLichSuXoa.Size = new System.Drawing.Size(120, 30);
+            this.btnLichSuXoa.TabIndex = 9;
+            this.btnLichSuXoa.Text = "Lịch sử xóa";
+            this.btnLichSuXoa.UseVisualStyleBackColor = true;
+            this.btnLichSuXoa.Click += new System.EventHandler(this.btnLichSuXoa_Click);
+            //
+            // btnKhoiPhuc
+            //
+            this.btnKhoiPhuc.Location = new System.Drawing.Point(800, 6);
+            this.btnKhoiPhuc.Name = "btnKhoiPhuc";
+            this.btnKhoiPhuc.Size = new System.Drawing.Size(100, 30);
+            this.btnKhoiPhuc.TabIndex = 10;
+            this.btnKhoiPhuc.Text = "Khôi phục";
+            this.btnKhoiPhuc.UseVisualStyleBackColor = true;
+            this.btnKhoiPhuc.Visible = false;
+            this.btnKhoiPhuc.Click += new System.EventHandler(this.btnKhoiPhuc_Click);
+            //
+            // btnThoatLichSu
+            //
+            this.btnThoatLichSu.Location = new System.Drawing.Point(890, 6);
+            this.btnThoatLichSu.Name = "btnThoatLichSu";
+            this.btnThoatLichSu.Size = new System.Drawing.Size(100, 30);
+            this.btnThoatLichSu.TabIndex = 11;
+            this.btnThoatLichSu.Text = "Thoát thùng rác";
+            this.btnThoatLichSu.UseVisualStyleBackColor = true;
+            this.btnThoatLichSu.Visible = false;
+            this.btnThoatLichSu.Click += new System.EventHandler(this.btnThoatLichSu_Click);
             //
             // pnlNhapLieu
             //
@@ -299,32 +370,53 @@ namespace BTL_LTTQ_QLHTTTNN
             this.cboHoSoLienKet.Size = new System.Drawing.Size(300, 31);
             this.cboHoSoLienKet.TabIndex = 30;
             //
-            // tìm hồ sơ cấp tài khoản
+            // lblTimHoSo
             //
             this.lblTimHoSo.Location = new System.Drawing.Point(674, 78);
             this.lblTimHoSo.Name = "lblTimHoSo";
             this.lblTimHoSo.Size = new System.Drawing.Size(130, 22);
+            this.lblTimHoSo.TabIndex = 31;
             this.lblTimHoSo.Text = "Tìm hồ sơ";
+            //
+            // txtTimHoSo
+            //
             this.txtTimHoSo.Location = new System.Drawing.Point(674, 104);
             this.txtTimHoSo.Name = "txtTimHoSo";
             this.txtTimHoSo.Size = new System.Drawing.Size(150, 30);
+            this.txtTimHoSo.TabIndex = 32;
+            //
+            // btnTimHoSo
+            //
             this.btnTimHoSo.Location = new System.Drawing.Point(830, 103);
             this.btnTimHoSo.Name = "btnTimHoSo";
             this.btnTimHoSo.Size = new System.Drawing.Size(70, 30);
+            this.btnTimHoSo.TabIndex = 33;
             this.btnTimHoSo.Text = "Tìm";
             this.btnTimHoSo.Click += new System.EventHandler(this.btnTimHoSo_Click);
+            //
+            // btnHoSoTruoc
+            //
             this.btnHoSoTruoc.Location = new System.Drawing.Point(906, 103);
             this.btnHoSoTruoc.Name = "btnHoSoTruoc";
             this.btnHoSoTruoc.Size = new System.Drawing.Size(34, 30);
+            this.btnHoSoTruoc.TabIndex = 34;
             this.btnHoSoTruoc.Text = "‹";
             this.btnHoSoTruoc.Click += new System.EventHandler(this.btnHoSoTruoc_Click);
+            //
+            // lblTrangHoSo
+            //
             this.lblTrangHoSo.Location = new System.Drawing.Point(941, 103);
             this.lblTrangHoSo.Name = "lblTrangHoSo";
             this.lblTrangHoSo.Size = new System.Drawing.Size(42, 30);
+            this.lblTrangHoSo.TabIndex = 35;
             this.lblTrangHoSo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            //
+            // btnHoSoSau
+            //
             this.btnHoSoSau.Location = new System.Drawing.Point(984, 103);
             this.btnHoSoSau.Name = "btnHoSoSau";
             this.btnHoSoSau.Size = new System.Drawing.Size(34, 30);
+            this.btnHoSoSau.TabIndex = 36;
             this.btnHoSoSau.Text = "›";
             //
             // btnThemMoi
@@ -405,20 +497,13 @@ namespace BTL_LTTQ_QLHTTTNN
             //
             // btnDatLaiMatKhau
             //
+            this.btnDatLaiMatKhau.Enabled = false;
             this.btnDatLaiMatKhau.Location = new System.Drawing.Point(850, 163);
             this.btnDatLaiMatKhau.Name = "btnDatLaiMatKhau";
             this.btnDatLaiMatKhau.Size = new System.Drawing.Size(150, 36);
+            this.btnDatLaiMatKhau.TabIndex = 41;
             this.btnDatLaiMatKhau.Text = "Đặt lại mật khẩu";
-            this.btnDatLaiMatKhau.Enabled = false;
             this.btnDatLaiMatKhau.Click += new System.EventHandler(this.btnDatLaiMatKhau_Click);
-            //
-            // btnCapTaiKhoanHangLoat
-            //
-            this.btnCapTaiKhoanHangLoat.Location = new System.Drawing.Point(414, 6);
-            this.btnCapTaiKhoanHangLoat.Name = "btnCapTaiKhoanHangLoat";
-            this.btnCapTaiKhoanHangLoat.Size = new System.Drawing.Size(140, 30);
-            this.btnCapTaiKhoanHangLoat.Text = "Cấp tài khoản hàng loạt";
-            this.btnCapTaiKhoanHangLoat.Click += new System.EventHandler(this.btnCapTaiKhoanHangLoat_Click);
             //
             // pnlChan
             //
@@ -587,91 +672,6 @@ namespace BTL_LTTQ_QLHTTTNN
             this.lblMoTa.Text = "Tìm tài khoản, cấp tài khoản và quản lý trạng thái truy cập.";
             this.lblMoTa.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             //
-            // btnLichSuXoa
-            //
-            this.btnLichSuXoa.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnLichSuXoa.Location = new System.Drawing.Point(800, 25);
-            this.btnLichSuXoa.Name = "btnLichSuXoa";
-            this.btnLichSuXoa.Size = new System.Drawing.Size(210, 36);
-            this.btnLichSuXoa.TabIndex = 9;
-            this.btnLichSuXoa.Text = "Lịch sử xóa";
-            this.btnLichSuXoa.UseVisualStyleBackColor = true;
-            this.btnLichSuXoa.Click += new System.EventHandler(this.btnLichSuXoa_Click);
-            //
-            // btnKhoiPhuc
-            //
-            this.btnKhoiPhuc.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnKhoiPhuc.Location = new System.Drawing.Point(800, 25);
-            this.btnKhoiPhuc.Name = "btnKhoiPhuc";
-            this.btnKhoiPhuc.Size = new System.Drawing.Size(100, 36);
-            this.btnKhoiPhuc.TabIndex = 10;
-            this.btnKhoiPhuc.Text = "Khôi phục";
-            this.btnKhoiPhuc.UseVisualStyleBackColor = true;
-            this.btnKhoiPhuc.Visible = false;
-            this.btnKhoiPhuc.Click += new System.EventHandler(this.btnKhoiPhuc_Click);
-            //
-            // btnThoatLichSu
-            //
-            this.btnThoatLichSu.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnThoatLichSu.Location = new System.Drawing.Point(910, 25);
-            this.btnThoatLichSu.Name = "btnThoatLichSu";
-            this.btnThoatLichSu.Size = new System.Drawing.Size(100, 36);
-            this.btnThoatLichSu.TabIndex = 11;
-            this.btnThoatLichSu.Text = "Quay lại";
-            this.btnThoatLichSu.UseVisualStyleBackColor = true;
-            this.btnThoatLichSu.Visible = false;
-            this.btnThoatLichSu.Click += new System.EventHandler(this.btnThoatLichSu_Click);
-            //
-            // pnlPhanTrang
-            //
-            this.pnlPhanTrang.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlPhanTrang.Height = 42;
-            this.pnlPhanTrang.Controls.Add(this.btnTrangTruoc);
-            this.pnlPhanTrang.Controls.Add(this.lblPhanTrang);
-            this.pnlPhanTrang.Controls.Add(this.btnTrangSau);
-            this.pnlPhanTrang.Controls.Add(this.btnCapTaiKhoanHangLoat);
-            this.pnlPhanTrang.Controls.Add(this.btnXoaMem);
-            this.pnlPhanTrang.Controls.Add(this.btnLichSuXoa);
-            this.pnlPhanTrang.Controls.Add(this.btnKhoiPhuc);
-            this.pnlPhanTrang.Controls.Add(this.btnThoatLichSu);
-            this.btnTrangTruoc.Location = new System.Drawing.Point(24, 6);
-            this.btnTrangTruoc.Name = "btnTrangTruoc";
-            this.btnTrangTruoc.Size = new System.Drawing.Size(80, 30);
-            this.btnTrangTruoc.Text = "Trước";
-            this.btnTrangTruoc.Click += new System.EventHandler(this.btnTrangTruoc_Click);
-            this.lblPhanTrang.Location = new System.Drawing.Point(110, 6);
-            this.lblPhanTrang.Name = "lblPhanTrang";
-            this.lblPhanTrang.Size = new System.Drawing.Size(210, 30);
-            this.lblPhanTrang.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.btnTrangSau.Location = new System.Drawing.Point(326, 6);
-            this.btnTrangSau.Name = "btnTrangSau";
-            this.btnTrangSau.Size = new System.Drawing.Size(80, 30);
-            this.btnTrangSau.Text = "Sau";
-            this.btnTrangSau.Click += new System.EventHandler(this.btnTrangSau_Click);
-            this.btnXoaMem.Location = new System.Drawing.Point(560, 6);
-            this.btnXoaMem.Name = "btnXoaMem";
-            this.btnXoaMem.Size = new System.Drawing.Size(100, 30);
-            this.btnXoaMem.Text = "Xóa mềm";
-            this.btnXoaMem.Enabled = false;
-            this.btnXoaMem.Click += new System.EventHandler(this.btnXoaMem_Click);
-            this.btnLichSuXoa.Location = new System.Drawing.Point(670, 6);
-            this.btnLichSuXoa.Name = "btnLichSuXoa";
-            this.btnLichSuXoa.Size = new System.Drawing.Size(120, 30);
-            this.btnLichSuXoa.Text = "Lịch sử xóa";
-            this.btnLichSuXoa.Click += new System.EventHandler(this.btnLichSuXoa_Click);
-            this.btnKhoiPhuc.Location = new System.Drawing.Point(800, 6);
-            this.btnKhoiPhuc.Name = "btnKhoiPhuc";
-            this.btnKhoiPhuc.Size = new System.Drawing.Size(100, 30);
-            this.btnKhoiPhuc.Text = "Khôi phục";
-            this.btnKhoiPhuc.Visible = false;
-            this.btnKhoiPhuc.Click += new System.EventHandler(this.btnKhoiPhuc_Click);
-            this.btnThoatLichSu.Location = new System.Drawing.Point(910, 6);
-            this.btnThoatLichSu.Name = "btnThoatLichSu";
-            this.btnThoatLichSu.Size = new System.Drawing.Size(100, 30);
-            this.btnThoatLichSu.Text = "Thoát thùng rác";
-            this.btnThoatLichSu.Visible = false;
-            this.btnThoatLichSu.Click += new System.EventHandler(this.btnThoatLichSu_Click);
-            //
             // frmTaiKhoan
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 23F);
@@ -692,6 +692,7 @@ namespace BTL_LTTQ_QLHTTTNN
             this.Text = "Tài khoản và phân quyền";
             this.pnlDanhSach.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTaiKhoan)).EndInit();
+            this.pnlPhanTrang.ResumeLayout(false);
             this.pnlNhapLieu.ResumeLayout(false);
             this.pnlNhapLieu.PerformLayout();
             this.pnlChan.ResumeLayout(false);

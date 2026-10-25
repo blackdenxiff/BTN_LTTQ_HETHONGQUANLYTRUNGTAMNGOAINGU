@@ -5,7 +5,6 @@ namespace BTL_LTTQ_QLHTTTNN
 {
     public partial class frmDangKyHoc : Form
     {
-        private ComboBox cboHocVien;
         public int? HocVienDuocChon { get; set; }
         private int hocVienID;
 
@@ -21,14 +20,14 @@ namespace BTL_LTTQ_QLHTTTNN
             new GridPager(dgvLopHoc, delegate
             {
                 BTL_LTTQ_QLHTTTNN.Services.PhanQuyenService.YeuCauQuyen("DangKyLopCaNhan");
-            });
+            }, pnlPhanTrang, btnTrangTruoc, btnTrangSau, lblTrang, cboSoDong);
             txtHocVien.Visible = false;
-            cboHocVien = new ComboBox { Bounds = txtHocVien.Bounds, Anchor = txtHocVien.Anchor,
-                Font = txtHocVien.Font, DropDownStyle = ComboBoxStyle.DropDownList,
-                AutoCompleteMode = AutoCompleteMode.SuggestAppend, AutoCompleteSource = AutoCompleteSource.ListItems };
-            txtHocVien.Parent.Controls.Add(cboHocVien);
-            cboHocVien.BringToFront();
             cboHocVien.SelectedIndexChanged += delegate { ShowStudent(); ShowClass(); };
+            btnTimHocVien.Click += delegate { HocVienData.Run(delegate { LoadStudent(); ShowClass(); }); };
+            txtTimHocVien.KeyDown += delegate(object sender, KeyEventArgs e)
+            {
+                if (e.KeyCode == Keys.Enter) { e.SuppressKeyPress = true; btnTimHocVien.PerformClick(); }
+            };
             lbltxtHocVien.Text = "Chọn học viên (mã - họ tên - số điện thoại)";
             lblIntro.Text = "Admin chọn học viên và lớp học để đăng ký";
             txtSoDienThoai.ReadOnly = true;
@@ -73,11 +72,16 @@ namespace BTL_LTTQ_QLHTTTNN
             int previous = hocVienID > 0 ? hocVienID : HocVienDuocChon.GetValueOrDefault();
             var students = HocVienData.Query(@"SELECT HocVienID,HoTen,SoDienThoai,TrinhDoDauVao,
 CONVERT(nvarchar(20),HocVienID)+N' - '+HoTen+N' - '+ISNULL(SoDienThoai,N'') AS HienThi
-FROM HocVien WHERE IsDeleted=0 ORDER BY HoTen,HocVienID");
+FROM HocVien WHERE IsDeleted=0 AND (@q=N'' OR CONVERT(nvarchar(20),HocVienID)=@q
+OR CHARINDEX(@q,HoTen)>0 OR CHARINDEX(@q,ISNULL(SoDienThoai,N''))>0
+OR CHARINDEX(@q,ISNULL(Email,N''))>0) ORDER BY HoTen,HocVienID",
+                HocVienData.P("@q", txtTimHocVien.Text.Trim()));
             Bind(cboHocVien, students, "HienThi", "HocVienID", false);
             cboHocVien.SelectedIndex = -1;
             if (previous > 0) cboHocVien.SelectedValue = previous;
             ShowStudent();
+            lblTimHocVien.Text = students.Rows.Count == 0 ? "Không tìm thấy học viên." :
+                "Tìm thấy " + students.Rows.Count + " học viên. Chọn trong danh sách bên dưới.";
         }
         private void ShowStudent()
         {

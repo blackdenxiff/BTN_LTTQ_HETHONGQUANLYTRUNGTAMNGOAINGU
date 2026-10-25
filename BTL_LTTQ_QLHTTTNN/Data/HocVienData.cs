@@ -243,28 +243,39 @@ namespace BTL_LTTQ_QLHTTTNN
         private int pageSize = 10;
         private bool binding;
 
-        internal GridPager(DataGridView target, Action checkAccess)
+        internal GridPager(DataGridView target, Action checkAccess, FlowLayoutPanel existingBar = null,
+            Button previousButton = null, Button nextButton = null, Label pageInfo = null, ComboBox pageSizeBox = null)
         {
             grid = target; authorize = checkAccess;
-            var parent = grid.Parent;
-            int index = parent.Controls.GetChildIndex(grid);
-            var wrapper = new Panel { Bounds = grid.Bounds, Dock = grid.Dock, Anchor = grid.Anchor,
-                Margin = grid.Margin, MinimumSize = grid.MinimumSize };
-            parent.Controls.Remove(grid);
-            parent.Controls.Add(wrapper);
-            parent.Controls.SetChildIndex(wrapper, index);
-            grid.Dock = DockStyle.Fill;
-            bar = new FlowLayoutPanel { Dock = DockStyle.Bottom, Height = 42, WrapContents = false,
-                AutoScroll = true, BackColor = System.Drawing.Color.FromArgb(235, 241, 248),
-                Padding = new Padding(4) };
-            previous = new Button { Text = "‹ Trước", Width = 80, Height = 30 };
-            next = new Button { Text = "Sau ›", Width = 80, Height = 30 };
-            info = new Label { AutoSize = true, Margin = new Padding(8, 8, 8, 0) };
-            size = new ComboBox { Width = 60, DropDownStyle = ComboBoxStyle.DropDownList };
-            size.Items.AddRange(new object[] { 10, 20, 50 }); size.SelectedIndex = 0;
-            bar.Controls.Add(previous); bar.Controls.Add(info); bar.Controls.Add(next); bar.Controls.Add(size);
-            bar.Controls.Add(new Label { Text = "dòng/trang", AutoSize = true, Margin = new Padding(2, 8, 0, 0) });
-            wrapper.Controls.Add(grid); wrapper.Controls.Add(bar);
+            if (existingBar == null)
+            {
+                var parent = grid.Parent;
+                int index = parent.Controls.GetChildIndex(grid);
+                var wrapper = new Panel { Bounds = grid.Bounds, Dock = grid.Dock, Anchor = grid.Anchor,
+                    Margin = grid.Margin, MinimumSize = grid.MinimumSize };
+                parent.Controls.Remove(grid);
+                parent.Controls.Add(wrapper);
+                parent.Controls.SetChildIndex(wrapper, index);
+                grid.Dock = DockStyle.Fill;
+                bar = new FlowLayoutPanel { Dock = DockStyle.Bottom, Height = 42, WrapContents = false,
+                    AutoScroll = true, BackColor = System.Drawing.Color.FromArgb(235, 241, 248),
+                    Padding = new Padding(4) };
+                previous = new Button { Text = "‹ Trước", Width = 80, Height = 30 };
+                next = new Button { Text = "Sau ›", Width = 80, Height = 30 };
+                info = new Label { AutoSize = true, Margin = new Padding(8, 8, 8, 0) };
+                size = new ComboBox { Width = 60, DropDownStyle = ComboBoxStyle.DropDownList };
+                size.Items.AddRange(new object[] { 10, 20, 50 }); size.SelectedIndex = 0;
+                bar.Controls.Add(previous); bar.Controls.Add(info); bar.Controls.Add(next); bar.Controls.Add(size);
+                bar.Controls.Add(new Label { Text = "dòng/trang", AutoSize = true, Margin = new Padding(2, 8, 0, 0) });
+                wrapper.Controls.Add(grid); wrapper.Controls.Add(bar);
+            }
+            else
+            {
+                bar = existingBar; previous = previousButton; next = nextButton;
+                info = pageInfo; size = pageSizeBox;
+                size.Items.Clear(); size.Items.AddRange(new object[] { 10, 20, 50 });
+                size.SelectedIndex = 0;
+            }
             previous.Click += delegate { Navigate(page - 1); };
             next.Click += delegate { Navigate(page + 1); };
             size.SelectedIndexChanged += delegate

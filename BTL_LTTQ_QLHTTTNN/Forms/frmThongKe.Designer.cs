@@ -57,6 +57,9 @@ namespace BTL_LTTQ_QLHTTTNN
             this.btnDangKySau = new System.Windows.Forms.Button();
             this.lblGiaiThich = new System.Windows.Forms.Label();
             this.tabs.SuspendLayout();
+            this.tabHoaDon.SuspendLayout();
+            this.tabThanhToan.SuspendLayout();
+            this.tabDangKy.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvThanhToan)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDangKy)).BeginInit();
@@ -150,6 +153,38 @@ namespace BTL_LTTQ_QLHTTTNN
             this.lblTongHop.TabIndex = 7;
             this.lblTongHop.Text = "Chọn khoảng ngày rồi xem thống kê.";
             // 
+            // lblHoaDonTong
+            // 
+            this.lblHoaDonTong.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblHoaDonTong.Location = new System.Drawing.Point(0, 373);
+            this.lblHoaDonTong.Name = "lblHoaDonTong";
+            this.lblHoaDonTong.Padding = new System.Windows.Forms.Padding(8);
+            this.lblHoaDonTong.Size = new System.Drawing.Size(1140, 38);
+            this.lblHoaDonTong.TabIndex = 0;
+            this.lblHoaDonTong.Text = "Tổng hợp hóa đơn";
+            this.lblHoaDonTong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblThanhToanTong
+            // 
+            this.lblThanhToanTong.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblThanhToanTong.Location = new System.Drawing.Point(0, 0);
+            this.lblThanhToanTong.Name = "lblThanhToanTong";
+            this.lblThanhToanTong.Padding = new System.Windows.Forms.Padding(8);
+            this.lblThanhToanTong.Size = new System.Drawing.Size(1140, 38);
+            this.lblThanhToanTong.TabIndex = 0;
+            this.lblThanhToanTong.Text = "Tổng hợp thanh toán";
+            this.lblThanhToanTong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblDangKyTong
+            // 
+            this.lblDangKyTong.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblDangKyTong.Location = new System.Drawing.Point(0, 0);
+            this.lblDangKyTong.Name = "lblDangKyTong";
+            this.lblDangKyTong.Padding = new System.Windows.Forms.Padding(8);
+            this.lblDangKyTong.Size = new System.Drawing.Size(1140, 38);
+            this.lblDangKyTong.TabIndex = 0;
+            this.lblDangKyTong.Text = "Tổng hợp đăng ký";
+            this.lblDangKyTong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tabs
             // 
@@ -167,48 +202,30 @@ namespace BTL_LTTQ_QLHTTTNN
             // 
             // tabHoaDon
             // 
+            this.tabHoaDon.Controls.Add(this.lblHoaDonTong);
             this.tabHoaDon.Location = new System.Drawing.Point(4, 25);
             this.tabHoaDon.Name = "tabHoaDon";
-            this.tabHoaDon.Size = new System.Drawing.Size(1140, 244);
+            this.tabHoaDon.Size = new System.Drawing.Size(1140, 411);
             this.tabHoaDon.TabIndex = 0;
             this.tabHoaDon.Text = "Hóa đơn trong kỳ";
-            this.lblHoaDonTong.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblHoaDonTong.Name = "lblHoaDonTong";
-            this.lblHoaDonTong.Padding = new System.Windows.Forms.Padding(8);
-            this.lblHoaDonTong.Size = new System.Drawing.Size(1132, 38);
-            this.lblHoaDonTong.Text = "Tổng hợp hóa đơn";
-            this.lblHoaDonTong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tabHoaDon.Controls.Add(this.lblHoaDonTong);
             // 
             // tabThanhToan
             // 
+            this.tabThanhToan.Controls.Add(this.lblThanhToanTong);
             this.tabThanhToan.Location = new System.Drawing.Point(4, 25);
             this.tabThanhToan.Name = "tabThanhToan";
-            this.tabThanhToan.Size = new System.Drawing.Size(2088, 918);
+            this.tabThanhToan.Size = new System.Drawing.Size(1140, 411);
             this.tabThanhToan.TabIndex = 1;
             this.tabThanhToan.Text = "Thanh toán phát sinh";
-            this.lblThanhToanTong.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblThanhToanTong.Name = "lblThanhToanTong";
-            this.lblThanhToanTong.Padding = new System.Windows.Forms.Padding(8);
-            this.lblThanhToanTong.Size = new System.Drawing.Size(1132, 38);
-            this.lblThanhToanTong.Text = "Tổng hợp thanh toán";
-            this.lblThanhToanTong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tabThanhToan.Controls.Add(this.lblThanhToanTong);
             // 
             // tabDangKy
             // 
+            this.tabDangKy.Controls.Add(this.lblDangKyTong);
             this.tabDangKy.Location = new System.Drawing.Point(4, 25);
             this.tabDangKy.Name = "tabDangKy";
-            this.tabDangKy.Size = new System.Drawing.Size(2088, 918);
+            this.tabDangKy.Size = new System.Drawing.Size(1140, 411);
             this.tabDangKy.TabIndex = 2;
             this.tabDangKy.Text = "Đăng ký trong kỳ";
-            this.lblDangKyTong.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblDangKyTong.Name = "lblDangKyTong";
-            this.lblDangKyTong.Padding = new System.Windows.Forms.Padding(8);
-            this.lblDangKyTong.Size = new System.Drawing.Size(1132, 38);
-            this.lblDangKyTong.Text = "Tổng hợp đăng ký";
-            this.lblDangKyTong.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tabDangKy.Controls.Add(this.lblDangKyTong);
             // 
             // dgvHoaDon
             // 
@@ -302,9 +319,9 @@ namespace BTL_LTTQ_QLHTTTNN
             // 
             // lblGiaiThich
             // 
-            this.lblGiaiThich.Location = new System.Drawing.Point(21, 290);
+            this.lblGiaiThich.Location = new System.Drawing.Point(28, 142);
             this.lblGiaiThich.Name = "lblGiaiThich";
-            this.lblGiaiThich.Size = new System.Drawing.Size(1063, 42);
+            this.lblGiaiThich.Size = new System.Drawing.Size(573, 20);
             this.lblGiaiThich.TabIndex = 9;
             this.lblGiaiThich.Text = "Thực thu theo ngày thanh toán; hóa đơn theo ngày lập, số phải thu được tính tới h" +
     "ết ngày cuối kỳ.";
@@ -330,6 +347,9 @@ namespace BTL_LTTQ_QLHTTTNN
             this.Name = "frmThongKe";
             this.Text = "Thống kê chi tiết";
             this.tabs.ResumeLayout(false);
+            this.tabHoaDon.ResumeLayout(false);
+            this.tabThanhToan.ResumeLayout(false);
+            this.tabDangKy.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoaDon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvThanhToan)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDangKy)).EndInit();

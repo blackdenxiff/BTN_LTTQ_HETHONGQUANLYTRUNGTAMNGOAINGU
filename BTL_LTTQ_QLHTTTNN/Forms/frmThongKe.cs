@@ -114,6 +114,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private void TaiDangKy() { try { var r = ThongKeService.LayChiTietDangKyTheoTrang(boLoc, trangDangKy); dgvDangKy.DataSource = r.DanhSach; DatTieuDeCot(dgvDangKy, new System.Collections.Generic.Dictionary<string, string> { { "DangKyID", "Mã đăng ký" }, { "NgayDangKy", "Ngày đăng ký" }, { "HocVien", "Học viên" }, { "LopHoc", "Lớp" }, { "TrangThai", "Trạng thái" } }); TrangDangKy(r); } catch (Exception ex) { lblTrangThai.Text = ex.Message; } }
 
         private void TrangHoaDon(KetQuaPhanTrang<TinhHinhHoaDonDto> r) { trangHoaDon = r.SoTrang; lblHoaDonTrang.Text = string.Format("{0}/{1} • {2} hóa đơn", r.SoTrang, r.TongSoTrang, r.TongBanGhi); btnHoaDonSau.Enabled = r.SoTrang < r.TongSoTrang; btnHoaDonTruoc.Enabled = r.SoTrang > 1; }
+
         private void TrangThanhToan(KetQuaPhanTrang<ChiTietThanhToanDto> r) { trangThanhToan = r.SoTrang; lblThanhToanTrang.Text = string.Format("{0}/{1} • {2} thanh toán", r.SoTrang, r.TongSoTrang, r.TongBanGhi); btnThanhToanSau.Enabled = r.SoTrang < r.TongSoTrang; btnThanhToanTruoc.Enabled = r.SoTrang > 1; }
         private void TrangDangKy(KetQuaPhanTrang<ChiTietDangKyDto> r) { trangDangKy = r.SoTrang; lblDangKyTrang.Text = string.Format("{0}/{1} • {2} đăng ký", r.SoTrang, r.TongSoTrang, r.TongBanGhi); btnDangKySau.Enabled = r.SoTrang < r.TongSoTrang; btnDangKyTruoc.Enabled = r.SoTrang > 1; }
         private static void DatTieuDeCot(DataGridView grid, System.Collections.Generic.IDictionary<string, string> titles)

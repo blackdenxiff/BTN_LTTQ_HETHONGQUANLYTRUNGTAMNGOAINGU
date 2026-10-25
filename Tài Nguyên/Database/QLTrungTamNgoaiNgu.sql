@@ -447,7 +447,10 @@ SET
     DoiMatKhauLanDau = 0
 WHERE TenDangNhap IN ('admin_demo', 'gv_demo', 'hv_demo');
 GO
-
+UPDATE NhanSu
+SET NguoiDungID = NULL
+WHERE NhanSuID = 1
+  AND NguoiDungID = 1;
 
 
 --------------------------------

@@ -3,7 +3,31 @@
   "WorkspaceRootPath": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\documents\\chatgpt\\htqlttng_lttq__windowformapp(.net famework) 2\\btl_lttq_qlhtttnn\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|c:\\users\\admin\\documents\\chatgpt\\htqlttng_lttq__windowformapp(.net famework) 2\\btl_lttq_qlhtttnn\\forms\\frmcaptaikhoanhangloat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:forms\\frmcaptaikhoanhangloat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\forms\\frmthongke.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:forms\\frmthongke.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\forms\\thongtincanha.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:forms\\thongtincanha.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\forms\\frmmainadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:forms\\frmmainadmin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\forms\\frmmainnhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:forms\\frmmainnhanvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\forms\\frmtaikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:forms\\frmtaikhoan.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5598B2C8-EE52-4EA4-814D-8FF89CFA7616}|BTL_LTTQ_QLHTTTNN.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -128,7 +152,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 10,
           "Children": [
             {
               "$type": "Bookmark",
@@ -159,25 +183,87 @@
               "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c64b9c2-e352-428e-a56d-0ace190b99a6}"
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "frmThongKe.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\frmThongKe.cs",
+              "RelativeDocumentMoniker": "Forms\\frmThongKe.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\frmThongKe.cs [Design]",
+              "RelativeToolTip": "Forms\\frmThongKe.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T15:58:37.09Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "thongtincanha.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\thongtincanha.cs",
+              "RelativeDocumentMoniker": "Forms\\thongtincanha.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\thongtincanha.cs [Design]",
+              "RelativeToolTip": "Forms\\thongtincanha.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T15:58:35.717Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "frmMainAdmin.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\frmMainAdmin.cs",
+              "RelativeDocumentMoniker": "Forms\\frmMainAdmin.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\frmMainAdmin.cs [Design]",
+              "RelativeToolTip": "Forms\\frmMainAdmin.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T15:58:31.91Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "frmCapTaiKhoanHangLoat.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\frmCapTaiKhoanHangLoat.cs",
+              "RelativeDocumentMoniker": "Forms\\frmCapTaiKhoanHangLoat.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\frmCapTaiKhoanHangLoat.cs [Design]",
+              "RelativeToolTip": "Forms\\frmCapTaiKhoanHangLoat.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T15:55:43.783Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "frmMainNhanVien.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\frmMainNhanVien.cs",
+              "RelativeDocumentMoniker": "Forms\\frmMainNhanVien.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\frmMainNhanVien.cs [Design]",
+              "RelativeToolTip": "Forms\\frmMainNhanVien.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T15:58:28.333Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "frmTaiKhoan.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\frmTaiKhoan.cs",
+              "RelativeDocumentMoniker": "Forms\\frmTaiKhoan.cs",
+              "ToolTip": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Forms\\frmTaiKhoan.cs [Design]",
+              "RelativeToolTip": "Forms\\frmTaiKhoan.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-10-25T15:56:11.208Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\admin\\Documents\\ChatGPT\\HTQLTTNG_LTTQ__WINDOWFORMAPP(.NET FAMEWORK) 2\\BTL_LTTQ_QLHTTTNN\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAYwBQAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAkwBQAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-10-25T14:41:53.684Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-10-25T14:41:53.684Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 7,
               "Title": "frmHocPhi.cs [Design]",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.cs",
@@ -188,7 +274,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 8,
               "Title": "frmHocVien.cs [Design]",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocVien.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocVien.cs",
@@ -199,7 +285,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 9,
               "Title": "frmGiaoVien.cs [Design]",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmGiaoVien.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmGiaoVien.cs",
@@ -210,7 +296,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 10,
               "Title": "frmDangNhap.cs [Design]",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDangNhap.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDangNhap.cs",
@@ -221,7 +307,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 11,
               "Title": "frmDiemDanh.cs [Design]",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDiemDanh.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDiemDanh.cs",
@@ -232,7 +318,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "frmDoiMatKhau.cs [Design]",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDoiMatKhau.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDoiMatKhau.cs",
@@ -243,7 +329,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 13,
               "Title": "frmDiemDanh.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDiemDanh.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDiemDanh.cs",
@@ -254,7 +340,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 14,
               "Title": "frmMainGiaoVien.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainGiaoVien.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainGiaoVien.Designer.cs",
@@ -266,7 +352,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 15,
               "Title": "frmMainGiaoVien.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainGiaoVien.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainGiaoVien.cs",
@@ -278,7 +364,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 16,
               "Title": "thongtincanha.cs [Design]",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\thongtincanha.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\thongtincanha.cs",
@@ -289,7 +375,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 17,
               "Title": "frmLopHoc.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.cs",
@@ -301,7 +387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 18,
               "Title": "frmMainNhanVien.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainNhanVien.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainNhanVien.cs",
@@ -313,7 +399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 19,
               "Title": "frmMainNhanVien.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainNhanVien.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainNhanVien.Designer.cs",
@@ -325,7 +411,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 20,
               "Title": "frmDoiMatKhau.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDoiMatKhau.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDoiMatKhau.Designer.cs",
@@ -337,7 +423,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 21,
               "Title": "frmDoiMatKhau.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDoiMatKhau.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmDoiMatKhau.cs",
@@ -348,7 +434,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 22,
               "Title": "frmLapPhieuThu.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLapPhieuThu.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLapPhieuThu.cs",
@@ -360,7 +446,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 23,
               "Title": "frmTaoLichHoc.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.cs",
@@ -371,7 +457,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 24,
               "Title": "frmLapPhieuThu.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLapPhieuThu.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLapPhieuThu.Designer.cs",
@@ -383,7 +469,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 25,
               "Title": "frmChiTietKhoaHoc.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietKhoaHoc.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietKhoaHoc.cs",
@@ -395,7 +481,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 26,
               "Title": "frmChiTietKhoaHoc.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietKhoaHoc.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietKhoaHoc.Designer.cs",
@@ -407,7 +493,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 27,
               "Title": "frmHocVien.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocVien.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocVien.Designer.cs",
@@ -419,7 +505,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 28,
               "Title": "frmHocVien.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocVien.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocVien.cs",
@@ -430,7 +516,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 29,
               "Title": "frmMainAdmin.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainAdmin.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainAdmin.cs",
@@ -442,7 +528,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 30,
               "Title": "frmMainHocVien.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainHocVien.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainHocVien.Designer.cs",
@@ -454,7 +540,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 31,
               "Title": "frmMainAdmin.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainAdmin.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainAdmin.Designer.cs",
@@ -466,7 +552,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 32,
               "Title": "frmMainHocVien.resx",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainHocVien.resx",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmMainHocVien.resx",
@@ -478,7 +564,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 33,
               "Title": "frmHocPhi.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.cs",
@@ -489,7 +575,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 34,
               "Title": "frmHocPhi.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmHocPhi.Designer.cs",
@@ -501,7 +587,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 35,
               "Title": "frmLichHoc.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLichHoc.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLichHoc.Designer.cs",
@@ -513,7 +599,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 36,
               "Title": "frmTaoLichHoc.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.Designer.cs",
@@ -525,7 +611,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 37,
               "Title": "frmTaoLichHoc.cs [Design]",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmTaoLichHoc.cs",
@@ -536,7 +622,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 38,
               "Title": "frmLichHoc.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLichHoc.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLichHoc.cs",
@@ -548,7 +634,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 39,
               "Title": "frmChiTietLopHoc.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietLopHoc.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietLopHoc.cs",
@@ -560,7 +646,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 40,
               "Title": "frmChiTietLopHoc.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietLopHoc.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmChiTietLopHoc.Designer.cs",
@@ -572,7 +658,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 41,
               "Title": "frmLopHoc.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmLopHoc.Designer.cs",
@@ -584,7 +670,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 42,
               "Title": "frmKhoaHoc.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.cs",
@@ -596,7 +682,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 43,
               "Title": "frmKhoaHoc.Designer.cs",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.Designer.cs",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.Designer.cs",
@@ -608,7 +694,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 44,
               "Title": "frmKhoaHoc.resx",
               "DocumentMoniker": "C:\\Users\\admin\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.resx",
               "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGOAINGU\\BTL_LTTQ_QLHTTTNN\\frmKhoaHoc.resx",

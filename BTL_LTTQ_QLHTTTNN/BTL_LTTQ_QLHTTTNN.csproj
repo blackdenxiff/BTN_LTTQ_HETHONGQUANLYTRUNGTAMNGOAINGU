@@ -47,17 +47,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="frmChiTietKhoaHoc.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmChiTietKhoaHoc.Designer.cs">
-      <DependentUpon>frmChiTietKhoaHoc.cs</DependentUpon>
-    </Compile>
     <Compile Include="frmChiTietLopHoc.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmChiTietLopHoc.Designer.cs">
       <DependentUpon>frmChiTietLopHoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLichHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLichHoc.Designer.cs">
+      <DependentUpon>frmLichHoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmLopHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLopHoc.Designer.cs">
+      <DependentUpon>frmLopHoc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmMainNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMainNhanVien.Designer.cs">
+      <DependentUpon>frmMainNhanVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmThongBao.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThongBao.Designer.cs">
+      <DependentUpon>frmThongBao.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmChiTietKhoaHoc.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmChiTietKhoaHoc.Designer.cs">
+      <DependentUpon>frmChiTietKhoaHoc.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\Shared\frmDoiMatKhau.cs">
       <SubType>Form</SubType>
@@ -116,18 +140,6 @@
     <Compile Include="frmLapPhieuThu.Designer.cs">
       <DependentUpon>frmLapPhieuThu.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmLichHoc.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmLichHoc.Designer.cs">
-      <DependentUpon>frmLichHoc.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmLopHoc.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmLopHoc.Designer.cs">
-      <DependentUpon>frmLopHoc.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forms\Admin\frmMainAdmin.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -145,12 +157,6 @@
     </Compile>
     <Compile Include="frmMainHocVien.Designer.cs">
       <DependentUpon>frmMainHocVien.cs</DependentUpon>
-    </Compile>
-    <Compile Include="frmMainNhanVien.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmMainNhanVien.Designer.cs">
-      <DependentUpon>frmMainNhanVien.cs</DependentUpon>
     </Compile>
     <Compile Include="frmNhapDiem.cs">
       <SubType>Form</SubType>
@@ -199,14 +205,17 @@
     <Compile Include="thongtincanha.Designer.cs">
       <DependentUpon>thongtincanha.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="frmLopHoc.resx">
+      <DependentUpon>frmLopHoc.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmMainNhanVien.resx">
+      <DependentUpon>frmMainNhanVien.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmChiTietKhoaHoc.resx">
       <DependentUpon>frmChiTietKhoaHoc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmKhoaHoc.resx">
       <DependentUpon>frmKhoaHoc.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmLopHoc.resx">
-      <DependentUpon>frmLopHoc.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmDangKyHoc.resx">
       <DependentUpon>frmDangKyHoc.cs</DependentUpon>

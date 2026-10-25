@@ -727,8 +727,8 @@ namespace BTL_LTTQ_QLHTTTNN
             try
             {
                 // Cấu hình tài khoản gửi Gmail (thay đổi thông tin thực tế tại đây)
-                string emailGui = "ducmanh06pt@gmail.com";
-                string matKhauApp = "rizkpvbqcotohkzd";
+                string emailGui = "sang48192@gmail.com";
+                string matKhauApp = "";
 
                 string tieuDe = string.Format("[Trung tâm Tiếng Anh] Cảnh báo chuyên cần - Lớp {0}", tenLop);
                 string noiDung = string.Format("Chào {0}, hệ thống ghi nhận bạn đã vắng mặt {1} buổi tại lớp {2}. Vui lòng liên hệ giáo viên để được hỗ trợ kịp thời.", hoTen, soBuoiVang, tenLop);

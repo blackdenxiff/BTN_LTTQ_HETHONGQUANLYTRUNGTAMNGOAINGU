@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Data;
 using System.Windows.Forms;
+using BTL_LTTQ_QLHTTTNN.Services;
 
 namespace BTL_LTTQ_QLHTTTNN
 {
     public partial class frmChiTietLopHoc : Form
     {
-        private int _lopHocID = 0; // 0: Thêm mới | >0: Chỉnh sửa
+        private int _lopHocID = 0;
 
         public frmChiTietLopHoc(int lopHocID = 0)
         {
@@ -18,7 +19,6 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             DatabaseConnection.Connect();
 
-            // 1. Nạp danh sách Khóa học từ CSDL SQL Server
             DataTable dtKhoa = DatabaseConnection.GetDataToTable("SELECT KhoaHocID, TenKhoaHoc FROM KhoaHoc WHERE IsDeleted = 0");
             DataRow drKhoa = dtKhoa.NewRow();
             drKhoa["KhoaHocID"] = 0;
@@ -28,7 +28,6 @@ namespace BTL_LTTQ_QLHTTTNN
             cboKhoaHoc.DisplayMember = "TenKhoaHoc";
             cboKhoaHoc.ValueMember = "KhoaHocID";
 
-            // 2. Nạp danh sách Cơ sở
             DataTable dtCoSo = DatabaseConnection.GetDataToTable("SELECT CoSoID, TenCoSo FROM CoSo");
             DataRow drCoSo = dtCoSo.NewRow();
             drCoSo["CoSoID"] = 0;
@@ -38,7 +37,6 @@ namespace BTL_LTTQ_QLHTTTNN
             cboCoSo.DisplayMember = "TenCoSo";
             cboCoSo.ValueMember = "CoSoID";
 
-            // 3. Nạp danh sách Giáo viên từ bảng NhanSu
             string sqlGV = "SELECT NhanSuID AS GiaoVienID, HoTen AS TenGiaoVien FROM NhanSu " +
                            "WHERE LoaiNhanSu = N'Giáo viên' OR LoaiNhanSu = N'Cả hai'";
             DataTable dtGiaoVien = DatabaseConnection.GetDataToTable(sqlGV);
@@ -52,12 +50,10 @@ namespace BTL_LTTQ_QLHTTTNN
             cboGiaoVien.DisplayMember = "TenGiaoVien";
             cboGiaoVien.ValueMember = "GiaoVienID";
 
-            // 4. Trạng thái
             cboTrangThai.Items.Clear();
             cboTrangThai.Items.AddRange(new object[] { "Sắp mở", "Đang mở", "Đã kết thúc" });
             cboTrangThai.SelectedIndex = 0;
 
-            // 5. Phân nhánh Thêm mới hay Chỉnh sửa
             if (_lopHocID > 0)
             {
                 this.Text = "Chỉnh Sửa Thông Tin Lớp Học";
@@ -73,9 +69,30 @@ namespace BTL_LTTQ_QLHTTTNN
                 dtpNgayBatDau.Value = DateTime.Now;
                 dtpNgayKetThuc.Value = DateTime.Now.AddMonths(2);
             }
+
+            // PHÂN QUYỀN CHỈ XEM CHO GIÁO VIÊN VÀ HỌC VIÊN
+            var user = SessionContext.NguoiDungHienTai;
+            bool isQuanLy = (user != null && (user.VaiTro == "Admin" || user.VaiTro == "Nhân viên"));
+
+            if (!isQuanLy)
+            {
+                this.Text = "Chi Tiết Thông Tin Lớp Học";
+                lblTieuDe.Text = "Chi tiết thông tin lớp học";
+
+                btnLuu.Visible = false;
+                btnDong.Text = "✕ Đóng";
+
+                txtTenLop.ReadOnly = true;
+                cboKhoaHoc.Enabled = false;
+                cboCoSo.Enabled = false;
+                cboGiaoVien.Enabled = false;
+                numSiSoToiDa.Enabled = false;
+                dtpNgayBatDau.Enabled = false;
+                dtpNgayKetThuc.Enabled = false;
+                cboTrangThai.Enabled = false;
+            }
         }
 
-        // TẢI DỮ LIỆU CŨ LÊN FORM KHI BẤM SỬA
         private void LoadDataToEdit()
         {
             string sql = $"SELECT TenLop, KhoaHocID, CoSoID, GiaoVienPhuTrachID, SiSoToiDa, NgayBatDau, NgayKetThuc, TrangThai " +
@@ -99,7 +116,6 @@ namespace BTL_LTTQ_QLHTTTNN
             }
         }
 
-        // THỰC THI LƯU DỮ LIỆU VÀO SQL SERVER
         private void btnLuu_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtTenLop.Text))
@@ -133,7 +149,6 @@ namespace BTL_LTTQ_QLHTTTNN
 
             if (_lopHocID == 0)
             {
-                // Thêm mới Lớp học
                 string sqlInsert = $"INSERT INTO LopHoc (TenLop, KhoaHocID, CoSoID, GiaoVienPhuTrachID, SiSoToiDa, NgayBatDau, NgayKetThuc, TrangThai, IsDeleted) " +
                                    $"VALUES (N'{tenLop}', {khoaHocID}, {coSoID}, {giaoVienID}, {siSoToiDa}, '{ngayBatDau}', '{ngayKetThuc}', N'{trangThai}', 0)";
                 DatabaseConnection.RunSQL(sqlInsert);
@@ -141,7 +156,6 @@ namespace BTL_LTTQ_QLHTTTNN
             }
             else
             {
-                // Cập nhật Lớp học
                 string sqlUpdate = $"UPDATE LopHoc SET TenLop = N'{tenLop}', KhoaHocID = {khoaHocID}, CoSoID = {coSoID}, " +
                                    $"GiaoVienPhuTrachID = {giaoVienID}, SiSoToiDa = {siSoToiDa}, NgayBatDau = '{ngayBatDau}', " +
                                    $"NgayKetThuc = '{ngayKetThuc}', TrangThai = N'{trangThai}' " +

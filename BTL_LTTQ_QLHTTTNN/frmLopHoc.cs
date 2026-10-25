@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using BTL_LTTQ_QLHTTTNN.Services;
 
 namespace BTL_LTTQ_QLHTTTNN
 {
@@ -22,14 +23,15 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             DatabaseConnection.Connect();
 
-            // 1. TẮT THEME MẶC ĐỊNH CỦA WINDOWS
+            // 1. PHÂN QUYỀN NÚT "MỞ LỚP HỌC"
+            var user = SessionContext.NguoiDungHienTai;
+            bool isQuanLy = (user != null && (user.VaiTro == "Admin" || user.VaiTro == "Nhân viên"));
+            btnMoLopHoc.Visible = isQuanLy;
+
             dgvLopHoc.EnableHeadersVisualStyles = false;
+            dgvLopHoc.DefaultCellStyle.SelectionBackColor = Color.FromArgb(245, 247, 250);
+            dgvLopHoc.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);
 
-            // 2. KHẮC PHỤC LỖI MÀU XANH KHI CLICK CHỌN DÒNG
-            dgvLopHoc.DefaultCellStyle.SelectionBackColor = Color.FromArgb(245, 247, 250); // Màu xám nhạt nhẹ nhàng
-            dgvLopHoc.DefaultCellStyle.SelectionForeColor = Color.FromArgb(33, 37, 41);    // Giữ chữ màu đen đậm
-
-            // 3. CẤU HÌNH TIÊU ĐỀ CỘT: NỀN TRẮNG - CHỮ ĐEN ĐẬM
             dgvLopHoc.ColumnHeadersDefaultCellStyle.BackColor = Color.White;
             dgvLopHoc.ColumnHeadersDefaultCellStyle.ForeColor = Color.FromArgb(33, 37, 41);
             dgvLopHoc.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.White;
@@ -38,10 +40,8 @@ namespace BTL_LTTQ_QLHTTTNN
             dgvLopHoc.ColumnHeadersHeight = 40;
             dgvLopHoc.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
 
-            // Chữ mờ Placeholder
             SendMessage(txtTimKiem.Handle, EM_SETCUEBANNER, 0, "Tên lớp, khóa học, giáo viên, cơ sở...");
 
-            // Nạp dữ liệu
             LoadComboBoxFilter();
             LoadDataLopHoc();
         }
@@ -81,6 +81,20 @@ namespace BTL_LTTQ_QLHTTTNN
                          "LEFT JOIN CoSo cs ON l.CoSoID = cs.CoSoID " +
                          "LEFT JOIN NhanSu ns ON l.GiaoVienPhuTrachID = ns.NhanSuID " +
                          "WHERE l.IsDeleted = 0";
+
+            // 2. LỌC DANH SÁCH LỚP THEO VAI TRÒ NGƯỜI DÙNG
+            var user = SessionContext.NguoiDungHienTai;
+            if (user != null)
+            {
+                if (user.VaiTro == "Giáo viên" && user.NhanSuID.HasValue)
+                {
+                    sql += $" AND l.GiaoVienPhuTrachID = {user.NhanSuID.Value}";
+                }
+                else if ((user.VaiTro == "Học viên" || user.VaiTro == "HocVien") && user.HocVienID.HasValue)
+                {
+                    sql += $" AND l.LopHocID IN (SELECT LopHocID FROM ChiTietLopHoc WHERE HocVienID = {user.HocVienID.Value})";
+                }
+            }
 
             if (!string.IsNullOrWhiteSpace(keyword))
             {
@@ -135,6 +149,13 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void btnMoLopHoc_Click(object sender, EventArgs e)
         {
+            var user = SessionContext.NguoiDungHienTai;
+            if (user != null && user.VaiTro != "Admin" && user.VaiTro != "Nhân viên")
+            {
+                MessageBox.Show("Bạn không có quyền mở lớp học mới!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             frmChiTietLopHoc frm = new frmChiTietLopHoc(0);
             if (frm.ShowDialog() == DialogResult.OK)
             {
@@ -142,7 +163,6 @@ namespace BTL_LTTQ_QLHTTTNN
             }
         }
 
-        // TÙY BIẾN ĐỒ HỌA TOÀN BỘ BẢNG (TRIỆT TIÊU HOÀN TOÀN MÀU XANH KHI CLICK)
         private void dgvLopHoc_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -150,11 +170,8 @@ namespace BTL_LTTQ_QLHTTTNN
             string colName = dgvLopHoc.Columns[e.ColumnIndex].Name;
             bool isSelected = e.State.HasFlag(DataGridViewElementStates.Selected);
 
-            // Khi dòng được chọn: dùng màu xám nhạt mượt mắt (#F5F7FA).
-            // Nếu muốn giữ trắng tinh 100%, đổi thành Color.White
             Color cellBgColor = isSelected ? Color.FromArgb(245, 247, 250) : Color.White;
 
-            // Xử lý các cột dữ liệu văn bản thông thường (Khóa học, Cơ sở, Giáo viên, Sĩ số, Thời gian)
             if (colName != "colMaLop" && colName != "colTrangThai" && colName != "colThaoTac")
             {
                 using (SolidBrush bgBrush = new SolidBrush(cellBgColor))
@@ -162,10 +179,8 @@ namespace BTL_LTTQ_QLHTTTNN
                     e.Graphics.FillRectangle(bgBrush, e.CellBounds);
                 }
 
-                // Vẽ nội dung chữ
                 e.PaintContent(e.CellBounds);
 
-                // Vẽ viền gạch chân dưới mỗi dòng
                 using (Pen borderPen = new Pen(Color.FromArgb(238, 238, 238), 1f))
                 {
                     e.Graphics.DrawLine(borderPen, e.CellBounds.Left, e.CellBounds.Bottom - 1, e.CellBounds.Right, e.CellBounds.Bottom - 1);
@@ -175,7 +190,6 @@ namespace BTL_LTTQ_QLHTTTNN
                 return;
             }
 
-            // 1. CỘT MÃ LỚP (Vẽ Tag Mã Lớp + Tên Lớp)
             if (colName == "colMaLop")
             {
                 using (SolidBrush bgBrush = new SolidBrush(cellBgColor))
@@ -191,7 +205,6 @@ namespace BTL_LTTQ_QLHTTTNN
 
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-                // Tag Mã Lớp
                 if (!string.IsNullOrEmpty(maLop))
                 {
                     SizeF tagSize = e.Graphics.MeasureString(maLop, new Font("Segoe UI", 8f, FontStyle.Bold));
@@ -207,7 +220,6 @@ namespace BTL_LTTQ_QLHTTTNN
                     }
                 }
 
-                // Tên Lớp
                 if (!string.IsNullOrEmpty(tenLop))
                 {
                     Rectangle textRect = new Rectangle(padX, padY + 22, e.CellBounds.Width - 15, 26);
@@ -225,8 +237,6 @@ namespace BTL_LTTQ_QLHTTTNN
 
                 e.Handled = true;
             }
-
-            // 2. CỘT TRẠNG THÁI
             else if (colName == "colTrangThai")
             {
                 using (SolidBrush bgBrush = new SolidBrush(cellBgColor))
@@ -260,8 +270,6 @@ namespace BTL_LTTQ_QLHTTTNN
 
                 e.Handled = true;
             }
-
-            // 3. CỘT THAO TÁC
             else if (colName == "colThaoTac")
             {
                 using (SolidBrush bgBrush = new SolidBrush(cellBgColor))
@@ -269,34 +277,53 @@ namespace BTL_LTTQ_QLHTTTNN
                     e.Graphics.FillRectangle(bgBrush, e.CellBounds);
                 }
 
-                int btnSize = 28;
-                int gap = 8;
-                int startX = e.CellBounds.X + (e.CellBounds.Width - (btnSize * 2 + gap)) / 2;
-                int startY = e.CellBounds.Y + (e.CellBounds.Height - btnSize) / 2;
-
-                Rectangle rectEdit = new Rectangle(startX, startY, btnSize, btnSize);
-                Rectangle rectDel = new Rectangle(startX + btnSize + gap, startY, btnSize, btnSize);
+                var user = SessionContext.NguoiDungHienTai;
+                bool isQuanLy = (user != null && (user.VaiTro == "Admin" || user.VaiTro == "Nhân viên"));
 
                 e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                int btnSize = 28;
 
-                // Nút Sửa (Xanh)
-                using (GraphicsPath path = GetRoundedPath(rectEdit, 6))
-                using (Pen pen = new Pen(Color.FromArgb(13, 110, 253), 1.2f))
-                using (SolidBrush textBrush = new SolidBrush(Color.FromArgb(13, 110, 253)))
-                using (StringFormat sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                if (isQuanLy)
                 {
-                    e.Graphics.DrawPath(pen, path);
-                    e.Graphics.DrawString("✏", new Font("Segoe UI", 10f, FontStyle.Bold), textBrush, rectEdit, sf);
+                    int gap = 8;
+                    int startX = e.CellBounds.X + (e.CellBounds.Width - (btnSize * 2 + gap)) / 2;
+                    int startY = e.CellBounds.Y + (e.CellBounds.Height - btnSize) / 2;
+
+                    Rectangle rectEdit = new Rectangle(startX, startY, btnSize, btnSize);
+                    Rectangle rectDel = new Rectangle(startX + btnSize + gap, startY, btnSize, btnSize);
+
+                    using (GraphicsPath path = GetRoundedPath(rectEdit, 6))
+                    using (Pen pen = new Pen(Color.FromArgb(13, 110, 253), 1.2f))
+                    using (SolidBrush textBrush = new SolidBrush(Color.FromArgb(13, 110, 253)))
+                    using (StringFormat sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                    {
+                        e.Graphics.DrawPath(pen, path);
+                        e.Graphics.DrawString("✏", new Font("Segoe UI", 10f, FontStyle.Bold), textBrush, rectEdit, sf);
+                    }
+
+                    using (GraphicsPath path = GetRoundedPath(rectDel, 6))
+                    using (Pen pen = new Pen(Color.FromArgb(220, 53, 69), 1.2f))
+                    using (SolidBrush textBrush = new SolidBrush(Color.FromArgb(220, 53, 69)))
+                    using (StringFormat sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                    {
+                        e.Graphics.DrawPath(pen, path);
+                        e.Graphics.DrawString("🗑", new Font("Segoe UI", 10f, FontStyle.Bold), textBrush, rectDel, sf);
+                    }
                 }
-
-                // Nút Xóa (Đỏ)
-                using (GraphicsPath path = GetRoundedPath(rectDel, 6))
-                using (Pen pen = new Pen(Color.FromArgb(220, 53, 69), 1.2f))
-                using (SolidBrush textBrush = new SolidBrush(Color.FromArgb(220, 53, 69)))
-                using (StringFormat sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                else
                 {
-                    e.Graphics.DrawPath(pen, path);
-                    e.Graphics.DrawString("🗑", new Font("Segoe UI", 10f, FontStyle.Bold), textBrush, rectDel, sf);
+                    int startX = e.CellBounds.X + (e.CellBounds.Width - btnSize) / 2;
+                    int startY = e.CellBounds.Y + (e.CellBounds.Height - btnSize) / 2;
+                    Rectangle rectView = new Rectangle(startX, startY, btnSize, btnSize);
+
+                    using (GraphicsPath path = GetRoundedPath(rectView, 6))
+                    using (Pen pen = new Pen(Color.FromArgb(13, 110, 253), 1.2f))
+                    using (SolidBrush textBrush = new SolidBrush(Color.FromArgb(13, 110, 253)))
+                    using (StringFormat sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                    {
+                        e.Graphics.DrawPath(pen, path);
+                        e.Graphics.DrawString("👁", new Font("Segoe UI", 10f, FontStyle.Bold), textBrush, rectView, sf);
+                    }
                 }
 
                 using (Pen borderPen = new Pen(Color.FromArgb(238, 238, 238), 1f))
@@ -320,30 +347,44 @@ namespace BTL_LTTQ_QLHTTTNN
                 Point clickPoint = dgvLopHoc.PointToClient(Cursor.Position);
                 int relativeX = clickPoint.X - cellBounds.X;
 
-                int btnSize = 28;
-                int gap = 8;
-                int startX = (cellBounds.Width - (btnSize * 2 + gap)) / 2;
-
                 int lopHocID = Convert.ToInt32(dgvLopHoc.Rows[e.RowIndex].Cells["colLopHocID"].Value ?? 0);
                 string tenLop = dgvLopHoc.Rows[e.RowIndex].Cells["colTenLopCustom"].Value?.ToString() ?? "";
 
-                // Click Nút Sửa
-                if (relativeX >= startX && relativeX <= startX + btnSize)
+                var user = SessionContext.NguoiDungHienTai;
+                bool isQuanLy = (user != null && (user.VaiTro == "Admin" || user.VaiTro == "Nhân viên"));
+
+                int btnSize = 28;
+
+                if (isQuanLy)
                 {
-                    frmChiTietLopHoc frm = new frmChiTietLopHoc(lopHocID);
-                    if (frm.ShowDialog() == DialogResult.OK)
+                    int gap = 8;
+                    int startX = (cellBounds.Width - (btnSize * 2 + gap)) / 2;
+
+                    if (relativeX >= startX && relativeX <= startX + btnSize)
                     {
-                        LoadDataLopHoc();
+                        frmChiTietLopHoc frm = new frmChiTietLopHoc(lopHocID);
+                        if (frm.ShowDialog() == DialogResult.OK)
+                        {
+                            LoadDataLopHoc();
+                        }
+                    }
+                    else if (relativeX >= startX + btnSize + gap && relativeX <= startX + btnSize * 2 + gap)
+                    {
+                        if (MessageBox.Show($"Bạn có chắc chắn muốn xóa lớp '{tenLop}' không?", "Xác nhận xóa",
+                            MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                        {
+                            DatabaseConnection.RunSQL($"UPDATE LopHoc SET IsDeleted = 1 WHERE LopHocID = {lopHocID}");
+                            LoadDataLopHoc();
+                        }
                     }
                 }
-                // Click Nút Xóa
-                else if (relativeX >= startX + btnSize + gap && relativeX <= startX + btnSize * 2 + gap)
+                else
                 {
-                    if (MessageBox.Show($"Bạn có chắc chắn muốn xóa lớp '{tenLop}' không?", "Xác nhận xóa",
-                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    int startX = (cellBounds.Width - btnSize) / 2;
+                    if (relativeX >= startX && relativeX <= startX + btnSize)
                     {
-                        DatabaseConnection.RunSQL($"UPDATE LopHoc SET IsDeleted = 1 WHERE LopHocID = {lopHocID}");
-                        LoadDataLopHoc();
+                        frmChiTietLopHoc frm = new frmChiTietLopHoc(lopHocID);
+                        frm.ShowDialog();
                     }
                 }
             }

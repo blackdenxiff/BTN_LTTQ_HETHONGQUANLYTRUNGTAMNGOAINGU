@@ -3,6 +3,7 @@ using System.Data;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
+using BTL_LTTQ_QLHTTTNN.Services;
 
 namespace BTL_LTTQ_QLHTTTNN
 {
@@ -19,10 +20,27 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             DatabaseConnection.Connect();
 
-            // Gán sự kiện CellClick trực tiếp trong Load để đảm bảo không bị sót
+            // 1. PHÂN QUYỀN NÚT "XẾP LỊCH HỌC"
+            var user = SessionContext.NguoiDungHienTai;
+            bool isQuanLy = false;
+
+            if (user != null && !string.IsNullOrEmpty(user.VaiTro))
+            {
+                string vaiTro = user.VaiTro.Trim().ToLower();
+                if (vaiTro.Contains("admin") || vaiTro.Contains("nhân viên") || vaiTro.Contains("nhan vien"))
+                {
+                    isQuanLy = true;
+                }
+            }
+
+            // Ẩn/Hiện nút Xếp lịch học
+            btnXepLichHocMoi.Visible = isQuanLy;
+
+            // Gán sự kiện CellClick
             dgvLichHoc.CellClick -= dgvLichHoc_CellClick;
             dgvLichHoc.CellClick += dgvLichHoc_CellClick;
 
+            // Cấu hình giao diện bảng Thời khóa biểu
             dgvLichHoc.ShowCellToolTips = false;
             dgvLichHoc.EnableHeadersVisualStyles = false;
             dgvLichHoc.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(248, 249, 250);
@@ -33,6 +51,7 @@ namespace BTL_LTTQ_QLHTTTNN
             dgvLichHoc.RowTemplate.Height = 115;
             dgvLichHoc.DefaultCellStyle.SelectionBackColor = Color.White;
 
+            // Tính toán thứ 2 của tuần hiện tại
             DateTime today = DateTime.Today;
             int delta = DayOfWeek.Monday - today.DayOfWeek;
             if (delta > 0) delta -= 7;
@@ -47,7 +66,30 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             cboFilterLop.Items.Clear();
             cboFilterLop.Items.Add("-- Tất cả các lớp --");
-            DataTable dtLop = DatabaseConnection.GetDataToTable("SELECT TenLop FROM LopHoc WHERE IsDeleted = 0");
+
+            var user = SessionContext.NguoiDungHienTai;
+            string sqlLop = "SELECT TenLop FROM LopHoc WHERE IsDeleted = 0";
+
+            // 2. PHÂN QUYỀN LỌC DROPDOWN DANH SÁCH LỚP
+            if (user != null && !string.IsNullOrEmpty(user.VaiTro))
+            {
+                string vaiTro = user.VaiTro.Trim().ToLower();
+
+                // Giáo viên: Chỉ hiển thị các lớp do mình giảng dạy
+                if ((vaiTro.Contains("giáo viên") || vaiTro.Contains("giao vien") || vaiTro.Contains("teacher")) && user.NhanSuID.HasValue)
+                {
+                    sqlLop += $" AND GiaoVienPhuTrachID = {user.NhanSuID.Value}";
+                }
+                // Học viên: Chỉ hiển thị các lớp mình tham gia học
+                else if ((vaiTro.Contains("học viên") || vaiTro.Contains("hoc vien") || vaiTro.Contains("student")) && user.HocVienID.HasValue)
+                {
+                    sqlLop = $"SELECT l.TenLop FROM LopHoc l " +
+                             $"JOIN ChiTietLopHoc ct ON l.LopHocID = ct.LopHocID " +
+                             $"WHERE l.IsDeleted = 0 AND ct.HocVienID = {user.HocVienID.Value}";
+                }
+            }
+
+            DataTable dtLop = DatabaseConnection.GetDataToTable(sqlLop);
             foreach (DataRow dr in dtLop.Rows)
             {
                 cboFilterLop.Items.Add(dr["TenLop"].ToString());
@@ -89,6 +131,24 @@ namespace BTL_LTTQ_QLHTTTNN
                          $"LEFT JOIN NhanSu ns ON l.GiaoVienPhuTrachID = ns.NhanSuID " +
                          $"WHERE lh.IsDeleted = 0 AND lh.NgayHoc BETWEEN '{tuNgay:yyyy-MM-dd}' AND '{denNgay:yyyy-MM-dd}'";
 
+            // 3. PHÂN QUYỀN TRUY VẤN CSDL THEO VAI TRÒ
+            var user = SessionContext.NguoiDungHienTai;
+            if (user != null && !string.IsNullOrEmpty(user.VaiTro))
+            {
+                string vaiTro = user.VaiTro.Trim().ToLower();
+
+                // Giáo viên: Lọc các lịch dạy thuộc lớp giáo viên này phụ trách
+                if ((vaiTro.Contains("giáo viên") || vaiTro.Contains("giao vien") || vaiTro.Contains("teacher")) && user.NhanSuID.HasValue)
+                {
+                    sql += $" AND l.GiaoVienPhuTrachID = {user.NhanSuID.Value}";
+                }
+                // Học viên: Lọc các lịch học thuộc lớp học viên này đang tham gia
+                else if ((vaiTro.Contains("học viên") || vaiTro.Contains("hoc vien") || vaiTro.Contains("student")) && user.HocVienID.HasValue)
+                {
+                    sql += $" AND l.LopHocID IN (SELECT LopHocID FROM ChiTietLopHoc WHERE HocVienID = {user.HocVienID.Value})";
+                }
+            }
+
             if (!string.IsNullOrEmpty(filterLop) && filterLop != "-- Tất cả các lớp --")
             {
                 sql += $" AND l.TenLop = N'{filterLop}'";
@@ -108,9 +168,9 @@ namespace BTL_LTTQ_QLHTTTNN
                 int colIndex = (int)(ngayHoc.Date - tuNgay.Date).TotalDays + 1;
 
                 int rowIndex = -1;
-                if (gioBatDau.Hours == 8) rowIndex = 0;       // Ca Sáng
-                else if (gioBatDau.Hours == 14) rowIndex = 1; // Ca Chiều
-                else if (gioBatDau.Hours == 18) rowIndex = 2; // Ca Tối
+                if (gioBatDau.Hours == 8) rowIndex = 0;
+                else if (gioBatDau.Hours == 14) rowIndex = 1;
+                else if (gioBatDau.Hours == 18) rowIndex = 2;
 
                 if (rowIndex >= 0 && colIndex >= 1 && colIndex <= 7)
                 {
@@ -140,6 +200,24 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void btnXepLichHocMoi_Click(object sender, EventArgs e)
         {
+            var user = SessionContext.NguoiDungHienTai;
+            bool isQuanLy = false;
+
+            if (user != null && !string.IsNullOrEmpty(user.VaiTro))
+            {
+                string vaiTro = user.VaiTro.Trim().ToLower();
+                if (vaiTro.Contains("admin") || vaiTro.Contains("nhân viên") || vaiTro.Contains("nhan vien"))
+                {
+                    isQuanLy = true;
+                }
+            }
+
+            if (!isQuanLy)
+            {
+                MessageBox.Show("Bạn không có quyền xếp lịch học mới!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             frmTaoLichHoc frm = new frmTaoLichHoc(0);
             if (frm.ShowDialog() == DialogResult.OK)
             {

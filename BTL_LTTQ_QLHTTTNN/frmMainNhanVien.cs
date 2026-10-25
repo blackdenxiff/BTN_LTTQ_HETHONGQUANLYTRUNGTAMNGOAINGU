@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using BTL_LTTQ_QLHTTTNN.Forms;
 
 namespace BTL_LTTQ_QLHTTTNN
 {
@@ -41,6 +42,7 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             MoFormCon(new frmHocVien());
         }
+
         private void lblDoiMatKhauNhanh_Click(object sender, EventArgs e)
         {
             MoFormCon(new frmDoiMatKhau());
@@ -69,6 +71,11 @@ namespace BTL_LTTQ_QLHTTTNN
         private void btnPhieuThuThanhToan_Click(object sender, EventArgs e)
         {
             MoFormCon(new frmLapPhieuThu());
+        }
+
+        private void btnThongBao_Click(object sender, EventArgs e)
+        {
+            MoFormCon(new frmThongBao());
         }
 
         private void btnThuGonMenu_Click(object sender, EventArgs e)

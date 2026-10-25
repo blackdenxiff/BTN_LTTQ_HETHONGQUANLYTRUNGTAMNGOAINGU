@@ -10,6 +10,7 @@ namespace BTL_LTTQ_QLHTTTNN
     public partial class frmMainHocVien : Form
     {
         private int? nguoiDungID;
+        private int? hocVienID;   // HocVienID của tài khoản đang đăng nhập
 
         // ====== Bảng màu dùng chung ======
         private static readonly Color Navy = Color.FromArgb(32, 65, 105);
@@ -318,12 +319,13 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void btnThanhToan_Click(object sender, EventArgs e)
         {
-            if (!nguoiDungID.HasValue || nguoiDungID.Value <= 0)
+            if (!hocVienID.HasValue || hocVienID.Value <= 0)
             {
                 MessageBox.Show("Vui lòng đăng nhập bằng tài khoản học viên.");
                 return;
             }
-            using (var frm = new frmLapPhieuThu())
+            // true = khóa cứng vào học viên đang đăng nhập, không được lập phiếu cho người khác
+            using (var frm = new frmLapPhieuThu(hocVienID.Value, true))
             {
                 if (frm.ShowDialog(this) == DialogResult.OK)
                     HocVienData.Run(LoadProfile);   // nạp lại để cập nhật học phí
@@ -411,6 +413,7 @@ AND v.IsDeleted=0 AND v.TenVaiTro=N'Học viên'", HocVienData.P("@id", nguoiDun
             if (table.Rows.Count != 1) throw new InvalidOperationException("Tài khoản chưa gắn học viên hoặc không còn được phép truy cập.");
             DataRow row = table.Rows[0];
             int id = Convert.ToInt32(row["HocVienID"]);
+            hocVienID = id;
             txtHocVienID.Text = id.ToString(); txtHoTen.Text = Convert.ToString(row["HoTen"]);
             txtNgaySinh.Text = row.IsNull("NgaySinh") ? "" : Convert.ToDateTime(row["NgaySinh"]).ToString("dd/MM/yyyy");
             txtGioiTinh.Text = Convert.ToString(row["GioiTinh"]); txtSoDienThoai.Text = Convert.ToString(row["SoDienThoai"]);

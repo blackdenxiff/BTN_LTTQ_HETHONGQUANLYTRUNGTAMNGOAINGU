@@ -22,6 +22,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private decimal _hocPhiGoc = 0;
         private decimal _conPhaiDong = 0;
         private int? _maDangKyKhoiTao = null;
+        private int? _hocVienKhoa = null;   // != null: chế độ học viên tự thanh toán, chỉ được thao tác cho HocVienID này
 
         public frmLapPhieuThu()
         {
@@ -31,6 +32,14 @@ namespace BTL_LTTQ_QLHTTTNN
         public frmLapPhieuThu(int maDangKy) : this()
         {
             _maDangKyKhoiTao = maDangKy;
+        }
+
+        /// <summary>
+        /// Chế độ học viên tự thanh toán: khóa cứng vào đúng học viên đang đăng nhập.
+        /// </summary>
+        public frmLapPhieuThu(int hocVienID, bool khoaTheoHocVien) : this()
+        {
+            if (khoaTheoHocVien) _hocVienKhoa = hocVienID;
         }
 
         private void frmLapPhieuThu_Load(object sender, EventArgs e)
@@ -103,18 +112,27 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void NapDanhSachHocVien()
         {
+            bool khoa = _hocVienKhoa.HasValue;
+            // _hocVienKhoa là int nên ghép chuỗi an toàn, không có nguy cơ SQL injection.
             string sqlHV = @"SELECT HocVienID, 
                                     HoTen + ' (HV-' + CAST(HocVienID AS NVARCHAR) + ' • ' + ISNULL(SoDienThoai, '') + ')' AS TenHV 
                              FROM HocVien 
-                             WHERE ISNULL(IsDeleted, 0) = 0
-                             ORDER BY HoTen ASC";
+                             WHERE ISNULL(IsDeleted, 0) = 0"
+                           + (khoa ? " AND HocVienID = " + _hocVienKhoa.Value : "")
+                           + " ORDER BY HoTen ASC";
 
             DataTable dtHV = DatabaseConnection.GetDataToTable(sqlHV);
 
-            DataRow drHV = dtHV.NewRow();
-            drHV["HocVienID"] = 0;
-            drHV["TenHV"] = "-- Chọn học viên --";
-            dtHV.Rows.InsertAt(drHV, 0);
+            if (khoa && dtHV.Rows.Count == 0)
+                throw new InvalidOperationException("Không tìm thấy hồ sơ học viên đang đăng nhập.");
+
+            if (!khoa)
+            {
+                DataRow drHV = dtHV.NewRow();
+                drHV["HocVienID"] = 0;
+                drHV["TenHV"] = "-- Chọn học viên --";
+                dtHV.Rows.InsertAt(drHV, 0);
+            }
 
             cboHocVien.SelectedIndexChanged -= cboHocVien_SelectedIndexChanged;
             cboHocVien.DataSource = dtHV;
@@ -122,6 +140,12 @@ namespace BTL_LTTQ_QLHTTTNN
             cboHocVien.ValueMember = "HocVienID";
             cboHocVien.SelectedIndex = 0;
             cboHocVien.SelectedIndexChanged += cboHocVien_SelectedIndexChanged;
+
+            if (khoa)
+            {
+                cboHocVien.Enabled = false;                       // không cho đổi sang học viên khác
+                cboHocVien_SelectedIndexChanged(cboHocVien, EventArgs.Empty); // nạp sẵn danh sách lớp của chính mình
+            }
         }
 
         private void cboHocVien_SelectedIndexChanged(object sender, EventArgs e)
@@ -353,6 +377,13 @@ namespace BTL_LTTQ_QLHTTTNN
                 var itemDangKy = cboLopHoc.SelectedItem as DangKyChuaThuDto;
                 if (itemDangKy == null) return;
 
+                // Học viên chỉ được nộp cho chính mình
+                if (_hocVienKhoa.HasValue && itemDangKy.HocVienID != _hocVienKhoa.Value)
+                {
+                    MessageBox.Show("Bạn chỉ được thanh toán học phí cho chính mình.", "Không hợp lệ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
                 if (!decimal.TryParse(txtSoTienNop.Text.Trim(), out decimal soTienNop) || soTienNop <= 0)
                 {
                     MessageBox.Show("Số tiền thanh toán không hợp lệ! Vui lòng nhập số tiền lớn hơn 0 đ.", "Kiểm tra dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -378,12 +409,19 @@ namespace BTL_LTTQ_QLHTTTNN
                     GhiChu = txtGhiChu.Text.Trim()
                 };
 
-                var ketQua = PhieuThuService.LapPhieuThu(dto);
+                // Chế độ học viên: service kiểm tra lại quyền sở hữu đăng ký học ở tầng nghiệp vụ
+                var ketQua = _hocVienKhoa.HasValue
+                    ? PhieuThuService.LapPhieuThuChoHocVien(dto, _hocVienKhoa.Value)
+                    : PhieuThuService.LapPhieuThu(dto);
                 if (ketQua.ThanhCong)
                 {
                     MessageBox.Show(ketQua.ThongBao, "Thông báo thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     this.DialogResult = DialogResult.OK;
                     this.Close();
+                }
+                else
+                {
+                    MessageBox.Show(ketQua.ThongBao, "Không lập được phiếu thu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             catch (Exception ex)

@@ -75,6 +75,24 @@ namespace BTL_LTTQ_QLHTTTNN.Services
         }
 
         /// <summary>
+        /// Học viên tự thanh toán: chỉ cho phép khi đăng ký học thuộc về đúng học viên đang đăng nhập.
+        /// </summary>
+        public static KetQuaXuLy LapPhieuThuChoHocVien(TaoPhieuThuDto duLieu, int hocVienDangNhapID)
+        {
+            if (duLieu == null)
+                return KetQuaXuLy.ThatBai("Dữ liệu lập phiếu thu không được để trống.");
+            if (hocVienDangNhapID <= 0)
+                return KetQuaXuLy.ThatBai("Không xác định được học viên đang đăng nhập.");
+
+            var hocPhi = HocPhiData.LayHocPhiTheoDangKy(duLieu.DangKyID);
+            if (hocPhi == null || hocPhi.HocVienID != hocVienDangNhapID)
+                return KetQuaXuLy.ThatBai("Bạn chỉ được thanh toán học phí cho chính mình.");
+
+            duLieu.HocVienID = hocVienDangNhapID;   // ghi đè, không tin dữ liệu từ giao diện
+            return LapPhieuThu(duLieu);
+        }
+
+        /// <summary>
         /// Lấy danh sách phiếu thu theo Đăng ký học.
         /// </summary>
         public static List<PhieuThuDto> LayPhieuThuTheoDangKy(int maDangKy)

@@ -30,7 +30,8 @@ namespace BTL_LTTQ_QLHTTTNN
             this.colTenDangNhap = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colHoTen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colLoai = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pnlChan = new System.Windows.Forms.Panel();
+            this.tlpChan = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpThaoTac = new System.Windows.Forms.TableLayoutPanel();
             this.btnTruoc = new System.Windows.Forms.Button();
             this.lblTrang = new System.Windows.Forms.Label();
             this.btnSau = new System.Windows.Forms.Button();
@@ -41,7 +42,8 @@ namespace BTL_LTTQ_QLHTTTNN
             this.tlpChinh.SuspendLayout();
             this.pnlLoc.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoSo)).BeginInit();
-            this.pnlChan.SuspendLayout();
+            this.tlpChan.SuspendLayout();
+            this.tlpThaoTac.SuspendLayout();
             this.SuspendLayout();
             //
             // tlpChinh
@@ -51,13 +53,13 @@ namespace BTL_LTTQ_QLHTTTNN
             this.tlpChinh.Controls.Add(this.lblTieuDe, 0, 0);
             this.tlpChinh.Controls.Add(this.pnlLoc, 0, 1);
             this.tlpChinh.Controls.Add(this.dgvHoSo, 0, 2);
-            this.tlpChinh.Controls.Add(this.pnlChan, 0, 3);
+            this.tlpChinh.Controls.Add(this.tlpChan, 0, 3);
             this.tlpChinh.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpChinh.RowCount = 4;
             this.tlpChinh.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 54F));
             this.tlpChinh.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 72F));
             this.tlpChinh.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpChinh.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 86F));
+            this.tlpChinh.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 88F));
             this.tlpChinh.Padding = new System.Windows.Forms.Padding(18);
             this.tlpChinh.Name = "tlpChinh";
             //
@@ -164,67 +166,86 @@ namespace BTL_LTTQ_QLHTTTNN
             this.colLoai.ReadOnly = true;
             this.colLoai.FillWeight = 90F;
             //
-            // pnlChan
+            // tlpChan
             //
-            this.pnlChan.Controls.Add(this.btnTruoc);
-            this.pnlChan.Controls.Add(this.lblTrang);
-            this.pnlChan.Controls.Add(this.btnSau);
-            this.pnlChan.Controls.Add(this.lblSoDaChon);
-            this.pnlChan.Controls.Add(this.progressCap);
-            this.pnlChan.Controls.Add(this.btnCapTaiKhoan);
-            this.pnlChan.Controls.Add(this.lblTrangThai);
-            this.pnlChan.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlChan.Name = "pnlChan";
+            this.tlpChan.ColumnCount = 3;
+            this.tlpChan.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tlpChan.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpChan.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tlpChan.Controls.Add(this.btnTruoc, 0, 0);
+            this.tlpChan.Controls.Add(this.lblTrang, 1, 0);
+            this.tlpChan.Controls.Add(this.btnSau, 2, 0);
+            this.tlpChan.Controls.Add(this.tlpThaoTac, 0, 1);
+            this.tlpChan.SetColumnSpan(this.tlpThaoTac, 3);
+            this.tlpChan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpChan.Name = "tlpChan";
+            this.tlpChan.RowCount = 2;
+            this.tlpChan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tlpChan.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            //
+            // tlpThaoTac
+            //
+            this.tlpThaoTac.ColumnCount = 4;
+            this.tlpThaoTac.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpThaoTac.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
+            this.tlpThaoTac.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
+            this.tlpThaoTac.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220F));
+            this.tlpThaoTac.Controls.Add(this.lblTrangThai, 0, 0);
+            this.tlpThaoTac.Controls.Add(this.progressCap, 1, 0);
+            this.tlpThaoTac.Controls.Add(this.lblSoDaChon, 2, 0);
+            this.tlpThaoTac.Controls.Add(this.btnCapTaiKhoan, 3, 0);
+            this.tlpThaoTac.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpThaoTac.Name = "tlpThaoTac";
+            this.tlpThaoTac.RowCount = 1;
+            this.tlpThaoTac.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             //
             // btnTruoc
             //
-            this.btnTruoc.Location = new System.Drawing.Point(0, 0);
-            this.btnTruoc.Size = new System.Drawing.Size(80, 30);
+            this.btnTruoc.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnTruoc.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.btnTruoc.Text = "Trước";
             this.btnTruoc.Click += new System.EventHandler(this.btnTruoc_Click);
             //
             // lblTrang
             //
-            this.lblTrang.Location = new System.Drawing.Point(84, 0);
-            this.lblTrang.Size = new System.Drawing.Size(220, 30);
+            this.lblTrang.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTrang.Margin = new System.Windows.Forms.Padding(0);
             this.lblTrang.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             //
             // btnSau
             //
-            this.btnSau.Location = new System.Drawing.Point(308, 0);
-            this.btnSau.Size = new System.Drawing.Size(80, 30);
+            this.btnSau.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSau.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.btnSau.Text = "Sau";
             this.btnSau.Click += new System.EventHandler(this.btnSau_Click);
             //
             // lblSoDaChon
             //
-            this.lblSoDaChon.Location = new System.Drawing.Point(410, 0);
-            this.lblSoDaChon.Size = new System.Drawing.Size(180, 30);
+            this.lblSoDaChon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblSoDaChon.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSoDaChon.Text = "Đã chọn 0 hồ sơ";
             this.lblSoDaChon.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             //
             // progressCap
             //
-            this.progressCap.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left;
-            this.progressCap.Location = new System.Drawing.Point(410, 45);
-            this.progressCap.Size = new System.Drawing.Size(125, 18);
+            this.progressCap.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.progressCap.Margin = new System.Windows.Forms.Padding(4, 8, 4, 8);
             this.progressCap.Visible = false;
             //
             // btnCapTaiKhoan
             //
-            this.btnCapTaiKhoan.Anchor = System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right;
-            this.btnCapTaiKhoan.Location = new System.Drawing.Point(780, 37);
-            this.btnCapTaiKhoan.Size = new System.Drawing.Size(220, 34);
-            this.btnCapTaiKhoan.Text = "Xác nhận cấp tài khoản";
+            this.btnCapTaiKhoan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCapTaiKhoan.Margin = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.btnCapTaiKhoan.Text = "Tạo tài khoản đã chọn";
             this.btnCapTaiKhoan.Enabled = false;
             this.btnCapTaiKhoan.Click += new System.EventHandler(this.btnCapTaiKhoan_Click);
             //
             // lblTrangThai
             //
-            this.lblTrangThai.Anchor = System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Bottom;
-            this.lblTrangThai.Location = new System.Drawing.Point(0, 37);
-            this.lblTrangThai.Size = new System.Drawing.Size(390, 30);
+            this.lblTrangThai.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblTrangThai.AutoEllipsis = true;
             this.lblTrangThai.Text = "Chọn các hồ sơ đủ điều kiện cần cấp tài khoản.";
+            this.lblTrangThai.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             //
             // frmCapTaiKhoanHangLoat
             //
@@ -240,15 +261,17 @@ namespace BTL_LTTQ_QLHTTTNN
             this.pnlLoc.ResumeLayout(false);
             this.pnlLoc.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHoSo)).EndInit();
-            this.pnlChan.ResumeLayout(false);
-            this.pnlChan.PerformLayout();
+            this.tlpChan.ResumeLayout(false);
+            this.tlpThaoTac.ResumeLayout(false);
+            this.tlpThaoTac.PerformLayout();
             this.ResumeLayout(false);
         }
         #endregion
 
         private System.Windows.Forms.TableLayoutPanel tlpChinh;
         private System.Windows.Forms.Label lblTieuDe, lblLoai, lblTimKiem, lblTrang, lblSoDaChon, lblTrangThai;
-        private System.Windows.Forms.Panel pnlLoc, pnlChan;
+        private System.Windows.Forms.Panel pnlLoc;
+        private System.Windows.Forms.TableLayoutPanel tlpChan, tlpThaoTac;
         private System.Windows.Forms.ComboBox cboLoaiHoSo;
         private System.Windows.Forms.TextBox txtTimKiem;
         private System.Windows.Forms.Button btnTim, btnTruoc, btnSau, btnCapTaiKhoan;

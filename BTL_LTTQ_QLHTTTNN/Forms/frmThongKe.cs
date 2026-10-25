@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BTL_LTTQ_QLHTTTNN.Services;
@@ -14,6 +15,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private sealed class CoSoLuaChon { public int? Id; public string Ten; public override string ToString() { return Ten; } }
         private readonly Action quayVe;
         private ThongKeBoLoc boLoc;
+        private CancellationTokenSource tokenHuyXuat;
         private int trangHoaDon = 1, trangThanhToan = 1, trangDangKy = 1, requestId;
         public frmThongKe() : this(null) { }
 
@@ -56,12 +58,17 @@ namespace BTL_LTTQ_QLHTTTNN
             using (var dialog = new SaveFileDialog { Filter = "Tệp Excel (*.xlsx)|*.xlsx", DefaultExt = "xlsx", AddExtension = true, FileName = fileName, OverwritePrompt = true })
             {
                 if (dialog.ShowDialog(this) != DialogResult.OK) return;
-                btnXuatExcel.Enabled = false; lblTrangThai.Text = "Đang xuất Excel…";
-                try { await XuatThongKeExcelService.TaoBaoCaoExcelAsync(boLoc, dialog.FileName, loai, System.Threading.CancellationToken.None); lblTrangThai.Text = "Đã xuất báo cáo: " + dialog.FileName; }
-                catch (Exception ex) { lblTrangThai.Text = "Không xuất được: " + ex.Message; }
-                finally { if (!IsDisposed) btnXuatExcel.Enabled = BoLocDangApDung(); }
+                using (var huy = new CancellationTokenSource())
+                {
+                    tokenHuyXuat = huy; btnXuatExcel.Enabled = false; btnHuyXuat.Visible = true; btnHuyXuat.Enabled = true; lblTrangThai.Text = "Đang xuất Excel…";
+                    try { await XuatThongKeExcelService.TaoBaoCaoExcelAsync(boLoc, dialog.FileName, loai, huy.Token); lblTrangThai.Text = "Đã xuất báo cáo: " + dialog.FileName; }
+                    catch (OperationCanceledException) { lblTrangThai.Text = "Đã hủy xuất báo cáo."; }
+                    catch (Exception ex) { lblTrangThai.Text = "Không xuất được: " + ex.Message; }
+                    finally { tokenHuyXuat = null; if (!IsDisposed) { btnHuyXuat.Visible = false; btnXuatExcel.Enabled = BoLocDangApDung(); } }
+                }
             }
         }
+        private void btnHuyXuat_Click(object sender, EventArgs e) { if (tokenHuyXuat != null) { btnHuyXuat.Enabled = false; tokenHuyXuat.Cancel(); lblTrangThai.Text = "Đang hủy xuất báo cáo…"; } }
         private async void btnDatLai_Click(object sender, EventArgs e) { DateTime today = DateTime.Today; dtpTuNgay.Value = new DateTime(today.Year, today.Month, 1); dtpDenNgay.Value = today; cboCoSo.SelectedIndex = cboCoSo.Items.Count > 0 ? 0 : -1; await XemThongKe(); }
         private void btnTongQuan_Click(object sender, EventArgs e) { if (quayVe != null) quayVe(); }
         private async Task XemThongKe()

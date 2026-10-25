@@ -32,6 +32,7 @@ namespace BTL_LTTQ_QLHTTTNN
             this.lblLoaiBaoCao = new System.Windows.Forms.Label();
             this.cboLoaiBaoCao = new System.Windows.Forms.ComboBox();
             this.btnXuatExcel = new System.Windows.Forms.Button();
+            this.btnHuyXuat = new System.Windows.Forms.Button();
             this.lblTongHop = new System.Windows.Forms.Label();
             this.lblGiaiThich = new System.Windows.Forms.Label();
             this.tabs = new System.Windows.Forms.TabControl();
@@ -107,7 +108,7 @@ namespace BTL_LTTQ_QLHTTTNN
             // flpBoLoc
 
             this.flpBoLoc.Dock = System.Windows.Forms.DockStyle.Fill; this.flpBoLoc.WrapContents = false; this.flpBoLoc.AutoScroll = true; this.flpBoLoc.Padding = new System.Windows.Forms.Padding(0, 10, 0, 0); this.flpBoLoc.Name = "flpBoLoc";
-            this.flpBoLoc.Controls.Add(this.lblTuNgay); this.flpBoLoc.Controls.Add(this.dtpTuNgay); this.flpBoLoc.Controls.Add(this.lblDenNgay); this.flpBoLoc.Controls.Add(this.dtpDenNgay); this.flpBoLoc.Controls.Add(this.lblCoSo); this.flpBoLoc.Controls.Add(this.cboCoSo); this.flpBoLoc.Controls.Add(this.btnXem); this.flpBoLoc.Controls.Add(this.btnDatLai); this.flpBoLoc.Controls.Add(this.lblLoaiBaoCao); this.flpBoLoc.Controls.Add(this.cboLoaiBaoCao); this.flpBoLoc.Controls.Add(this.btnXuatExcel);
+            this.flpBoLoc.Controls.Add(this.lblTuNgay); this.flpBoLoc.Controls.Add(this.dtpTuNgay); this.flpBoLoc.Controls.Add(this.lblDenNgay); this.flpBoLoc.Controls.Add(this.dtpDenNgay); this.flpBoLoc.Controls.Add(this.lblCoSo); this.flpBoLoc.Controls.Add(this.cboCoSo); this.flpBoLoc.Controls.Add(this.btnXem); this.flpBoLoc.Controls.Add(this.btnDatLai); this.flpBoLoc.Controls.Add(this.lblLoaiBaoCao); this.flpBoLoc.Controls.Add(this.cboLoaiBaoCao); this.flpBoLoc.Controls.Add(this.btnXuatExcel); this.flpBoLoc.Controls.Add(this.btnHuyXuat);
             this.lblTuNgay.AutoSize = true; this.lblTuNgay.Margin = new System.Windows.Forms.Padding(0, 8, 4, 0); this.lblTuNgay.Text = "Từ ngày";
             this.dtpTuNgay.Format = System.Windows.Forms.DateTimePickerFormat.Short; this.dtpTuNgay.Margin = new System.Windows.Forms.Padding(0, 0, 12, 0); this.dtpTuNgay.Width = 120;
             this.lblDenNgay.AutoSize = true; this.lblDenNgay.Margin = new System.Windows.Forms.Padding(0, 8, 4, 0); this.lblDenNgay.Text = "Đến ngày";
@@ -119,6 +120,7 @@ namespace BTL_LTTQ_QLHTTTNN
             this.lblLoaiBaoCao.AutoSize = true; this.lblLoaiBaoCao.Margin = new System.Windows.Forms.Padding(8, 8, 4, 0); this.lblLoaiBaoCao.Text = "Loại báo cáo";
             this.cboLoaiBaoCao.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList; this.cboLoaiBaoCao.Width = 170; this.cboLoaiBaoCao.Items.AddRange(new object[] { "Hóa đơn trong kỳ", "Thanh toán phát sinh", "Đăng ký trong kỳ", "Thống kê tổng hợp" }); this.cboLoaiBaoCao.SelectedIndex = 3;
             this.btnXuatExcel.Name = "btnXuatExcel"; this.btnXuatExcel.Size = new System.Drawing.Size(112, 32); this.btnXuatExcel.Text = "Xuất Excel"; this.btnXuatExcel.Click += new System.EventHandler(this.btnXuatExcel_Click);
+            this.btnHuyXuat.Name = "btnHuyXuat"; this.btnHuyXuat.Size = new System.Drawing.Size(90, 32); this.btnHuyXuat.Text = "Hủy xuất"; this.btnHuyXuat.Visible = false; this.btnHuyXuat.Click += new System.EventHandler(this.btnHuyXuat_Click);
 
             // lblTongHop
 
@@ -210,7 +212,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private System.Windows.Forms.Label lblHoaDonTong, lblThanhToanTong, lblDangKyTong, lblHoaDonTrang, lblThanhToanTrang, lblDangKyTrang;
         private System.Windows.Forms.DateTimePicker dtpTuNgay, dtpDenNgay;
         private System.Windows.Forms.ComboBox cboCoSo, cboLoaiBaoCao;
-        private System.Windows.Forms.Button btnXem, btnDatLai, btnXuatExcel, btnTongQuan, btnHoaDonTruoc, btnHoaDonSau, btnThanhToanTruoc, btnThanhToanSau, btnDangKyTruoc, btnDangKySau;
+        private System.Windows.Forms.Button btnXem, btnDatLai, btnXuatExcel, btnHuyXuat, btnTongQuan, btnHoaDonTruoc, btnHoaDonSau, btnThanhToanTruoc, btnThanhToanSau, btnDangKyTruoc, btnDangKySau;
         private System.Windows.Forms.TabControl tabs;
         private System.Windows.Forms.TabPage tabHoaDon, tabThanhToan, tabDangKy;
         private System.Windows.Forms.DataGridView dgvHoaDon, dgvThanhToan, dgvDangKy;

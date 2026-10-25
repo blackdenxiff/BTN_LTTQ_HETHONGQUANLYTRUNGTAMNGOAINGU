@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Transactions;
 using System.Xml;
 using BTL_LTTQ_QLHTTTNN.Services.Models;
 
@@ -31,6 +32,9 @@ namespace BTL_LTTQ_QLHTTTNN.Services
             string tam = Path.Combine(thuMuc, "." + Path.GetFileName(duongDan) + "." + Guid.NewGuid().ToString("N") + ".tmp");
             try
             {
+                var tuyChonGiaoDich = new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.Serializable, Timeout = TimeSpan.FromMinutes(30) };
+                using (var giaoDich = new TransactionScope(TransactionScopeOption.Required, tuyChonGiaoDich))
+                {
                 using (var file = new FileStream(tam, FileMode.CreateNew, FileAccess.ReadWrite, FileShare.None))
                 using (var zip = new ZipArchive(file, ZipArchiveMode.Create, true))
                 {
@@ -74,6 +78,9 @@ namespace BTL_LTTQ_QLHTTTNN.Services
                         if (soDong == 0) GhiDong(w, 2, new object[] { "Không có dữ liệu phù hợp" }, null);
                         GhiDong(w, soDong + (soDong == 0 ? 3 : 2), new object[] { "Tổng số đăng ký", dangKy.TongSoLuong, "Học viên khác nhau", dangKy.TongHocVienKhacNhau, null }, null);
                     });
+                }
+                huy.ThrowIfCancellationRequested();
+                giaoDich.Complete();
                 }
                 huy.ThrowIfCancellationRequested();
                 if (File.Exists(duongDan)) File.Replace(tam, duongDan, null); else File.Move(tam, duongDan);

@@ -8,6 +8,7 @@ namespace BTL_LTTQ_QLHTTTNN.Services.Models
         public DateTime TuNgay { get; set; }
         public DateTime DenNgay { get; set; }
         public int? CoSoID { get; set; }
+        public string TenCoSo { get; set; }
     }
     public sealed class ThongKeTongQuanDto
     {

@@ -13,7 +13,7 @@ namespace BTL_LTTQ_QLHTTTNN.Services
             switch (maChucNang)
             {
                 case "DoiMatKhau": return true;
-                case "QuanLyTaiKhoan": case "TaoTaiKhoan": case "SuaTaiKhoan": case "KhoaTaiKhoan": case "XoaTaiKhoan": case "XemThongKe": return role == "Admin";
+                case "QuanLyTaiKhoan": case "TaoTaiKhoan": case "SuaTaiKhoan": case "KhoaTaiKhoan": case "XoaTaiKhoan": case "DatLaiMatKhau": case "XemThongKe": return role == "Admin";
                 default: return false;
             }
         }

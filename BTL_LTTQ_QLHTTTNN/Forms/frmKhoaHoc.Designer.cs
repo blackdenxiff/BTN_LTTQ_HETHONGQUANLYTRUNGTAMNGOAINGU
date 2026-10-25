@@ -338,6 +338,7 @@
             // 
             // dgvKhoaHoc
             // 
+            this.dgvKhoaHoc.AutoGenerateColumns = false;
             this.dgvKhoaHoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvKhoaHoc.BackgroundColor = System.Drawing.Color.White;
             this.dgvKhoaHoc.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -365,48 +366,63 @@
             // 
             this.colMaKhoa.HeaderText = "MÃ KHÓA";
             this.colMaKhoa.Name = "colMaKhoa";
+            this.colMaKhoa.DataPropertyName = "MaKhoaHoc";
+            this.colMaKhoa.FillWeight = 50F;
             this.colMaKhoa.ReadOnly = true;
             // 
             // colTenChuongTrinh
             // 
             this.colTenChuongTrinh.HeaderText = "TÊN CHƯƠNG TRÌNH ĐÀO TẠO";
             this.colTenChuongTrinh.Name = "colTenChuongTrinh";
+            this.colTenChuongTrinh.DataPropertyName = "TenKhoaHoc";
+            this.colTenChuongTrinh.FillWeight = 160F;
             this.colTenChuongTrinh.ReadOnly = true;
             // 
             // colChuanDauRa
             // 
             this.colChuanDauRa.HeaderText = "CHUẨN ĐẦU RA";
             this.colChuanDauRa.Name = "colChuanDauRa";
+            this.colChuanDauRa.DataPropertyName = "ChuanDauRa";
+            this.colChuanDauRa.FillWeight = 80F;
             this.colChuanDauRa.ReadOnly = true;
             // 
             // colThoiLuong
             // 
             this.colThoiLuong.HeaderText = "THỜI LƯỢNG";
             this.colThoiLuong.Name = "colThoiLuong";
+            this.colThoiLuong.DataPropertyName = "ThoiLuong";
+            this.colThoiLuong.FillWeight = 60F;
             this.colThoiLuong.ReadOnly = true;
             // 
             // colHocPhi
             // 
             this.colHocPhi.HeaderText = "HỌC PHÍ NIÊM YẾT";
             this.colHocPhi.Name = "colHocPhi";
+            this.colHocPhi.DataPropertyName = "HocPhi";
+            this.colHocPhi.FillWeight = 90F;
             this.colHocPhi.ReadOnly = true;
             // 
             // colLoTrinh
             // 
             this.colLoTrinh.HeaderText = "LỘ TRÌNH TÓM TẮT";
             this.colLoTrinh.Name = "colLoTrinh";
+            this.colLoTrinh.DataPropertyName = "LoTrinh";
+            this.colLoTrinh.FillWeight = 160F;
             this.colLoTrinh.ReadOnly = true;
             // 
             // colTrangThai
             // 
             this.colTrangThai.HeaderText = "TRẠNG THÁI";
             this.colTrangThai.Name = "colTrangThai";
+            this.colTrangThai.DataPropertyName = "TrangThai";
+            this.colTrangThai.FillWeight = 80F;
             this.colTrangThai.ReadOnly = true;
             // 
             // colThaoTac
             // 
             this.colThaoTac.HeaderText = "THAO TÁC";
             this.colThaoTac.Name = "colThaoTac";
+            this.colThaoTac.FillWeight = 60F;
             this.colThaoTac.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             this.colThaoTac.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.colThaoTac.Text = "Sửa";

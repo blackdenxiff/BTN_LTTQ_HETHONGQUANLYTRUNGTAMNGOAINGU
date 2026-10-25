@@ -23,8 +23,6 @@ namespace BTL_LTTQ_QLHTTTNN
         public frmMainAdmin()
         {
             InitializeComponent();
-            var btnThongKe = new Button { Name = "btnThongKe", Text = "Thống kê", Tag = "frmThongKe", Location = new Point(14, 712), Size = new Size(232, 40), FlatStyle = FlatStyle.Flat, BackColor = Color.FromArgb(30, 41, 59), ForeColor = Color.White, TextAlign = ContentAlignment.MiddleLeft, Padding = new Padding(10, 0, 0, 0), Cursor = Cursors.Hand };
-            btnThongKe.FlatAppearance.BorderSize = 0; btnThongKe.Click += MenuChucNang_Click; pnlMenuNoiDung.Controls.Add(btnThongKe);
             foreach (Control control in pnlMenuNoiDung.Controls)
             {
                 Button button = control as Button;
@@ -90,42 +88,33 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             DatMenuDangChon(null); menuChoMo = null;
             maYeuCauThongKe++; if (noiDungDangMo != null) { pnlNoiDung.Controls.Remove(noiDungDangMo); noiDungDangMo.Dispose(); noiDungDangMo = null; }
-            pnlNoiDung.Controls.Clear(); pnlNoiDung.Controls.Add(lblChaoMung); pnlNoiDung.Controls.Add(lblHuongDan); pnlNoiDung.Controls.Add(lblThongBao);
-            lblChaoMung.Visible = true; lblHuongDan.Visible = true; lblThongBao.Visible = true;
-            lblChaoMung.Text = "Tổng quan quản trị"; lblHuongDan.Text = "Chỉ số hiện tại và số liệu trong tháng đang xem.";
+            pnlNoiDung.Controls.Clear(); pnlNoiDung.Controls.Add(tlpTongQuan); tlpTongQuan.Visible = true;
+            lblThongBao.Text = "Đang tải số liệu…";
             TaiThongKeTongQuan();
         }
         public async void TaiThongKeTongQuan()
         {
-            int request = ++maYeuCauThongKe; var dangTai = new Label { Name = "lblThongKeDangTai", Text = "Đang tải số liệu…", AutoSize = true, Location = new Point(36, 155), Font = new Font("Segoe UI", 11F) };
-            var nutLamMoi = new Button { Name = "btnLamMoiThongKe", Text = "Làm mới", Location = new Point(840, 28), Size = new Size(120, 36), Anchor = AnchorStyles.Top | AnchorStyles.Right };
-            var nutThongKeChiTiet = new Button { Name = "btnThongKeChiTiet", Text = "Thống kê chi tiết", Location = new Point(650, 28), Size = new Size(170, 36), Anchor = AnchorStyles.Top | AnchorStyles.Right };
-            var thoiDiem = new Label { Name = "lblThoiDiemCapNhat", Text = "", AutoSize = true, Location = new Point(36, 122), ForeColor = Color.DimGray };
-            pnlNoiDung.Controls.Clear(); pnlNoiDung.Controls.Add(dangTai); pnlNoiDung.Controls.Add(nutLamMoi); pnlNoiDung.Controls.Add(nutThongKeChiTiet); pnlNoiDung.Controls.Add(thoiDiem);
-            nutLamMoi.Click += delegate { TaiThongKeTongQuan(); };
-            nutThongKeChiTiet.Click += delegate { MoFormThongKe(); };
+            int request = ++maYeuCauThongKe;
+            lblThongBao.Text = "Đang tải số liệu…";
+            btnLamMoiThongKe.Enabled = false;
             try
             {
                 var result = await Task.Run(() => ThongKeService.LayThongKeTongQuan(new ThongKeBoLoc { TuNgay = DateTime.Today, DenNgay = DateTime.Today }));
                 if (IsDisposed || request != maYeuCauThongKe) return;
-                pnlNoiDung.Controls.Remove(dangTai); dangTai.Dispose();
-                ThemThe("Tổng học viên", result.TongHocVien.ToString("N0"), 36, 165, "Hiện tại");
-                ThemThe("Tổng giáo viên", result.TongGiaoVien.ToString("N0"), 350, 165, "Hiện tại");
-                ThemThe("Lớp đang học", result.TongLopDangHoc.ToString("N0"), 664, 165, "Hiện tại");
-                ThemThe("Đăng ký trong tháng", result.DangKyTrongThang.ToString("N0"), 36, 330, DateTime.Today.ToString("MMMM yyyy"));
-                ThemThe("Tiền thực thu trong tháng", result.ThucThuTrongThang.ToString("N0") + " đ", 350, 330, DateTime.Today.ToString("MMMM yyyy"));
-                thoiDiem.Text = "Cập nhật lúc " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
-                lblHuongDan.Text = "Ba chỉ số đầu là hiện tại; đăng ký và thực thu tính theo tháng hiện tại.";
+                string ky = DateTime.Today.ToString("MMMM yyyy");
+                lblTheHocVien.Text = "Tổng học viên\r\n" + result.TongHocVien.ToString("N0") + "\r\nHiện tại";
+                lblTheGiaoVien.Text = "Tổng giáo viên\r\n" + result.TongGiaoVien.ToString("N0") + "\r\nHiện tại";
+                lblTheLopHoc.Text = "Lớp đang học\r\n" + result.TongLopDangHoc.ToString("N0") + "\r\nHiện tại";
+                lblTheDangKy.Text = "Đăng ký trong tháng\r\n" + result.DangKyTrongThang.ToString("N0") + "\r\n" + ky;
+                lblTheThucThu.Text = "Tiền thực thu trong tháng\r\n" + result.ThucThuTrongThang.ToString("N0") + " đ\r\n" + ky;
+                lblThoiDiemCapNhat.Text = "Cập nhật lúc " + DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss");
+                lblThongBao.Text = "Số liệu tải thành công.";
             }
-            catch (Exception ex) { if (!IsDisposed && request == maYeuCauThongKe) dangTai.Text = "Không tải được dữ liệu: " + ex.Message; }
+            catch (Exception ex) { if (!IsDisposed && request == maYeuCauThongKe) lblThongBao.Text = "Không tải được dữ liệu: " + ex.Message; }
+            finally { if (!IsDisposed && request == maYeuCauThongKe) btnLamMoiThongKe.Enabled = true; }
         }
-        private void ThemThe(string tieuDe, string giaTri, int x, int y, string ghiChu)
-        {
-            var the = new Panel { Location = new Point(x, y), Size = new Size(280, 130), BackColor = Color.White, BorderStyle = BorderStyle.FixedSingle, Anchor = AnchorStyles.Top | AnchorStyles.Left };
-            the.Controls.Add(new Label { Text = tieuDe, Location = new Point(16, 14), Size = new Size(245, 26), Font = new Font("Segoe UI", 10F), ForeColor = Color.DimGray });
-            the.Controls.Add(new Label { Text = giaTri, Location = new Point(16, 43), Size = new Size(245, 46), Font = new Font("Segoe UI", 22F, FontStyle.Bold), ForeColor = Color.FromArgb(37, 99, 235) });
-            the.Controls.Add(new Label { Text = ghiChu, Location = new Point(16, 96), Size = new Size(245, 22), Font = new Font("Segoe UI", 9F), ForeColor = Color.Gray }); pnlNoiDung.Controls.Add(the);
-        }
+        private void btnLamMoiThongKe_Click(object sender, EventArgs e) { TaiThongKeTongQuan(); }
+        private void btnThongKeChiTiet_Click(object sender, EventArgs e) { MoFormThongKe(); }
         private void mnuDangXuat_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show(this, "Bạn muốn thoát tài khoản hiện tại?", "Thoát tài khoản", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;

@@ -15,23 +15,6 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             DatabaseConnection.Connect();
 
-            // 1. Neo DataGridView co dãn tràn cả 4 hướng (Trên, Dưới, Trái, Phải)
-            dgvKhoaHoc.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dgvKhoaHoc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-
-            // 2. Neo nút '+ Tạo Khóa Học Mới' luôn bám sát góc trên bên phải
-            btnTaoKhoaHocMoi.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-
-            // 3. Thiết lập tỉ lệ độ rộng các cột trên bảng khi phóng to
-            if (dgvKhoaHoc.Columns.Contains("colMaKhoa")) dgvKhoaHoc.Columns["colMaKhoa"].FillWeight = 50;
-            if (dgvKhoaHoc.Columns.Contains("colTenChuongTrinh")) dgvKhoaHoc.Columns["colTenChuongTrinh"].FillWeight = 160;
-            if (dgvKhoaHoc.Columns.Contains("colChuanDauRa")) dgvKhoaHoc.Columns["colChuanDauRa"].FillWeight = 80;
-            if (dgvKhoaHoc.Columns.Contains("colThoiLuong")) dgvKhoaHoc.Columns["colThoiLuong"].FillWeight = 60;
-            if (dgvKhoaHoc.Columns.Contains("colHocPhi")) dgvKhoaHoc.Columns["colHocPhi"].FillWeight = 90;
-            if (dgvKhoaHoc.Columns.Contains("colLoTrinh")) dgvKhoaHoc.Columns["colLoTrinh"].FillWeight = 160;
-            if (dgvKhoaHoc.Columns.Contains("colTrangThai")) dgvKhoaHoc.Columns["colTrangThai"].FillWeight = 80;
-            if (dgvKhoaHoc.Columns.Contains("colThaoTac")) dgvKhoaHoc.Columns["colThaoTac"].FillWeight = 60;
-
             // Tải dữ liệu
             LoadThongKe();
             LoadComboBoxFilter();
@@ -70,15 +53,6 @@ namespace BTL_LTTQ_QLHTTTNN
             }
 
             DataTable dt = DatabaseConnection.GetDataToTable(sql);
-
-            dgvKhoaHoc.AutoGenerateColumns = false;
-            colMaKhoa.DataPropertyName = "MaKhoaHoc";
-            colTenChuongTrinh.DataPropertyName = "TenKhoaHoc";
-            colChuanDauRa.DataPropertyName = "ChuanDauRa";
-            colThoiLuong.DataPropertyName = "ThoiLuong";
-            colHocPhi.DataPropertyName = "HocPhi";
-            colLoTrinh.DataPropertyName = "LoTrinh";
-            colTrangThai.DataPropertyName = "TrangThai";
 
             dgvKhoaHoc.DataSource = dt;
         }

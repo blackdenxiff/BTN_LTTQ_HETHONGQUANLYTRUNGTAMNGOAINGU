@@ -14,7 +14,9 @@ namespace BTL_LTTQ_QLHTTTNN
         private static extern Int32 SendMessage(IntPtr hWnd, int msg, int wParam, [MarshalAs(UnmanagedType.LPWStr)] string lParam);
         private const int EM_SETCUEBANNER = 0x1501;
 
-        public frmChiTietKhoaHoc(int khoaHocID = 0)
+        public frmChiTietKhoaHoc() : this(0) { }
+
+        public frmChiTietKhoaHoc(int khoaHocID)
         {
             InitializeComponent();
             _khoaHocID = khoaHocID;

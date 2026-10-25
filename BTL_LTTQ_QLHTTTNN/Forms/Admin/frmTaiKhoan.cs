@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using BTL_LTTQ_QLHTTTNN.Services;
@@ -27,11 +28,25 @@ namespace BTL_LTTQ_QLHTTTNN
         public ComboBox LocTrangThai { get { return cboLocTrangThai; } }
         public frmTaiKhoan()
         {
-            InitializeComponent(); colMaTaiKhoan.DataPropertyName = "NguoiDungID"; cboLocVaiTro.SelectedIndex = 0; cboLocTrangThai.Items.Add("Đã xóa"); cboLocTrangThai.SelectedIndex = 0;
+            InitializeComponent();
+            if (DangOCheDoThietKe()) return;
+
+            colMaTaiKhoan.DataPropertyName = "NguoiDungID"; cboLocVaiTro.SelectedIndex = 0; cboLocTrangThai.Items.Add("Đã xóa"); cboLocTrangThai.SelectedIndex = 0;
             cboVaiTro.SelectedIndexChanged += delegate { TaiHoSo(); };
             dgvTaiKhoan.SelectionChanged += delegate { ChonTaiKhoan(); };
-            TaoDieuKhienPhanTrang(); TaiDanhSach();
+            TaoDieuKhienPhanTrang();
+            Load += frmTaiKhoan_Load;
         }
+        private static bool DangOCheDoThietKe()
+        {
+            return LicenseManager.UsageMode == LicenseUsageMode.Designtime;
+        }
+
+        private void frmTaiKhoan_Load(object sender, EventArgs e)
+        {
+            TaiDanhSach();
+        }
+
         private void TaoDieuKhienPhanTrang()
         {
             nutTruoc.Text = "Trước"; nutTruoc.Width = 80; nutTruoc.Height = 28; nutTruoc.Click += delegate { if (trang > 1) { trang--; TaiDanhSach(); } };
@@ -48,8 +63,11 @@ namespace BTL_LTTQ_QLHTTTNN
         public void HienThongBao(string thongBao) { lblTrangThai.Text = thongBao; }
         private void TaiDanhSach()
         {
-            try { var ketQua = TaiKhoanService.LayTaiKhoanTheoTrang(new TaiKhoanBoLoc { TuKhoa = TuKhoa, VaiTro = cboLocVaiTro.Text == "Tất cả" ? "" : cboLocVaiTro.Text, TrangThai = cboLocTrangThai.Text }, trang);
-                tongTrang = ketQua.TongSoTrang; nhanTrang.Text = string.Format("{0}/{1} • {2} tài khoản", ketQua.SoTrang, ketQua.TongSoTrang, ketQua.TongBanGhi); dgvTaiKhoan.DataSource = ketQua.DanhSach; lblTrangThai.Text = "Đã tải " + ketQua.DanhSach.Count + " tài khoản."; }
+            try
+            {
+                var ketQua = TaiKhoanService.LayTaiKhoanTheoTrang(new TaiKhoanBoLoc { TuKhoa = TuKhoa, VaiTro = cboLocVaiTro.Text == "Tất cả" ? "" : cboLocVaiTro.Text, TrangThai = cboLocTrangThai.Text }, trang);
+                tongTrang = ketQua.TongSoTrang; nhanTrang.Text = string.Format("{0}/{1} • {2} tài khoản", ketQua.SoTrang, ketQua.TongSoTrang, ketQua.TongBanGhi); dgvTaiKhoan.DataSource = ketQua.DanhSach; lblTrangThai.Text = "Đã tải " + ketQua.DanhSach.Count + " tài khoản.";
+            }
             catch (Exception ex) { HienThongBao(ex.Message); }
         }
         private void TaiHoSo()

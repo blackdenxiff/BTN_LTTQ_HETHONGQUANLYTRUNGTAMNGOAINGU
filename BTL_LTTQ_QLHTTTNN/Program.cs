@@ -16,6 +16,8 @@ namespace BTL_LTTQ_QLHTTTNN
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new VongDoiUngDung());
+            //  Application.Run(new frmMainAdmin());
+            //Application.Run(new frmThongKe());
         }
     }
 

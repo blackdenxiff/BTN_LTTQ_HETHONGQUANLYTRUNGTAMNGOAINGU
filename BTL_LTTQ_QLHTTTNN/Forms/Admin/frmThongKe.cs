@@ -18,7 +18,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private int trangHoaDon = 1, trangThanhToan = 1, trangDangKy = 1, requestId;
         public frmThongKe(Action quayVeTongQuan = null)
         {
-            InitializeComponent(); quayVe = quayVeTongQuan; DateTime today = DateTime.Today;
+            InitializeComponent(); TaoCacTab(); quayVe = quayVeTongQuan; DateTime today = DateTime.Today;
             dtpTuNgay.Value = new DateTime(today.Year, today.Month, 1); dtpDenNgay.Value = today;
             btnHoaDonTruoc.Click += delegate { if (trangHoaDon > 1) { trangHoaDon--; TaiHoaDon(); } };
             btnHoaDonSau.Click += delegate { trangHoaDon++; TaiHoaDon(); };
@@ -28,6 +28,41 @@ namespace BTL_LTTQ_QLHTTTNN
             btnDangKySau.Click += delegate { trangDangKy++; TaiDangKy(); };
             Load += async delegate { await NapCoSo(); cboCoSo.SelectedIndex = 0; await XemThongKe(); };
         }
+        private void TaoCacTab()
+        {
+            CauHinhTab(tabHoaDon, "Hóa đơn trong kỳ", dgvHoaDon, btnHoaDonTruoc, lblHoaDonTrang, btnHoaDonSau);
+            CauHinhTab(tabThanhToan, "Thanh toán phát sinh", dgvThanhToan, btnThanhToanTruoc, lblThanhToanTrang, btnThanhToanSau);
+            CauHinhTab(tabDangKy, "Đăng ký trong kỳ", dgvDangKy, btnDangKyTruoc, lblDangKyTrang, btnDangKySau);
+        }
+
+        private void CauHinhTab(TabPage tab, string tieuDe, DataGridView bang, Button truoc, Label trang, Button sau)
+        {
+            tab.Text = tieuDe;
+            bang.Dock = DockStyle.Fill;
+            bang.ReadOnly = true;
+            bang.AllowUserToAddRows = false;
+            bang.AllowUserToDeleteRows = false;
+            bang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            bang.BackgroundColor = Color.White;
+            bang.RowHeadersVisible = false;
+
+            truoc.Text = "Trước";
+            truoc.Dock = DockStyle.Left;
+            truoc.Width = 90;
+            sau.Text = "Sau";
+            sau.Dock = DockStyle.Right;
+            sau.Width = 90;
+            trang.Dock = DockStyle.Fill;
+            trang.TextAlign = ContentAlignment.MiddleCenter;
+
+            Panel thanhTrang = new Panel { Dock = DockStyle.Bottom, Height = 34 };
+            thanhTrang.Controls.Add(trang);
+            thanhTrang.Controls.Add(truoc);
+            thanhTrang.Controls.Add(sau);
+            tab.Controls.Add(bang);
+            tab.Controls.Add(thanhTrang);
+        }
+
         private async Task NapCoSo()
         {
             try { var sites = await Task.Run(() => ThongKeService.LayCoSo()); cboCoSo.Items.Clear(); cboCoSo.Items.Add(new CoSoLuaChon { Id = null, Ten = "Tất cả cơ sở" }); foreach (var x in sites) cboCoSo.Items.Add(new CoSoLuaChon { Id = x.Key, Ten = x.Value }); }

@@ -19,20 +19,11 @@
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.lblTenHeThong = new System.Windows.Forms.Label();
             this.lblNguoiDangNhap = new System.Windows.Forms.Label();
-            this.pnlVungChinh = new System.Windows.Forms.Panel();
-            this.pnlThuongHieu = new System.Windows.Forms.Panel();
-            this.lblLogo = new System.Windows.Forms.Label();
-            this.lblMoTa = new System.Windows.Forms.Label();
-            this.btnThuGonMenu = new System.Windows.Forms.Button();
-            this.btnTaiKhoan = new System.Windows.Forms.Button();
             this.pnlMenu = new System.Windows.Forms.Panel();
             this.btnDangKyLop = new System.Windows.Forms.Button();
             this.btnHocPhi = new System.Windows.Forms.Button();
             this.btnKetQua = new System.Windows.Forms.Button();
             this.btnThongTin = new System.Windows.Forms.Button();
-            this.btnLopHoc = new System.Windows.Forms.Button();
-            this.btnLichHoc = new System.Windows.Forms.Button();
-            this.btnThoat = new System.Windows.Forms.Button();
             this.pnlNoiDung = new System.Windows.Forms.Panel();
             this.tabHoSo = new System.Windows.Forms.TabControl();
             this.tabThongTin = new System.Windows.Forms.TabPage();
@@ -65,21 +56,6 @@
             this.dgvKetQua = new System.Windows.Forms.DataGridView();
             this.tabHocPhi = new System.Windows.Forms.TabPage();
             this.dgvHocPhi = new System.Windows.Forms.DataGridView();
-            this.pnlTomTatHocPhi = new System.Windows.Forms.TableLayoutPanel();
-            this.lblTongPhaiTra = new System.Windows.Forms.Label();
-            this.lblDaThanhToan = new System.Windows.Forms.Label();
-            this.lblConPhaiTra = new System.Windows.Forms.Label();
-            this.tabLichHoc = new System.Windows.Forms.TabPage();
-            this.pnlLichHoc = new System.Windows.Forms.Panel();
-            this.pnlBoLocLich = new System.Windows.Forms.FlowLayoutPanel();
-            this.scheduleFrom = new System.Windows.Forms.DateTimePicker();
-            this.scheduleTo = new System.Windows.Forms.DateTimePicker();
-            this.btnScheduleView = new System.Windows.Forms.Button();
-            this.btnSchedulePrevious = new System.Windows.Forms.Button();
-            this.btnScheduleThisWeek = new System.Windows.Forms.Button();
-            this.btnScheduleNext = new System.Windows.Forms.Button();
-            this.scheduleGrid = new System.Windows.Forms.DataGridView();
-            this.scheduleStatus = new System.Windows.Forms.Label();
             this.lblTieuDeTrang = new System.Windows.Forms.Label();
             this.stsTrangThai = new System.Windows.Forms.StatusStrip();
             this.tslblVaiTro = new System.Windows.Forms.ToolStripStatusLabel();
@@ -95,7 +71,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvKetQua)).BeginInit();
             this.tabHocPhi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHocPhi)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.scheduleGrid)).BeginInit();
             this.stsTrangThai.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -667,144 +642,15 @@
             this.tslblVaiTro.Name = "tslblVaiTro";
             this.tslblVaiTro.Size = new System.Drawing.Size(93, 17);
             this.tslblVaiTro.Text = "Vai trò: Học viên";
-            // Student shell and navigation are part of the Designer tree.
-            this.pnlHeader.BackColor = System.Drawing.Color.White;
-            this.pnlHeader.Height = 72;
-            this.pnlHeader.Controls.Add(this.btnTaiKhoan);
-            this.pnlHeader.Controls.Add(this.btnThuGonMenu);
-            this.lblTenHeThong.Text = "ENGLISH CENTER";
-            this.lblTenHeThong.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTenHeThong.ForeColor = System.Drawing.Color.White;
-            this.lblTenHeThong.Location = new System.Drawing.Point(82, 24);
-            this.lblTenHeThong.Size = new System.Drawing.Size(175, 30);
-            this.lblMoTa.Location = new System.Drawing.Point(82, 55);
-            this.lblMoTa.Size = new System.Drawing.Size(175, 22);
-            this.lblMoTa.Text = "Quản lý trung tâm";
-            this.lblMoTa.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.lblMoTa.ForeColor = System.Drawing.Color.FromArgb(148, 163, 184);
-            this.lblLogo.Location = new System.Drawing.Point(28, 22);
-            this.lblLogo.Size = new System.Drawing.Size(42, 52);
-            this.lblLogo.Text = "E";
-            this.lblLogo.Font = new System.Drawing.Font("Segoe UI", 28F, System.Drawing.FontStyle.Bold);
-            this.lblLogo.ForeColor = System.Drawing.Color.FromArgb(37, 99, 235);
-            this.lblLogo.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.pnlThuongHieu.Controls.Add(this.lblLogo);
-            this.pnlThuongHieu.Controls.Add(this.lblTenHeThong);
-            this.pnlThuongHieu.Controls.Add(this.lblMoTa);
-            this.pnlThuongHieu.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlThuongHieu.Height = 100;
-            this.pnlThuongHieu.BackColor = System.Drawing.Color.FromArgb(15, 23, 42);
-            this.btnThuGonMenu.Location = new System.Drawing.Point(24, 17);
-            this.btnThuGonMenu.Size = new System.Drawing.Size(42, 38);
-            this.btnThuGonMenu.Text = "☰";
-            this.btnTaiKhoan.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btnTaiKhoan.Size = new System.Drawing.Size(300, 72);
-            this.btnTaiKhoan.Text = "Học viên: Chưa đăng nhập  ▾";
-            this.btnTaiKhoan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnTaiKhoan.FlatAppearance.BorderSize = 0;
-            this.btnTaiKhoan.BackColor = System.Drawing.Color.White;
-            this.btnTaiKhoan.ForeColor = System.Drawing.Color.FromArgb(31, 41, 55);
-            this.btnTaiKhoan.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnTaiKhoan.Padding = new System.Windows.Forms.Padding(8, 0, 16, 0);
-            this.btnTaiKhoan.AutoEllipsis = true;
-            this.btnTaiKhoan.Name = "btnTaiKhoan";
-            this.pnlMenu.Controls.Add(this.btnThoat);
-            this.pnlMenu.Controls.Add(this.btnLichHoc);
-            this.pnlMenu.Controls.Add(this.btnLopHoc);
-            this.pnlMenu.Controls.Add(this.pnlThuongHieu);
-            this.pnlMenu.Width = 270;
-            this.pnlMenu.Padding = new System.Windows.Forms.Padding(0);
-            this.pnlMenu.BackColor = System.Drawing.Color.FromArgb(15, 23, 42);
-            this.btnLopHoc.Text = "Lớp đã đăng ký";
-            this.btnLopHoc.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnLichHoc.Text = "Lịch học";
-            this.btnLichHoc.Dock = System.Windows.Forms.DockStyle.Top;
-            this.btnThoat.Text = "Thoát";
-            this.btnThoat.Dock = System.Windows.Forms.DockStyle.Bottom;
-            foreach (System.Windows.Forms.Button menuButton in new System.Windows.Forms.Button[] {
-                this.btnThongTin, this.btnLopHoc, this.btnKetQua, this.btnHocPhi, this.btnDangKyLop, this.btnLichHoc, this.btnThoat })
-            {
-                menuButton.Height = 50;
-                menuButton.BackColor = System.Drawing.Color.FromArgb(30, 41, 59);
-                menuButton.ForeColor = System.Drawing.Color.FromArgb(203, 213, 225);
-                menuButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-                menuButton.FlatAppearance.BorderSize = 0;
-                menuButton.Font = new System.Drawing.Font("Segoe UI", 10F);
-                menuButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-                menuButton.Padding = new System.Windows.Forms.Padding(20, 0, 8, 0);
-                menuButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            }
-            this.pnlMenu.Controls.SetChildIndex(this.pnlThuongHieu, 0);
-            this.pnlVungChinh.Controls.Add(this.pnlNoiDung);
-            this.pnlVungChinh.Controls.Add(this.pnlHeader);
-            this.pnlVungChinh.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlVungChinh.Name = "pnlVungChinh";
-            this.pnlNoiDung.BackColor = System.Drawing.Color.FromArgb(248, 250, 252);
-            this.pnlNoiDung.Padding = new System.Windows.Forms.Padding(24, 18, 24, 18);
-            this.lblTieuDeTrang.ForeColor = System.Drawing.Color.FromArgb(31, 41, 55);
-
-            // Fee summary is informational. Students cannot create receipt records from this view.
-            this.pnlTomTatHocPhi.ColumnCount = 3;
-            this.pnlTomTatHocPhi.RowCount = 1;
-            this.pnlTomTatHocPhi.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlTomTatHocPhi.Height = 82;
-            this.pnlTomTatHocPhi.Padding = new System.Windows.Forms.Padding(8);
-            this.pnlTomTatHocPhi.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
-            this.pnlTomTatHocPhi.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33F));
-            this.pnlTomTatHocPhi.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.34F));
-            this.lblTongPhaiTra.Text = "Tổng phải trả: 0 đ";
-            this.lblDaThanhToan.Text = "Đã thanh toán: 0 đ";
-            this.lblConPhaiTra.Text = "Còn phải trả: 0 đ";
-            foreach (System.Windows.Forms.Label feeLabel in new System.Windows.Forms.Label[] { this.lblTongPhaiTra, this.lblDaThanhToan, this.lblConPhaiTra })
-            {
-                feeLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-                feeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-                feeLabel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-                feeLabel.BackColor = System.Drawing.Color.FromArgb(246, 248, 252);
-                this.pnlTomTatHocPhi.Controls.Add(feeLabel);
-            }
-            this.tabHocPhi.Controls.Add(this.pnlTomTatHocPhi);
-            this.tabHocPhi.Controls.SetChildIndex(this.dgvHocPhi, 0);
-            this.pnlBoLocLich.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlBoLocLich.Height = 48;
-            this.pnlBoLocLich.WrapContents = true;
-            this.scheduleFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.scheduleFrom.CustomFormat = "dd/MM/yyyy";
-            this.scheduleFrom.Width = 125;
-            this.scheduleTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.scheduleTo.CustomFormat = "dd/MM/yyyy";
-            this.scheduleTo.Width = 125;
-            this.btnScheduleView.Text = "Xem lịch";
-            this.btnSchedulePrevious.Text = "Tuần trước";
-            this.btnScheduleThisWeek.Text = "Tuần này";
-            this.btnScheduleNext.Text = "Tuần sau";
-            this.pnlBoLocLich.Controls.AddRange(new System.Windows.Forms.Control[] {
-                new System.Windows.Forms.Label { Text = "Từ ngày", AutoSize = true, Margin = new System.Windows.Forms.Padding(0, 7, 6, 0) },
-                this.scheduleFrom,
-                new System.Windows.Forms.Label { Text = "Đến ngày", AutoSize = true, Margin = new System.Windows.Forms.Padding(8, 7, 6, 0) },
-                this.scheduleTo, this.btnScheduleView, this.btnSchedulePrevious, this.btnScheduleThisWeek, this.btnScheduleNext });
-            this.scheduleStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.scheduleStatus.Height = 42;
-            this.scheduleStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.scheduleStatus.ForeColor = System.Drawing.Color.FromArgb(90, 105, 125);
-            this.scheduleGrid.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.scheduleGrid.BackgroundColor = System.Drawing.Color.White;
-            this.pnlLichHoc.Controls.Add(this.scheduleGrid);
-            this.pnlLichHoc.Controls.Add(this.pnlBoLocLich);
-            this.pnlLichHoc.Controls.Add(this.scheduleStatus);
-            this.pnlLichHoc.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabLichHoc.Text = "Lịch học";
-            this.tabLichHoc.Padding = new System.Windows.Forms.Padding(16);
-            this.tabLichHoc.Controls.Add(this.pnlLichHoc);
-            this.tabHoSo.Controls.Add(this.tabLichHoc);
             // 
             // frmMainHocVien
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 760);
-            this.Controls.Add(this.pnlVungChinh);
+            this.Controls.Add(this.pnlNoiDung);
             this.Controls.Add(this.pnlMenu);
+            this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.stsTrangThai);
             this.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.MinimumSize = new System.Drawing.Size(1100, 720);
@@ -825,10 +671,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvKetQua)).EndInit();
             this.tabHocPhi.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvHocPhi)).EndInit();
-            this.tabLichHoc.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.scheduleGrid)).EndInit();
-            this.pnlVungChinh.ResumeLayout(false);
-            this.pnlThuongHieu.ResumeLayout(false);
             this.stsTrangThai.ResumeLayout(false);
             this.stsTrangThai.PerformLayout();
             this.ResumeLayout(false);
@@ -838,14 +680,10 @@
         #endregion
 
         private System.Windows.Forms.Panel pnlHeader;
-        private System.Windows.Forms.Panel pnlVungChinh;
-        private System.Windows.Forms.Panel pnlThuongHieu;
         private System.Windows.Forms.Panel pnlMenu;
         private System.Windows.Forms.Panel pnlNoiDung;
         private System.Windows.Forms.Label lblTenHeThong;
         private System.Windows.Forms.Label lblNguoiDangNhap;
-        private System.Windows.Forms.Label lblLogo;
-        private System.Windows.Forms.Label lblMoTa;
         private System.Windows.Forms.StatusStrip stsTrangThai;
         private System.Windows.Forms.ToolStripStatusLabel tslblVaiTro;
         private System.Windows.Forms.Label lblTieuDeTrang;
@@ -853,21 +691,11 @@
         private System.Windows.Forms.Button btnKetQua;
         private System.Windows.Forms.Button btnHocPhi;
         private System.Windows.Forms.Button btnDangKyLop;
-        private System.Windows.Forms.Button btnLopHoc, btnLichHoc, btnThoat, btnTaiKhoan, btnThuGonMenu;
         private System.Windows.Forms.TabControl tabHoSo;
         private System.Windows.Forms.TabPage tabThongTin;
         private System.Windows.Forms.TabPage tabLopHoc;
         private System.Windows.Forms.TabPage tabKetQua;
         private System.Windows.Forms.TabPage tabHocPhi;
-        private System.Windows.Forms.TabPage tabLichHoc;
-        private System.Windows.Forms.Panel pnlLichHoc;
-        private System.Windows.Forms.FlowLayoutPanel pnlBoLocLich;
-        private System.Windows.Forms.DateTimePicker scheduleFrom, scheduleTo;
-        private System.Windows.Forms.Button btnScheduleView, btnSchedulePrevious, btnScheduleThisWeek, btnScheduleNext;
-        private System.Windows.Forms.DataGridView scheduleGrid;
-        private System.Windows.Forms.Label scheduleStatus;
-        private System.Windows.Forms.TableLayoutPanel pnlTomTatHocPhi;
-        private System.Windows.Forms.Label lblTongPhaiTra, lblDaThanhToan, lblConPhaiTra;
         private System.Windows.Forms.TableLayoutPanel tblThongTin;
         private System.Windows.Forms.Label lblHocVienID;
         private System.Windows.Forms.TextBox txtHocVienID;

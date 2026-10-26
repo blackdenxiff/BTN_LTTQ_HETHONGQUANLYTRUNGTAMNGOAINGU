@@ -1,8 +1,7 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Drawing;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Windows.Forms;
 
 namespace BTL_LTTQ_QLHTTTNN
@@ -10,41 +9,115 @@ namespace BTL_LTTQ_QLHTTTNN
     public partial class frmMainHocVien : Form
     {
         private int? nguoiDungID;
+        private readonly Dictionary<TabPage, Panel> pages = new Dictionary<TabPage, Panel>();
         private Button accountButton;
         private Button btnClasses;
         private Button btnSchedule;
+        private TabPage schedulePage;
+        private DataGridView scheduleGrid;
+        private DateTimePicker scheduleFrom, scheduleTo;
+        private Label scheduleStatus;
         private Button activeButton;
         private readonly Color navy = Color.FromArgb(32, 65, 105);
-        private static readonly Color green = Color.FromArgb(22, 128, 61);
-        private static readonly Color red = Color.FromArgb(200, 45, 45);
-        private static readonly Color orange = Color.FromArgb(205, 120, 0);
-        private static readonly CultureInfo vi = new CultureInfo("vi-VN");
-        private void BindScheduleControls()
-        {
-            btnClasses = btnLopHoc;
-            btnSchedule = btnLichHoc;
-            DateTime monday = DateTime.Today.AddDays(-((int)DateTime.Today.DayOfWeek + 6) % 7);
-            scheduleFrom.Value = monday;
-            scheduleTo.Value = monday.AddDays(6);
-            btnSchedule.Click += delegate { Navigate(tabLichHoc, btnSchedule, "LỊCH HỌC"); RefreshSchedule(); };
-            btnScheduleView.Click += delegate { RefreshSchedule(); };
-            btnScheduleThisWeek.Click += delegate
-            {
-                DateTime start = DateTime.Today.AddDays(-((int)DateTime.Today.DayOfWeek + 6) % 7);
-                scheduleFrom.Value = start; scheduleTo.Value = start.AddDays(6); RefreshSchedule();
-            };
-            btnSchedulePrevious.Click += delegate { ShiftSchedule(-7); };
-            btnScheduleNext.Click += delegate { ShiftSchedule(7); };
-        }
 
-        private void ExitApplication()
+        private void SetupAppearance()
         {
-            if (MessageBox.Show(this, "Bạn có muốn thoát ứng dụng không?", "Xác nhận thoát",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) Application.Exit();
+            Font = new Font("Segoe UI", 10F);
+            MinimumSize = new Size(1000, 700);
+            pnlNoiDung.BackColor = Color.FromArgb(244, 247, 251);
+            pnlNoiDung.Padding = new Padding(24);
+            pnlMenu.BackColor = Color.FromArgb(235, 241, 248);
+            lblTieuDeTrang.Height = 60;
+            lblTieuDeTrang.Font = new Font("Segoe UI", 19F, FontStyle.Bold);
+            // Chuyển nội dung tab vào các panel; chỉ menu chính điều hướng.
+            tabHoSo.Visible = false;
+            foreach (TabPage tab in tabHoSo.TabPages)
+            {
+                var panel = new Panel { Dock = DockStyle.Fill, BackColor = Color.White,
+                    Padding = new Padding(22), AutoScroll = true, Visible = false };
+                while (tab.Controls.Count > 0) panel.Controls.Add(tab.Controls[0]);
+                pages.Add(tab, panel);
+                pnlNoiDung.Controls.Add(panel);
+                panel.BringToFront();
+            }
+            btnClasses = new Button { Text = "Lớp đã đăng ký" };
+            btnClasses.Click += btnLopHoc_Click;
+            pnlMenu.Controls.Add(btnClasses);
+            SetupSchedule();
+            var buttons = new[] { btnThongTin, btnClasses, btnSchedule, btnKetQua, btnHocPhi, btnDangKyLop };
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                var b = buttons[i]; b.Dock = DockStyle.None;
+                b.SetBounds(12, 24 + i * 62, pnlMenu.ClientSize.Width - 24, 52);
+                b.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+                b.FlatStyle = FlatStyle.Flat; b.FlatAppearance.BorderSize = 0;
+                b.FlatAppearance.MouseOverBackColor = Color.FromArgb(211, 225, 242);
+                b.TextAlign = ContentAlignment.MiddleLeft; b.Padding = new Padding(14, 0, 0, 0);
+                b.Font = new Font("Segoe UI", 10F); b.Cursor = Cursors.Hand;
+                b.BackColor = pnlMenu.BackColor; b.ForeColor = navy;
+            }
+            var exitButton = new Button { Text = "Thoát", Dock = DockStyle.Bottom, Height = 48,
+                BackColor = Color.FromArgb(196, 48, 61), ForeColor = Color.White, FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold), Cursor = Cursors.Hand };
+            exitButton.FlatAppearance.BorderSize = 0;
+            exitButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(166, 32, 44);
+            exitButton.Click += delegate
+            {
+                using (var dialog = new Form { Text = "Xác nhận thoát", ClientSize = new Size(370, 145),
+                    FormBorderStyle = FormBorderStyle.FixedDialog, StartPosition = FormStartPosition.CenterParent,
+                    MinimizeBox = false, MaximizeBox = false, ShowInTaskbar = false, Font = Font })
+                {
+                    var message = new Label { Text = "Bạn có muốn thoát ứng dụng không?", AutoSize = true, Location = new Point(24, 25) };
+                    var yes = new Button { Text = "Có", DialogResult = DialogResult.Yes, Location = new Point(155, 88), Size = new Size(90, 34) };
+                    var no = new Button { Text = "Không", DialogResult = DialogResult.No, Location = new Point(255, 88), Size = new Size(90, 34) };
+                    dialog.Controls.AddRange(new Control[] { message, yes, no });
+                    dialog.AcceptButton = no; dialog.CancelButton = no;
+                    if (dialog.ShowDialog(this) == DialogResult.Yes) Application.Exit();
+                }
+            };
+            pnlMenu.Controls.Add(exitButton);
+            foreach (Control c in tblThongTin.Controls)
+            {
+                var box = c as TextBox;
+                if (box != null) { box.BorderStyle = BorderStyle.None; box.BackColor = Color.FromArgb(244, 247, 251);
+                    box.ForeColor = navy; box.Font = new Font("Segoe UI", 11F); box.Margin = new Padding(8, 12, 8, 10); }
+                var label = c as Label;
+                if (label != null) { label.ForeColor = Color.FromArgb(90, 105, 125); label.Font = new Font("Segoe UI", 10F); }
+            }
+            foreach (RowStyle row in tblThongTin.RowStyles) row.Height = 44;
+            tblThongTin.RowStyles[tblThongTin.RowStyles.Count - 1].Height = 90;
+            ConfigureGrid(dgvLopHoc, new[] { "TenLop", "TenKhoaHoc", "TenCoSo", "NgayBatDau", "NgayKetThuc" },
+                new[] { "Lớp học", "Khóa học", "Cơ sở", "Ngày bắt đầu", "Ngày kết thúc" });
+            ConfigureGrid(dgvKetQua, new[] { "TenLop", "TenKhoaHoc", "DiemCuoiKhoa", "KetQua" },
+                new[] { "Lớp học", "Khóa học", "Điểm cuối khóa", "Kết quả" });
+            ConfigureGrid(dgvHocPhi, new[] { "TenLop", "TongPhaiTra", "DaThanhToan", "ConPhaiTra", "TrangThai" },
+                new[] { "Lớp học", "Học phí phải đóng", "Đã thanh toán", "Còn phải đóng", "Tình trạng" });
+            Navigate(tabThongTin, btnThongTin, "THÔNG TIN CÁ NHÂN");
         }
         private void SetupAccountMenu()
         {
-            accountButton = btnTaiKhoan;
+            var parent = lblNguoiDangNhap.Parent;
+            int index = parent.Controls.GetChildIndex(lblNguoiDangNhap);
+            accountButton = new Button
+            {
+                Text = lblNguoiDangNhap.Text + "  ▾",
+                Dock = lblNguoiDangNhap.Dock,
+                Size = lblNguoiDangNhap.Size,
+                ForeColor = Color.White,
+                BackColor = parent.BackColor,
+                FlatStyle = FlatStyle.Flat,
+                TextAlign = ContentAlignment.MiddleRight,
+                Padding = new Padding(8, 0, 16, 0),
+                Cursor = Cursors.Hand,
+                AccessibleName = "Menu tài khoản học viên",
+                AutoEllipsis = true,
+                UseVisualStyleBackColor = false
+            };
+            accountButton.FlatAppearance.BorderSize = 0;
+            accountButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 83, 130);
+            lblNguoiDangNhap.Visible = false;
+            parent.Controls.Add(accountButton);
+            parent.Controls.SetChildIndex(accountButton, index);
             var menu = new ContextMenuStrip { Font = new Font("Segoe UI", 10F) };
             var changePassword = new ToolStripMenuItem("Đổi mật khẩu");
             changePassword.Click += delegate
@@ -71,6 +144,48 @@ namespace BTL_LTTQ_QLHTTTNN
             FormClosed += delegate { menu.Dispose(); };
         }
 
+        private void SetupSchedule()
+        {
+            schedulePage = new TabPage("Lịch học");
+            tabHoSo.TabPages.Add(schedulePage);
+            var panel = new Panel { Dock = DockStyle.Fill, BackColor = Color.White, Padding = new Padding(18), Visible = false };
+            pages.Add(schedulePage, panel); pnlNoiDung.Controls.Add(panel); panel.BringToFront();
+            btnSchedule = new Button { Text = "Lịch học" }; pnlMenu.Controls.Add(btnSchedule);
+            btnSchedule.Click += delegate
+            {
+                Navigate(schedulePage, btnSchedule, "LỊCH HỌC");
+                RefreshSchedule();
+            };
+            scheduleFrom = new DateTimePicker { Format = DateTimePickerFormat.Custom, CustomFormat = "dd/MM/yyyy", Width = 125 };
+            scheduleTo = new DateTimePicker { Format = DateTimePickerFormat.Custom, CustomFormat = "dd/MM/yyyy", Width = 125 };
+            DateTime monday = DateTime.Today.AddDays(-((int)DateTime.Today.DayOfWeek + 6) % 7);
+            scheduleFrom.Value = monday; scheduleTo.Value = monday.AddDays(6);
+            var filter = new FlowLayoutPanel { Dock = DockStyle.Top, Height = 90, WrapContents = true, Padding = new Padding(0, 4, 0, 6) };
+            var view = new Button { Text = "Xem lịch", AutoSize = true };
+            var thisWeek = new Button { Text = "Tuần này", AutoSize = true };
+            var previous = new Button { Text = "Tuần trước", AutoSize = true };
+            var next = new Button { Text = "Tuần sau", AutoSize = true };
+            filter.Controls.AddRange(new Control[] {
+                new Label { Text = "Từ ngày", AutoSize = true, Margin = new Padding(0, 7, 6, 0) }, scheduleFrom,
+                new Label { Text = "Đến ngày", AutoSize = true, Margin = new Padding(8, 7, 6, 0) }, scheduleTo,
+                view, previous, thisWeek, next });
+            view.Click += delegate { RefreshSchedule(); };
+            thisWeek.Click += delegate {
+                DateTime start = DateTime.Today.AddDays(-((int)DateTime.Today.DayOfWeek + 6) % 7);
+                scheduleFrom.Value = start; scheduleTo.Value = start.AddDays(6); RefreshSchedule(); };
+            previous.Click += delegate { ShiftSchedule(-7); };
+            next.Click += delegate { ShiftSchedule(7); };
+            scheduleStatus = new Label { Dock = DockStyle.Bottom, Height = 52, ForeColor = Color.FromArgb(90, 105, 125), TextAlign = ContentAlignment.MiddleLeft };
+            scheduleGrid = new DataGridView { Dock = DockStyle.Fill, BackgroundColor = Color.White };
+            ConfigureGrid(scheduleGrid,
+                new[] { "NgayHoc", "GioBatDau", "GioKetThuc", "TenLop", "TenKhoaHoc", "TenPhong", "TenCoSo", "TrangThai", "GhiChu" },
+                new[] { "Ngày học", "Bắt đầu", "Kết thúc", "Lớp học", "Khóa học", "Phòng học", "Cơ sở", "Trạng thái", "Ghi chú" });
+            // Các cột có độ rộng tối thiểu; cuộn ngang khi cửa sổ nhỏ.
+            scheduleGrid.Columns["TenLop"].MinimumWidth = 140;
+            scheduleGrid.Columns["TenKhoaHoc"].MinimumWidth = 160;
+            scheduleGrid.Columns["GhiChu"].MinimumWidth = 180;
+            panel.Controls.Add(scheduleGrid); panel.Controls.Add(filter); panel.Controls.Add(scheduleStatus);
+        }
         private void ShiftSchedule(int days)
         {
             DateTime start = scheduleFrom.Value.Date.AddDays(days), end = scheduleTo.Value.Date.AddDays(days);
@@ -123,19 +238,16 @@ namespace BTL_LTTQ_QLHTTTNN
         }
         private void Navigate(TabPage page, Button button, string title)
         {
-            tabHoSo.SelectedTab = page;
+            foreach (var item in pages) item.Value.Visible = item.Key == page;
+            pages[page].BringToFront();
             lblTieuDeTrang.Text = title;
             SelectMenu(button);
         }
         private void SelectMenu(Button button)
         {
+            foreach (var b in new[] { btnThongTin, btnClasses, btnSchedule, btnKetQua, btnHocPhi, btnDangKyLop })
+            { b.BackColor = b == button ? navy : pnlMenu.BackColor; b.ForeColor = b == button ? Color.White : navy; }
             activeButton = button;
-            foreach (var item in new[] { btnThongTin, btnKetQua, btnHocPhi, btnDangKyLop, btnClasses, btnSchedule })
-            {
-                if (item == null) continue;
-                item.BackColor = item == button ? Color.FromArgb(37, 99, 235) : Color.FromArgb(30, 41, 59);
-                item.ForeColor = item == button ? Color.White : Color.FromArgb(203, 213, 225);
-            }
         }
 
         // TV1 passes the authenticated NguoiDungID after a successful login.
@@ -156,49 +268,15 @@ namespace BTL_LTTQ_QLHTTTNN
             dgvKetQua.AutoGenerateColumns = true;
             Load += delegate { HocVienData.Run(LoadProfile); };
             btnThongTin.Click += btnThongTin_Click;
-            btnLopHoc.Click += btnLopHoc_Click;
+            btnDangKyLop.Click += btnDangKyLop_Click;
             btnKetQua.Click += btnKetQua_Click;
             btnHocPhi.Click += btnHocPhi_Click;
-            btnDangKyLop.Click += btnDangKyLop_Click;
-            btnThuGonMenu.Click += delegate { pnlMenu.Visible = !pnlMenu.Visible; };
-            btnThoat.Click += delegate { ExitApplication(); };
-            BindScheduleControls();
-            ConfigureGrid(dgvLopHoc, new[] { "TenLop", "TenKhoaHoc", "TenCoSo", "NgayBatDau", "NgayKetThuc" },
-                new[] { "Lớp học", "Khóa học", "Cơ sở", "Ngày bắt đầu", "Ngày kết thúc" });
-            ConfigureGrid(dgvKetQua, new[] { "TenLop", "TenKhoaHoc", "DiemCuoiKhoa", "KetQua" },
-                new[] { "Lớp học", "Khóa học", "Điểm cuối khóa", "Kết quả" });
-            ConfigureGrid(dgvHocPhi, new[] { "TenLop", "TongPhaiTra", "DaThanhToan", "ConPhaiTra", "TrangThai" },
-                new[] { "Lớp học", "Học phí phải đóng", "Đã thanh toán", "Còn phải đóng", "Tình trạng" });
-            ConfigureGrid(scheduleGrid,
-                new[] { "NgayHoc", "GioBatDau", "GioKetThuc", "TenLop", "TenKhoaHoc", "TenPhong", "TenCoSo", "TrangThai", "GhiChu" },
-                new[] { "Ngày học", "Bắt đầu", "Kết thúc", "Lớp học", "Khóa học", "Phòng học", "Cơ sở", "Trạng thái", "Ghi chú" });
-            tabHoSo.SelectedIndexChanged += delegate
-            {
-                var page = tabHoSo.SelectedTab;
-                if (page == tabThongTin) Navigate(page, btnThongTin, "THÔNG TIN CÁ NHÂN");
-                else if (page == tabLopHoc) Navigate(page, btnClasses, "LỚP ĐÃ ĐĂNG KÝ");
-                else if (page == tabKetQua) Navigate(page, btnKetQua, "KẾT QUẢ HỌC TẬP");
-                else if (page == tabHocPhi) Navigate(page, btnHocPhi, "TÌNH TRẠNG HỌC PHÍ");
-                else if (page == tabLichHoc) Navigate(page, btnSchedule, "LỊCH HỌC");
-            };
+            SetupAppearance();
             SetupAccountMenu();
-            Navigate(tabThongTin, btnThongTin, "THÔNG TIN CÁ NHÂN");
+            foreach (var grid in new[] { dgvLopHoc, dgvKetQua, dgvHocPhi, scheduleGrid })
+                new GridPager(grid, delegate { BTL_LTTQ_QLHTTTNN.Services.PhanQuyenService.YeuCauQuyen("XemHoSoCaNhan"); });
         }
 
-        private static decimal SumColumn(DataTable table, string name)
-        {
-            decimal result = 0;
-            if (table != null && table.Columns.Contains(name)) foreach (DataRow row in table.Rows) if (!row.IsNull(name)) result += Convert.ToDecimal(row[name]);
-            return result;
-        }
-        private void UpdateFeeSummary(DataTable fees)
-        {
-            decimal total = SumColumn(fees, "TongPhaiTra"), paid = SumColumn(fees, "DaThanhToan"), due = SumColumn(fees, "ConPhaiTra");
-            lblTongPhaiTra.Text = "Tổng phải trả: " + total.ToString("#,##0", vi) + " đ";
-            lblDaThanhToan.Text = "Đã thanh toán: " + paid.ToString("#,##0", vi) + " đ";
-            lblConPhaiTra.Text = "Còn phải trả: " + due.ToString("#,##0", vi) + " đ";
-            lblConPhaiTra.ForeColor = due > 0 ? red : green;
-        }
         private void LoadProfile()
         {
             DataRow row = HocVienData.OwnProfile(nguoiDungID);
@@ -212,9 +290,7 @@ namespace BTL_LTTQ_QLHTTTNN
             lblNguoiDangNhap.Text = "Học viên: " + txtHoTen.Text;
             accountButton.Text = lblNguoiDangNhap.Text + "  ▾";
             var classes = HocVienData.Enrollments(id); dgvLopHoc.DataSource = classes; dgvKetQua.DataSource = classes.Copy();
-            var fees = HocVienData.Fees(id);
-            dgvHocPhi.DataSource = fees;
-            UpdateFeeSummary(fees);
+            dgvHocPhi.DataSource = HocVienData.Fees(id);
         }
 
         private void btnDangKyLop_Click(object sender, EventArgs e)

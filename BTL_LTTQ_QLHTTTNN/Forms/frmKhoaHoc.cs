@@ -15,6 +15,20 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             DatabaseConnection.Connect();
 
+            dgvKhoaHoc.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dgvKhoaHoc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            btnTaoKhoaHocMoi.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+
+            if (dgvKhoaHoc.Columns.Contains("colMaKhoa")) dgvKhoaHoc.Columns["colMaKhoa"].FillWeight = 50;
+            if (dgvKhoaHoc.Columns.Contains("colTenChuongTrinh")) dgvKhoaHoc.Columns["colTenChuongTrinh"].FillWeight = 160;
+            if (dgvKhoaHoc.Columns.Contains("colChuanDauRa")) dgvKhoaHoc.Columns["colChuanDauRa"].FillWeight = 80;
+            if (dgvKhoaHoc.Columns.Contains("colThoiLuong")) dgvKhoaHoc.Columns["colThoiLuong"].FillWeight = 60;
+            if (dgvKhoaHoc.Columns.Contains("colHocPhi")) dgvKhoaHoc.Columns["colHocPhi"].FillWeight = 90;
+            if (dgvKhoaHoc.Columns.Contains("colLoTrinh")) dgvKhoaHoc.Columns["colLoTrinh"].FillWeight = 160;
+            if (dgvKhoaHoc.Columns.Contains("colTrangThai")) dgvKhoaHoc.Columns["colTrangThai"].FillWeight = 80;
+            if (dgvKhoaHoc.Columns.Contains("colThaoTac")) dgvKhoaHoc.Columns["colThaoTac"].FillWeight = 60;
+            if (dgvKhoaHoc.Columns.Contains("colXoa")) dgvKhoaHoc.Columns["colXoa"].FillWeight = 50;
+
             // Tải dữ liệu
             LoadThongKe();
             LoadComboBoxFilter();
@@ -54,6 +68,7 @@ namespace BTL_LTTQ_QLHTTTNN
 
             DataTable dt = DatabaseConnection.GetDataToTable(sql);
 
+            dgvKhoaHoc.AutoGenerateColumns = false;
             colMaKhoa.DataPropertyName = "MaKhoaHoc";
             colTenChuongTrinh.DataPropertyName = "TenKhoaHoc";
             colChuanDauRa.DataPropertyName = "ChuanDauRa";

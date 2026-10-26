@@ -45,6 +45,8 @@ Các commit tích hợp lần lượt là `sang` (`4fb4b6c`), `hai` (`9cdc42a`),
 - Kiểm tra UI Admin: trang học viên tìm kiếm đúng `Bulk QA 2026`; tạo hồ sơ QA rồi sửa tên thành công; dữ liệu giả đã được dọn khỏi LocalDB bằng truy vấn giới hạn chính xác một hàng. Tạo 12 hồ sơ tạm khác để kiểm tra phân trang: trang 1/2 có 10 dòng, nút “Sau” đưa tới trang 2/2 còn 5 dòng; toàn bộ 12 hàng được dọn bằng giao dịch có điều kiện và xác nhận còn 0.
 - Kiểm tra thêm màn hình Admin: tổng quan; báo cáo chi tiết; danh sách hóa đơn/lịch sử thanh toán/đăng ký; khóa học/lớp, lịch học, hồ sơ giáo viên, điểm danh, nhập điểm, học phí và lập phiếu thu đều mở được. Xuất Excel báo cáo chi tiết thành công; các sheet tổng hợp, hóa đơn, thanh toán và đăng ký khớp số liệu LocalDB (phải thu 8.500.000đ, đã thu 3.000.000đ, còn 5.500.000đ). Với phiếu thu chưa chọn học viên, UI từng báo sai “đã thanh toán đủ”; đã sửa thứ tự kiểm tra để yêu cầu chọn học viên/lớp trước và xác nhận UI hiện đúng thông báo yêu cầu chọn học viên.
 - Các build Debug/Release sau sửa kiểm tra đầu vào phiếu thu: 0 lỗi; bản QA runner cũng build thành công sau khi đóng tiến trình đang giữ file.
+- Kiểm thử service cấp tài khoản theo batch với ba dòng: DTO rỗng (thất bại), học viên test hợp lệ (thành công), rồi cùng hồ sơ đó lần nữa (bỏ qua do đã liên kết). Kết quả `thành công: 1; bỏ qua: 1; thất bại: 1`; callback tiến độ chạy đủ 3/3, batch không dừng tại dòng lỗi. Hồ sơ và tài khoản tạm được dọn bằng giao dịch có kiểm tra đúng ID/tên.
+- Kiểm thử service thu quá số dư trên hóa đơn QA: yêu cầu 4.000.000đ trong khi còn nợ 3.500.000đ bị từ chối; truy vấn sau đó vẫn có đúng 1 giao dịch thanh toán, tổng đã thu 1.000.000đ.
 
 ## Việc chưa đạt và trạng thái main
 

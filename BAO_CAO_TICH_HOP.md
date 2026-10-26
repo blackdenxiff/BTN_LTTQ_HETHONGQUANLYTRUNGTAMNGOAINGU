@@ -48,6 +48,7 @@ Các commit tích hợp lần lượt là `sang` (`4fb4b6c`), `hai` (`9cdc42a`),
 - Kiểm thử service cấp tài khoản theo batch với ba dòng: DTO rỗng (thất bại), học viên test hợp lệ (thành công), rồi cùng hồ sơ đó lần nữa (bỏ qua do đã liên kết). Kết quả `thành công: 1; bỏ qua: 1; thất bại: 1`; callback tiến độ chạy đủ 3/3, batch không dừng tại dòng lỗi. Hồ sơ và tài khoản tạm được dọn bằng giao dịch có kiểm tra đúng ID/tên.
 - Kiểm thử service thu quá số dư trên hóa đơn QA: yêu cầu 4.000.000đ trong khi còn nợ 3.500.000đ bị từ chối; truy vấn sau đó vẫn có đúng 1 giao dịch thanh toán, tổng đã thu 1.000.000đ.
 - Kiểm tra UI với email `bad-email`: form hiển thị “Email không hợp lệ.” và không lưu hồ sơ.
+- Kiểm tra chỉ đọc trên LocalDB thử nghiệm sau các ca QA: `DBCC CHECKCONSTRAINTS WITH ALL_CONSTRAINTS` không trả hàng vi phạm; DB có 3 học viên hoạt động, 2 hóa đơn, 2 thanh toán tại thời điểm kiểm tra. Lần chạy đầu dùng tên bảng không tồn tại `PhieuThu` và thất bại; truy vấn đã sửa theo schema (`ThanhToan`) rồi chạy thành công.
 - Bổ sung xóa mềm học viên qua menu ngữ cảnh của lưới, không đổi bố cục chính; chỉ xóa hồ sơ chưa có tài khoản, đăng ký hoặc hóa đơn, trong transaction Serializable. UI Admin đã mở được menu “Xóa hồ sơ học viên”; service test xác nhận học viên thường bị chặn, hồ sơ có tài khoản được bảo vệ, hồ sơ QA trống chuyển `IsDeleted=1`. Hàng QA được dọn sau khi xác nhận trạng thái.
 
 ## Việc chưa đạt và trạng thái main

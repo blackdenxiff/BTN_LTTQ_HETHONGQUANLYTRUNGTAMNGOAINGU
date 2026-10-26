@@ -11,68 +11,13 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
 {
     public partial class frmThongBao : Form
     {
+        // CẤU HÌNH GMAIL NGUỜI GỬI
+        private const string GMAIL_ADMIN = "sang48192@gmail.com";
+        private const string GMAIL_APP_PASSWORD = "jysg zgaf uxhx hsvn";
+
         public frmThongBao()
         {
             InitializeComponent();
-            var configure = new Button
-            {
-                Text = "⚙ Cấu hình email",
-                Location = new Point(24, 520),
-                Size = new Size(170, 42),
-                BackColor = Color.FromArgb(51, 65, 85),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
-                Cursor = Cursors.Hand
-            };
-            configure.FlatAppearance.BorderSize = 0;
-            configure.Click += delegate { CauHinhEmail(); };
-            pnlCardMain.Controls.Add(configure);
-            configure.BringToFront();
-        }
-
-        private bool CauHinhEmail()
-        {
-            var current = EmailSettingsService.Load();
-            using (var dialog = new Form
-            {
-                Text = "Cấu hình email gửi",
-                ClientSize = new Size(440, 230),
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                StartPosition = FormStartPosition.CenterParent,
-                MinimizeBox = false,
-                MaximizeBox = false,
-                ShowInTaskbar = false,
-                Font = new Font("Segoe UI", 9.5F)
-            })
-            {
-                var labelEmail = new Label { Text = "Email gửi", AutoSize = true, Location = new Point(22, 20) };
-                var email = new TextBox { Location = new Point(22, 44), Size = new Size(396, 27), Text = current == null ? "" : current.Email };
-                var labelPassword = new Label { Text = "Mật khẩu ứng dụng Gmail", AutoSize = true, Location = new Point(22, 82) };
-                var password = new TextBox { Location = new Point(22, 106), Size = new Size(396, 27), UseSystemPasswordChar = true };
-                var help = new Label { Text = "Mật khẩu được mã hóa cho tài khoản Windows hiện tại.", AutoSize = true, ForeColor = Color.FromArgb(100, 116, 139), Location = new Point(22, 140) };
-                var save = new Button { Text = "Lưu cấu hình", Location = new Point(286, 178), Size = new Size(132, 34), DialogResult = DialogResult.OK };
-                var cancel = new Button { Text = "Hủy", Location = new Point(198, 178), Size = new Size(78, 34), DialogResult = DialogResult.Cancel };
-                dialog.Controls.AddRange(new Control[] { labelEmail, email, labelPassword, password, help, cancel, save });
-                dialog.AcceptButton = save;
-                dialog.CancelButton = cancel;
-                save.Click += delegate
-                {
-                    try
-                    {
-                        EmailSettingsService.Save(email.Text, password.Text);
-                        password.Clear();
-                    }
-                    catch (Exception ex)
-                    {
-                        dialog.DialogResult = DialogResult.None;
-                        MessageBox.Show(dialog, ex.Message, "Cấu hình email", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                };
-                bool saved = dialog.ShowDialog(this) == DialogResult.OK;
-                password.Clear();
-                return saved;
-            }
         }
 
         private void frmThongBao_Load(object sender, EventArgs e)
@@ -84,7 +29,7 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
             cboLoaiThongBao.Items.AddRange(new object[] {
                 "Lịch học",
                 "Lịch nghỉ",
-                "Nhắc nhở (Học phí / Lịch thi)",
+                "Nhắc nhở (Học phí / Lịch thi / Lịch dạy)",
                 "Thông báo chung"
             });
             cboLoaiThongBao.SelectedIndex = 0;
@@ -92,25 +37,28 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
             // 2. Nạp danh sách Phạm vi / Đối tượng gửi
             cboPhamVi.Items.Clear();
             cboPhamVi.Items.AddRange(new object[] {
-                "Cá nhân (Nhập Email / Chọn HV)",
-                "Theo Lớp học",
-                "Toàn trung tâm"
+                "Cá nhân - Học viên",
+                "Cá nhân - Giáo viên",
+                "Theo Lớp học (Gửi Học viên)",
+                "Theo Lớp học (Gửi Giáo viên dạy)",
+                "Toàn bộ Học viên",
+                "Toàn bộ Giáo viên",
+                "Toàn trung tâm (Cả HV & GV)"
             });
-            cboPhamVi.SelectedIndex = 0;
 
             // Gán sự kiện chọn Lớp học
             cboLopHoc.SelectedIndexChanged -= cboLopHoc_SelectedIndexChanged;
             cboLopHoc.SelectedIndexChanged += cboLopHoc_SelectedIndexChanged;
 
-            // 3. Nạp dữ liệu vào các ComboBox
+            // 3. Nạp dữ liệu ban đầu
             LoadDropdownLopHoc();
-            LoadDropdownHocVien();
+            cboPhamVi.SelectedIndex = 0;
             CapNhatGiaoDienPhamVi();
         }
 
         private void LoadDropdownLopHoc()
         {
-            DataTable dtLop = DatabaseConnection.GetDataToTable("SELECT LopHocID, TenLop FROM LopHoc WHERE IsDeleted = 0");
+            DataTable dtLop = DatabaseConnection.GetDataToTable("SELECT LopHocID, TenLop FROM LopHoc");
             DataRow dr = dtLop.NewRow();
             dr["LopHocID"] = 0;
             dr["TenLop"] = "-- Chọn lớp học --";
@@ -121,6 +69,7 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
             cboLopHoc.ValueMember = "LopHocID";
         }
 
+        // Nạp danh sách Học viên từ bảng HocVien
         private void LoadDropdownHocVien(int lopHocID = 0)
         {
             string sqlHV = "SELECT HocVienID, HoTen + ' - ' + ISNULL(Email, N'Chưa có Email') AS TenHienThi, Email " +
@@ -128,7 +77,6 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
 
             if (lopHocID > 0)
             {
-                // Sửa JOIN sang bảng DangKy
                 sqlHV = $"SELECT hv.HocVienID, hv.HoTen + ' - ' + ISNULL(hv.Email, N'Chưa có Email') AS TenHienThi, hv.Email " +
                         $"FROM HocVien hv " +
                         $"JOIN DangKy ct ON hv.HocVienID = ct.HocVienID " +
@@ -136,7 +84,6 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
             }
 
             DataTable dtHV = DatabaseConnection.GetDataToTable(sqlHV);
-
             string idColumn = dtHV.Columns.Contains("HocVienID") ? "HocVienID" :
                              (dtHV.Columns.Contains("MaHocVien") ? "MaHocVien" : dtHV.Columns[0].ColumnName);
 
@@ -150,6 +97,33 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
             cboHocVien.ValueMember = idColumn;
         }
 
+        // Nạp danh sách Giáo viên từ bảng NhanSu (LoaiNhanSu là 'Giáo viên' hoặc 'Cả hai')
+        private void LoadDropdownGiaoVien(int lopHocID = 0)
+        {
+            string sqlGV = "SELECT NhanSuID AS GiaoVienID, HoTen + ' - ' + ISNULL(Email, N'Chưa có Email') AS TenHienThi, Email " +
+                           "FROM NhanSu WHERE LoaiNhanSu IN (N'Giáo viên', N'Cả hai')";
+
+            if (lopHocID > 0)
+            {
+                sqlGV = $"SELECT ns.NhanSuID AS GiaoVienID, ns.HoTen + ' - ' + ISNULL(ns.Email, N'Chưa có Email') AS TenHienThi, ns.Email " +
+                        $"FROM NhanSu ns " +
+                        $"JOIN LopHoc lh ON ns.NhanSuID = lh.GiaoVienPhuTrachID " +
+                        $"WHERE ns.LoaiNhanSu IN (N'Giáo viên', N'Cả hai') AND lh.LopHocID = {lopHocID}";
+            }
+
+            DataTable dtGV = DatabaseConnection.GetDataToTable(sqlGV);
+            if (dtGV == null || dtGV.Columns.Count == 0) return;
+
+            DataRow dr = dtGV.NewRow();
+            dr["GiaoVienID"] = 0;
+            dr["TenHienThi"] = "-- Chọn giáo viên --";
+            dtGV.Rows.InsertAt(dr, 0);
+
+            cboHocVien.DataSource = dtGV;
+            cboHocVien.DisplayMember = "TenHienThi";
+            cboHocVien.ValueMember = "GiaoVienID";
+        }
+
         private void cboPhamVi_SelectedIndexChanged(object sender, EventArgs e)
         {
             CapNhatGiaoDienPhamVi();
@@ -158,22 +132,35 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
         private void CapNhatGiaoDienPhamVi()
         {
             int index = cboPhamVi.SelectedIndex;
+            int lopID = (cboLopHoc.SelectedValue != null && int.TryParse(cboLopHoc.SelectedValue.ToString(), out int val)) ? val : 0;
 
-            if (index == 0) // Cá nhân
+            if (index == 0) // Cá nhân - Học viên
             {
+                lblHocVien.Text = "Học viên";
                 cboLopHoc.Enabled = true;
                 cboHocVien.Enabled = true;
                 txtEmailHocVien.Enabled = true;
+                LoadDropdownHocVien(lopID);
             }
-            else if (index == 1) // Theo Lớp học
+            else if (index == 1) // Cá nhân - Giáo viên
             {
+                lblHocVien.Text = "Giáo viên";
+                cboLopHoc.Enabled = true;
+                cboHocVien.Enabled = true;
+                txtEmailHocVien.Enabled = true;
+                LoadDropdownGiaoVien(lopID);
+            }
+            else if (index == 2 || index == 3) // Theo Lớp học
+            {
+                lblHocVien.Text = index == 2 ? "Học viên" : "Giáo viên";
                 cboLopHoc.Enabled = true;
                 cboHocVien.Enabled = false;
                 txtEmailHocVien.Enabled = false;
                 txtEmailHocVien.Clear();
             }
-            else if (index == 2) // Toàn trung tâm
+            else // Toàn bộ
             {
+                lblHocVien.Text = "Học viên / Giáo viên";
                 cboLopHoc.Enabled = false;
                 cboHocVien.Enabled = false;
                 txtEmailHocVien.Enabled = false;
@@ -183,11 +170,15 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
 
         private void cboLopHoc_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cboPhamVi.SelectedIndex == 0 && cboLopHoc.SelectedValue != null)
+            if (cboLopHoc.SelectedValue != null && int.TryParse(cboLopHoc.SelectedValue.ToString(), out int lopID))
             {
-                if (int.TryParse(cboLopHoc.SelectedValue.ToString(), out int lopID))
+                if (cboPhamVi.SelectedIndex == 0)
                 {
                     LoadDropdownHocVien(lopID);
+                }
+                else if (cboPhamVi.SelectedIndex == 1)
+                {
+                    LoadDropdownGiaoVien(lopID);
                 }
             }
         }
@@ -197,7 +188,7 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
             if (cboHocVien.SelectedItem != null && cboHocVien.SelectedValue != null)
             {
                 DataRowView row = cboHocVien.SelectedItem as DataRowView;
-                if (row != null && row["Email"] != DBNull.Value)
+                if (row != null && row.Row.Table.Columns.Contains("Email") && row["Email"] != DBNull.Value)
                 {
                     txtEmailHocVien.Text = row["Email"].ToString();
                 }
@@ -211,18 +202,18 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
             switch (loai)
             {
                 case "Lịch học":
-                    txtTieuDe.Text = "[ENGLISH CENTER] Thông báo Lịch học mới";
-                    txtNoiDung.Text = "Kính gửi quý học viên,\n\nTrung tâm xin thông báo thời khóa biểu chi tiết các buổi học đã được cập nhật trên hệ thống. Quý học viên vui lòng kiểm tra lịch học để tham gia đúng giờ.\n\nTrân trọng!";
+                    txtTieuDe.Text = "[ENGLISH CENTER] Thông báo Lịch học / Lịch giảng dạy mới";
+                    txtNoiDung.Text = "Kính gửi quý thầy/cô và học viên,\n\nTrung tâm xin thông báo thời khóa biểu chi tiết các buổi học đã được cập nhật trên hệ thống. Vui lòng kiểm tra lịch để tham gia đúng giờ.\n\nTrân trọng!";
                     break;
 
                 case "Lịch nghỉ":
-                    txtTieuDe.Text = "[ENGLISH CENTER] Thông báo Lịch nghỉ học tạm thời";
-                    txtNoiDung.Text = "Kính gửi quý học viên,\n\nTrung tâm xin thông báo lớp học sẽ tạm thời nghỉ vào ngày [Điền ngày]. Lịch học bù sẽ được trung tâm thông báo sau.\n\nTrân trọng!";
+                    txtTieuDe.Text = "[ENGLISH CENTER] Thông báo Lịch nghỉ tạm thời";
+                    txtNoiDung.Text = "Kính gửi quý thầy/cô và học viên,\n\nTrung tâm xin thông báo lớp học sẽ tạm thời nghỉ vào ngày [Điền ngày]. Lịch học/dạy bù sẽ được trung tâm thông báo sau.\n\nTrân trọng!";
                     break;
 
-                case "Nhắc nhở (Học phí / Lịch thi)":
-                    txtTieuDe.Text = "[ENGLISH CENTER] Nhắc nhở Lịch thi / Hoàn tất học phí";
-                    txtNoiDung.Text = "Kính gửi quý học viên,\n\nTrung tâm xin nhắc bạn về [Lịch thi kiểm tra / Hạn đóng học phí] sắp tới vào ngày [Điền ngày]. Rất mong bạn chuẩn bị đầy đủ.\n\nTrân trọng!";
+                case "Nhắc nhở (Học phí / Lịch thi / Lịch dạy)":
+                    txtTieuDe.Text = "[ENGLISH CENTER] Nhắc nhở Lịch thi / Lịch dạy / Học phí";
+                    txtNoiDung.Text = "Kính gửi quý thầy/cô và học viên,\n\nTrung tâm xin nhắc bạn về [Lịch thi / Lịch dạy / Hạn đóng học phí] sắp tới vào ngày [Điền ngày]. Rất mong bạn chuẩn bị đầy đủ.\n\nTrân trọng!";
                     break;
 
                 default:
@@ -234,13 +225,6 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
 
         private void btnGuiThongBao_Click(object sender, EventArgs e)
         {
-            var emailSettings = EmailSettingsService.Load();
-            if (emailSettings == null)
-            {
-                if (!CauHinhEmail()) return;
-                emailSettings = EmailSettingsService.Load();
-                if (emailSettings == null) return;
-            }
             string tieuDe = txtTieuDe.Text.Trim();
             string noiDung = txtNoiDung.Text.Trim();
 
@@ -253,45 +237,66 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
             List<string> danhSachEmail = new List<string>();
             int phamViIndex = cboPhamVi.SelectedIndex;
 
-            if (phamViIndex == 0) // Cá nhân
+            if (phamViIndex == 0 || phamViIndex == 1) // Cá nhân
             {
                 string email = txtEmailHocVien.Text.Trim();
                 if (string.IsNullOrWhiteSpace(email))
                 {
-                    MessageBox.Show("Vui lòng chọn hoặc nhập Email của học viên!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng chọn hoặc nhập Email người nhận!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtEmailHocVien.Focus();
                     return;
                 }
                 danhSachEmail.Add(email);
             }
-            else if (phamViIndex == 1) // Theo Lớp học
+            else if (phamViIndex == 2) // Theo Lớp học (Học viên)
             {
                 if (cboLopHoc.SelectedValue == null || Convert.ToInt32(cboLopHoc.SelectedValue) == 0)
                 {
-                    MessageBox.Show("Vui lòng chọn Lớp học gửi thông báo!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng chọn Lớp học!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 int lopID = Convert.ToInt32(cboLopHoc.SelectedValue);
-
-                // Sửa JOIN sang bảng DangKy
                 string sql = $"SELECT hv.Email FROM HocVien hv " +
                              $"JOIN DangKy ct ON hv.HocVienID = ct.HocVienID " +
                              $"WHERE ct.LopHocID = {lopID} AND hv.IsDeleted = 0 AND hv.Email IS NOT NULL AND hv.Email <> ''";
 
                 DataTable dt = DatabaseConnection.GetDataToTable(sql);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    danhSachEmail.Add(dr["Email"].ToString());
-                }
+                foreach (DataRow dr in dt.Rows) danhSachEmail.Add(dr["Email"].ToString());
             }
-            else if (phamViIndex == 2) // Toàn trung tâm
+            else if (phamViIndex == 3) // Theo Lớp học (Giáo viên phụ trách)
+            {
+                if (cboLopHoc.SelectedValue == null || Convert.ToInt32(cboLopHoc.SelectedValue) == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn Lớp học!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                int lopID = Convert.ToInt32(cboLopHoc.SelectedValue);
+                string sql = $"SELECT ns.Email FROM NhanSu ns " +
+                             $"JOIN LopHoc lh ON ns.NhanSuID = lh.GiaoVienPhuTrachID " +
+                             $"WHERE lh.LopHocID = {lopID} AND ns.LoaiNhanSu IN (N'Giáo viên', N'Cả hai') AND ns.Email IS NOT NULL AND ns.Email <> ''";
+
+                DataTable dt = DatabaseConnection.GetDataToTable(sql);
+                foreach (DataRow dr in dt.Rows) danhSachEmail.Add(dr["Email"].ToString());
+            }
+            else if (phamViIndex == 4) // Toàn bộ Học viên
             {
                 string sql = "SELECT Email FROM HocVien WHERE IsDeleted = 0 AND Email IS NOT NULL AND Email <> ''";
                 DataTable dt = DatabaseConnection.GetDataToTable(sql);
-                foreach (DataRow dr in dt.Rows)
-                {
-                    danhSachEmail.Add(dr["Email"].ToString());
-                }
+                foreach (DataRow dr in dt.Rows) danhSachEmail.Add(dr["Email"].ToString());
+            }
+            else if (phamViIndex == 5) // Toàn bộ Giáo viên
+            {
+                string sql = "SELECT Email FROM NhanSu WHERE LoaiNhanSu IN (N'Giáo viên', N'Cả hai') AND Email IS NOT NULL AND Email <> ''";
+                DataTable dt = DatabaseConnection.GetDataToTable(sql);
+                foreach (DataRow dr in dt.Rows) danhSachEmail.Add(dr["Email"].ToString());
+            }
+            else if (phamViIndex == 6) // Toàn trung tâm (Học viên & Giáo viên)
+            {
+                string sql = "SELECT Email FROM HocVien WHERE IsDeleted = 0 AND Email IS NOT NULL AND Email <> '' " +
+                             "UNION " +
+                             "SELECT Email FROM NhanSu WHERE LoaiNhanSu IN (N'Giáo viên', N'Cả hai') AND Email IS NOT NULL AND Email <> ''";
+                DataTable dt = DatabaseConnection.GetDataToTable(sql);
+                foreach (DataRow dr in dt.Rows) danhSachEmail.Add(dr["Email"].ToString());
             }
 
             if (danhSachEmail.Count == 0)
@@ -308,7 +313,7 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
 
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
                 {
-                    Credentials = new NetworkCredential(emailSettings.Email, emailSettings.AppPassword),
+                    Credentials = new NetworkCredential(GMAIL_ADMIN, GMAIL_APP_PASSWORD),
                     EnableSsl = true
                 };
 
@@ -317,7 +322,7 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
                     try
                     {
                         MailMessage mail = new MailMessage();
-                        mail.From = new MailAddress(emailSettings.Email, "English Center");
+                        mail.From = new MailAddress(GMAIL_ADMIN, "English Center");
                         mail.To.Add(emailTarget);
                         mail.Subject = tieuDe;
                         mail.Body = noiDung;
@@ -326,9 +331,9 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
                         smtp.Send(mail);
                         countSuccess++;
                     }
-                    catch
+                    catch (Exception exMail)
                     {
-                        // Bỏ qua email lỗi/không tồn tại
+                        MessageBox.Show($"Lỗi gửi tới email {emailTarget}: {exMail.Message}", "Lỗi gửi mail", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
 
@@ -341,7 +346,7 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
             catch (Exception ex)
             {
                 Cursor = Cursors.Default;
-                MessageBox.Show($"Lỗi kết nối Gmail: {ex.Message}\n\nKiểm tra email gửi và mật khẩu ứng dụng trong Cấu hình email.", "Lỗi gửi mail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi kết nối Gmail: {ex.Message}\n\nLưu ý: Kiểm tra lại Mật khẩu ứng dụng của Gmail {GMAIL_ADMIN}.", "Lỗi gửi mail", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -353,7 +358,7 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
             cboLoaiThongBao.SelectedIndex = 0;
             cboPhamVi.SelectedIndex = 0;
             cboLopHoc.SelectedIndex = 0;
-            LoadDropdownHocVien();
+            CapNhatGiaoDienPhamVi();
         }
     }
 }

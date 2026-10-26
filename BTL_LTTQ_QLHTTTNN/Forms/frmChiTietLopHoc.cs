@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Drawing;
 using System.Windows.Forms;
 using BTL_LTTQ_QLHTTTNN.Services;
 
@@ -21,6 +22,7 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             DatabaseConnection.Connect();
 
+            // 1. Nạp danh sách Khóa học
             DataTable dtKhoa = DatabaseConnection.GetDataToTable("SELECT KhoaHocID, TenKhoaHoc FROM KhoaHoc WHERE IsDeleted = 0");
             DataRow drKhoa = dtKhoa.NewRow();
             drKhoa["KhoaHocID"] = 0;
@@ -30,6 +32,7 @@ namespace BTL_LTTQ_QLHTTTNN
             cboKhoaHoc.DisplayMember = "TenKhoaHoc";
             cboKhoaHoc.ValueMember = "KhoaHocID";
 
+            // 2. Nạp danh sách Cơ sở
             DataTable dtCoSo = DatabaseConnection.GetDataToTable("SELECT CoSoID, TenCoSo FROM CoSo");
             DataRow drCoSo = dtCoSo.NewRow();
             drCoSo["CoSoID"] = 0;
@@ -39,29 +42,31 @@ namespace BTL_LTTQ_QLHTTTNN
             cboCoSo.DisplayMember = "TenCoSo";
             cboCoSo.ValueMember = "CoSoID";
 
+            // 3. Nạp danh sách Giáo viên
             string sqlGV = "SELECT NhanSuID AS GiaoVienID, HoTen AS TenGiaoVien FROM NhanSu " +
                            "WHERE LoaiNhanSu = N'Giáo viên' OR LoaiNhanSu = N'Cả hai'";
             DataTable dtGiaoVien = DatabaseConnection.GetDataToTable(sqlGV);
-
             DataRow drGV = dtGiaoVien.NewRow();
             drGV["GiaoVienID"] = 0;
             drGV["TenGiaoVien"] = "-- Chọn giáo viên --";
             dtGiaoVien.Rows.InsertAt(drGV, 0);
-
             cboGiaoVien.DataSource = dtGiaoVien;
             cboGiaoVien.DisplayMember = "TenGiaoVien";
             cboGiaoVien.ValueMember = "GiaoVienID";
 
+            // 4. Nạp Trạng thái
             cboTrangThai.Items.Clear();
             cboTrangThai.Items.AddRange(new object[] { "Sắp mở", "Đang mở", "Đã kết thúc" });
             cboTrangThai.SelectedIndex = 0;
 
+            // 5. Kiểm tra chế độ Xem / Thêm / Sửa
             if (_lopHocID > 0)
             {
                 this.Text = "Chỉnh Sửa Thông Tin Lớp Học";
                 lblTieuDe.Text = "Chỉnh sửa thông tin lớp học";
                 btnLuu.Text = "💾 Cập nhật";
                 LoadDataToEdit();
+                LoadDanhSachHocVien();
             }
             else
             {
@@ -72,7 +77,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 dtpNgayKetThuc.Value = DateTime.Now.AddMonths(2);
             }
 
-            // PHÂN QUYỀN CHỈ XEM CHO GIÁO VIÊN VÀ HỌC VIÊN
+            // 6. PHÂN QUYỀN CHỈ XEM CHO GIÁO VIÊN VÀ HỌC VIÊN
             var user = SessionContext.NguoiDungHienTai;
             bool isQuanLy = (user != null && (user.VaiTro == "Admin" || user.VaiTro == "Nhân viên"));
 
@@ -115,6 +120,73 @@ namespace BTL_LTTQ_QLHTTTNN
 
                 if (r["TrangThai"] != DBNull.Value)
                     cboTrangThai.SelectedItem = r["TrangThai"].ToString();
+            }
+        }
+
+        // TẢI DANH SÁCH HỌC VIÊN VÀ Che THÔNG TIN CÁ NHÂN VỚI GV / HV
+        private void LoadDanhSachHocVien()
+        {
+            if (_lopHocID <= 0) return;
+
+            try
+            {
+                string sql = $@"SELECT hv.HocVienID, 
+                                       'HV-' + RIGHT('000' + CAST(hv.HocVienID AS VARCHAR), 4) AS MaHocVien,
+                                       hv.HoTen, 
+                                       hv.GioiTinh, 
+                                       CONVERT(VARCHAR(10), hv.NgaySinh, 103) AS NgaySinh, 
+                                       hv.SoDienThoai, 
+                                       hv.Email 
+                                FROM HocVien hv
+                                JOIN DangKy dk ON hv.HocVienID = dk.HocVienID
+                                WHERE dk.LopHocID = {_lopHocID} AND (hv.IsDeleted = 0 OR hv.IsDeleted IS NULL)";
+
+                DataTable dt = DatabaseConnection.GetDataToTable(sql);
+
+                if (dt == null || dt.Rows.Count == 0)
+                {
+                    sql = $@"SELECT hv.HocVienID, 
+                                   'HV-' + RIGHT('000' + CAST(hv.HocVienID AS VARCHAR), 4) AS MaHocVien,
+                                   hv.HoTen, 
+                                   hv.GioiTinh, 
+                                   CONVERT(VARCHAR(10), hv.NgaySinh, 103) AS NgaySinh, 
+                                   hv.SoDienThoai, 
+                                   hv.Email 
+                            FROM HocVien hv
+                            JOIN ChiTietLopHoc ct ON hv.HocVienID = ct.HocVienID
+                            WHERE ct.LopHocID = {_lopHocID} AND (hv.IsDeleted = 0 OR hv.IsDeleted IS NULL)";
+
+                    dt = DatabaseConnection.GetDataToTable(sql);
+                }
+
+                if (dgvHocVien != null)
+                {
+                    dgvHocVien.DataSource = dt;
+
+                    // Đổi tên cột hiển thị
+                    if (dgvHocVien.Columns.Contains("HocVienID")) dgvHocVien.Columns["HocVienID"].Visible = false;
+                    if (dgvHocVien.Columns.Contains("MaHocVien")) dgvHocVien.Columns["MaHocVien"].HeaderText = "Mã HV";
+                    if (dgvHocVien.Columns.Contains("HoTen")) dgvHocVien.Columns["HoTen"].HeaderText = "Họ và Tên";
+                    if (dgvHocVien.Columns.Contains("GioiTinh")) dgvHocVien.Columns["GioiTinh"].HeaderText = "Giới Tính";
+                    if (dgvHocVien.Columns.Contains("NgaySinh")) dgvHocVien.Columns["NgaySinh"].HeaderText = "Ngày Sinh";
+                    if (dgvHocVien.Columns.Contains("SoDienThoai")) dgvHocVien.Columns["SoDienThoai"].HeaderText = "Số Điện Thoại";
+                    if (dgvHocVien.Columns.Contains("Email")) dgvHocVien.Columns["Email"].HeaderText = "Email";
+
+                    // NẾU LÀ GIÁO VIÊN HOẶC HỌC VIÊN -> CHE (ẨN) CÁC CỘT TỪ NGÀY SINH SANG PHẢI
+                    var user = SessionContext.NguoiDungHienTai;
+                    bool isQuanLy = (user != null && (user.VaiTro == "Admin" || user.VaiTro == "Nhân viên"));
+
+                    if (!isQuanLy)
+                    {
+                        if (dgvHocVien.Columns.Contains("NgaySinh")) dgvHocVien.Columns["NgaySinh"].Visible = false;
+                        if (dgvHocVien.Columns.Contains("SoDienThoai")) dgvHocVien.Columns["SoDienThoai"].Visible = false;
+                        if (dgvHocVien.Columns.Contains("Email")) dgvHocVien.Columns["Email"].Visible = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi lấy danh sách học viên trong lớp: " + ex.Message, "Lỗi SQL", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

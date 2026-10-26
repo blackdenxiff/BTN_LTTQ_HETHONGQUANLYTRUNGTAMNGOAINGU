@@ -67,22 +67,26 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void LoadDataLopHoc(string keyword = "", string khoaHoc = "", string trangThai = "")
         {
-            string sql = "SELECT l.LopHocID, " +
-                         "'LH-' + RIGHT('00' + CAST(l.LopHocID AS VARCHAR), 3) AS MaLop, " +
-                         "l.TenLop, " +
-                         "ISNULL(k.TenKhoaHoc, N'TOEIC 500 Mục Tiêu') AS TenKhoaHoc, " +
-                         "ISNULL(cs.TenCoSo, N'Cơ sở Cầu Giấy') AS TenCoSo, " +
-                         "ISNULL(ns.HoTen, N'Chưa phân công') AS TenGiaoVien, " +
-                         "'1/' + CAST(l.SiSoToiDa AS NVARCHAR) AS SiSoHienTaiMax, " +
-                         "CONVERT(VARCHAR(10), l.NgayBatDau, 103) + ' - ' + CONVERT(VARCHAR(10), l.NgayKetThuc, 103) AS ThoiGianHoc, " +
-                         "ISNULL(l.TrangThai, N'Đang mở') AS TrangThai " +
-                         "FROM LopHoc l " +
-                         "LEFT JOIN KhoaHoc k ON l.KhoaHocID = k.KhoaHocID " +
-                         "LEFT JOIN CoSo cs ON l.CoSoID = cs.CoSoID " +
-                         "LEFT JOIN NhanSu ns ON l.GiaoVienPhuTrachID = ns.NhanSuID " +
-                         "WHERE l.IsDeleted = 0";
+            string sql = @"SELECT l.LopHocID, 
+                          'LH-' + RIGHT('00' + CAST(l.LopHocID AS VARCHAR), 3) AS MaLop, 
+                          l.TenLop, 
+                          ISNULL(k.TenKhoaHoc, N'TOEIC 500 Mục Tiêu') AS TenKhoaHoc, 
+                          ISNULL(cs.TenCoSo, N'Cơ sở Cầu Giấy') AS TenCoSo, 
+                          ISNULL(ns.HoTen, N'Chưa phân công') AS TenGiaoVien, 
+                          -- ĐẾM THỰC TẾ SỐ LƯỢNG HỌC VIÊN TRONG LỚP
+                          CAST((SELECT COUNT(*) FROM DangKy dk 
+                                JOIN HocVien hv ON dk.HocVienID = hv.HocVienID 
+                                WHERE dk.LopHocID = l.LopHocID AND (hv.IsDeleted = 0 OR hv.IsDeleted IS NULL)
+                               ) AS NVARCHAR) + '/' + CAST(l.SiSoToiDa AS NVARCHAR) AS SiSoHienTaiMax, 
+                          CONVERT(VARCHAR(10), l.NgayBatDau, 103) + ' - ' + CONVERT(VARCHAR(10), l.NgayKetThuc, 103) AS ThoiGianHoc, 
+                          ISNULL(l.TrangThai, N'Đang mở') AS TrangThai 
+                   FROM LopHoc l 
+                   LEFT JOIN KhoaHoc k ON l.KhoaHocID = k.KhoaHocID 
+                   LEFT JOIN CoSo cs ON l.CoSoID = cs.CoSoID 
+                   LEFT JOIN NhanSu ns ON l.GiaoVienPhuTrachID = ns.NhanSuID 
+                   WHERE l.IsDeleted = 0";
 
-            // 2. LỌC DANH SÁCH LỚP THEO VAI TRÒ NGƯỜI DÙNG
+            // LỌC DANH SÁCH LỚP THEO VAI TRÒ NGƯỜI DÙNG
             var user = SessionContext.NguoiDungHienTai;
             if (user != null)
             {
@@ -92,7 +96,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 }
                 else if ((user.VaiTro == "Học viên" || user.VaiTro == "HocVien") && user.HocVienID.HasValue)
                 {
-                    sql += $" AND l.LopHocID IN (SELECT LopHocID FROM ChiTietLopHoc WHERE HocVienID = {user.HocVienID.Value})";
+                    sql += $" AND l.LopHocID IN (SELECT LopHocID FROM DangKy WHERE HocVienID = {user.HocVienID.Value})";
                 }
             }
 

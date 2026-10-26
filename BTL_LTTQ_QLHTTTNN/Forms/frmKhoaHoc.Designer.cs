@@ -60,6 +60,7 @@
             this.colLoTrinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colThaoTac = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.colXoa = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnlHeader.SuspendLayout();
             this.tblStats.SuspendLayout();
             this.pnlCard1.SuspendLayout();
@@ -351,7 +352,8 @@
             this.colHocPhi,
             this.colLoTrinh,
             this.colTrangThai,
-            this.colThaoTac});
+            this.colThaoTac,
+            this.colXoa});
             this.dgvKhoaHoc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvKhoaHoc.Location = new System.Drawing.Point(0, 348);
             this.dgvKhoaHoc.Name = "dgvKhoaHoc";
@@ -428,6 +430,15 @@
             this.colThaoTac.Text = "Sửa";
             this.colThaoTac.UseColumnTextForButtonValue = true;
             // 
+            // colXoa
+            // 
+            this.colXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.colXoa.HeaderText = "XÓA";
+            this.colXoa.Name = "colXoa";
+            this.colXoa.ReadOnly = true;
+            this.colXoa.Text = "Xóa";
+            this.colXoa.UseColumnTextForButtonValue = true;
+            // 
             // frmKhoaHoc
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -493,5 +504,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colLoTrinh;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTrangThai;
         private System.Windows.Forms.DataGridViewButtonColumn colThaoTac;
+        private System.Windows.Forms.DataGridViewButtonColumn colXoa;
     }
 }

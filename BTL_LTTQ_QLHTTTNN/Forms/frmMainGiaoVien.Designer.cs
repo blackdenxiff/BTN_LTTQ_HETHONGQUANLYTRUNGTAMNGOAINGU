@@ -46,8 +46,8 @@ namespace BTL_LTTQ_QLHTTTNN
             this.btnLopHoc = new System.Windows.Forms.Button();
             this.btnLichHoc = new System.Windows.Forms.Button();
             this.btnDiemDanh = new System.Windows.Forms.Button();
-            this.btnNhapDiem = new System.Windows.Forms.Button();
             this.btnNhatKyGiangDay = new System.Windows.Forms.Button();
+            this.btnNhapDiem = new System.Windows.Forms.Button();
             this.pnlThuongHieu = new System.Windows.Forms.Panel();
             this.lblLogo = new System.Windows.Forms.Label();
             this.lblTenHeThong = new System.Windows.Forms.Label();

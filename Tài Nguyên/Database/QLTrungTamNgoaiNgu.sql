@@ -357,7 +357,9 @@ INSERT INTO PhongHoc(CoSoID, TenPhong, SucChua, TrangThai, GhiChu) VALUES
 INSERT INTO NguoiDung(TenDangNhap, MatKhauHash, VaiTroID, TrangThai) VALUES
 ('admin_demo', N'HASH_DEMO_ONLY', 1, 1),
 ('gv_demo', N'HASH_DEMO_ONLY', 3, 1),
-('hv_demo', N'HASH_DEMO_ONLY', 4, 1);
+('hv_demo', N'HASH_DEMO_ONLY', 4, 1),
+('nv_demo', N'HASH_DEMO_ONLY', 2, 1)
+;
 
 INSERT INTO NhanSu(NguoiDungID, CoSoID, HoTen, NgaySinh, GioiTinh, SoDienThoai, Email, LoaiNhanSu, TrinhDo, LuongCoBan, LuongTheoGio, NgayVaoLam, NhiemVu, TrangThai) VALUES
 (1, 1, N'Nguyễn Văn Quản Lý', '1995-01-01', N'Nam', '0900000002', 'admin@example.com', N'Cả hai', N'Thạc sĩ', 12000000, 200000, '2024-01-01', N'Quản lý trung tâm kiêm giáo viên', N'Đang làm'),
@@ -445,7 +447,7 @@ UPDATE NguoiDung
 SET 
     MatKhauHash = 'AQAAAAIAAYagAAAAECfvABkdxmMdeyeVtDv46H62sd24N1+k4HGlKwyE6JscoSacDzuHj5kuBMaesLi4JQ==',
     DoiMatKhauLanDau = 0
-WHERE TenDangNhap IN ('admin_demo', 'gv_demo', 'hv_demo');
+WHERE TenDangNhap IN ('admin_demo', 'gv_demo', 'hv_demo', 'nv_demo');
 GO
 UPDATE NhanSu
 SET NguoiDungID = NULL

@@ -1,4 +1,5 @@
-using System;
+﻿using System;
+using BTL_LTTQ_QLHTTTNN.Services;
 using System.Data;
 using System.Globalization;
 using System.Net.Mail;
@@ -9,18 +10,41 @@ namespace BTL_LTTQ_QLHTTTNN
 {
     public partial class frmHocVien : Form
     {
+        private Button btnDangKyLopAdmin;
+        private GridPager studentPager;
         private bool editing;
         private int? selectedId;
         public frmHocVien()
         {
             InitializeComponent();
+            btnDangKyLopAdmin = new Button { Text = "Đăng ký lớp", Size = btnChiTiet.Size,
+                Location = new System.Drawing.Point(btnChiTiet.Right + 12, btnChiTiet.Top),
+                FlatStyle = btnChiTiet.FlatStyle, BackColor = btnChiTiet.BackColor };
+            Controls.Add(btnDangKyLopAdmin);
+            btnDangKyLopAdmin.Click += delegate { HocVienData.Run(delegate
+            {
+                PhanQuyenService.YeuCauQuyen("DangKyLopCaNhan");
+                using (var form = new frmDangKyHoc { HocVienDuocChon = selectedId }) form.ShowDialog(this);
+                ShowStudent();
+            }); };
+
             foreach(var grid in new[]{dgvHocVien,dgvtabLop,dgvtabKetQua,dgvtabHocPhi}) HocVienData.Grid(grid);
+            foreach (var grid in new[] { dgvHocVien, dgvtabLop, dgvtabKetQua, dgvtabHocPhi })
+            {
+                var pager = new GridPager(grid, delegate { PhanQuyenService.YeuCauQuyen("QuanLyHocVien"); });
+                if (grid == dgvHocVien) studentPager = pager;
+            }
             cboLocTrangThai.Items.Clear(); cboLocTrangThai.Items.Add("Tất cả"); cboLocTrangThai.SelectedIndex=0;
             cboGioiTinh.Items.Clear(); cboGioiTinh.Items.AddRange(new object[]{"", "Nam", "Nữ", "Khác"});
             txtHoTen.MaxLength=100; txtSoDienThoai.MaxLength=20;txtEmail.MaxLength=100;
             txtTrinhDoDauVao.MaxLength=50;txtNhanXetDauVao.MaxLength=500;
             cboTrangThai.MaxLength=20;
-            Load += delegate { HocVienData.Run(delegate { LoadStatuses(); LoadList(); }); };
+            Load += delegate
+            {
+                try { PhanQuyenService.YeuCauQuyen("QuanLyHocVien"); }
+                catch (Exception ex) { MessageBox.Show(ex.Message, "Chỉ dành cho Admin"); Close(); return; }
+                HocVienData.Run(delegate { LoadStatuses(); LoadList(); });
+            };
             dgvHocVien.SelectionChanged += delegate { if(!editing) HocVienData.Run(ShowStudent); };
             btnTimKiem.Click += delegate { HocVienData.Run(LoadList); };
             btnLamMoi.Click += delegate { HocVienData.Run(delegate { txtTimKiem.Clear(); cboLocTrangThai.SelectedIndex=0; LoadStatuses();LoadList(); }); };
@@ -36,6 +60,7 @@ namespace BTL_LTTQ_QLHTTTNN
         }
         private void LoadStatuses()
         {
+            PhanQuyenService.YeuCauQuyen("QuanLyHocVien");
             string current=cboLocTrangThai.Text;
             cboLocTrangThai.Items.Clear();cboLocTrangThai.Items.Add("Tất cả");cboTrangThai.Items.Clear();cboTrangThai.Items.Add("Đang học");
             foreach(DataRow r in HocVienData.Query("SELECT DISTINCT TrangThai FROM HocVien WHERE IsDeleted=0 ORDER BY TrangThai").Rows)
@@ -59,6 +84,7 @@ namespace BTL_LTTQ_QLHTTTNN
         }
         private void ShowStudent()
         {
+            PhanQuyenService.YeuCauQuyen("QuanLyHocVien");
             ClearProfile();selectedId=null;
             var row=HocVienData.Row(dgvHocVien);
             if(row!=null)
@@ -77,6 +103,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private void SetEditing(bool value)
         {
             editing=value;
+            btnDangKyLopAdmin.Enabled = !value;
             foreach(var t in new[]{txtHoTen,txtSoDienThoai,txtEmail,txtTrinhDoDauVao,txtDiemDauVao,txtNhanXetDauVao})t.ReadOnly=!value;
             dtpNgaySinh.Enabled=value;cboGioiTinh.Enabled=value;cboTrangThai.Enabled=value;
             txtHocVienID.ReadOnly=true;txtTaiKhoan.ReadOnly=true;
@@ -105,6 +132,7 @@ namespace BTL_LTTQ_QLHTTTNN
             SetEditing(false);
             MessageBox.Show("Đã lưu học viên.");
             txtTimKiem.Clear();cboLocTrangThai.SelectedItem="Tất cả";LoadStatuses();LoadList();
+            studentPager.GoToRecord("HocVienID", id);
             foreach(DataGridViewRow r in dgvHocVien.Rows)
             {
                 var v=r.DataBoundItem as DataRowView;

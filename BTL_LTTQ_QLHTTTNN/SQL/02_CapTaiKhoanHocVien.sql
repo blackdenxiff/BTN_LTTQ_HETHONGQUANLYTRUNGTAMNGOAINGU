@@ -1,4 +1,11 @@
-﻿-- Chạy trong SSMS trên database đang dùng. Không chạy lại 00_TaoDatabase_BanGoc.sql.
+﻿SET ANSI_NULLS ON;
+SET QUOTED_IDENTIFIER ON;
+SET ANSI_PADDING ON;
+SET ANSI_WARNINGS ON;
+SET ARITHABORT ON;
+SET CONCAT_NULL_YIELDS_NULL ON;
+SET NUMERIC_ROUNDABORT OFF;
+-- Chạy trong SSMS trên database đang dùng. Không chạy lại 00_TaoDatabase_BanGoc.sql.
 -- Chỉ tạo cho học viên chưa có tài khoản; không đổi mật khẩu hay quyền tài khoản cũ.
 -- Tài khoản mới: hv_<HocVienID>; mật khẩu tạm: HocVien@2026.
 -- Bắt buộc đổi mật khẩu ở lần đăng nhập đầu bằng form sẵn có của nhóm.

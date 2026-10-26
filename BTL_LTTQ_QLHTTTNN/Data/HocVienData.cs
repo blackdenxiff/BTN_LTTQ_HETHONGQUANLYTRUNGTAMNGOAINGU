@@ -164,7 +164,8 @@ FROM HoaDon h LEFT JOIN DangKy d ON d.DangKyID=h.DangKyID LEFT JOIN LopHoc l ON 
 LEFT JOIN (SELECT HoaDonID,SUM(SoTien) DaThanhToan FROM ThanhToan WHERE IsDeleted=0 GROUP BY HoaDonID) t ON t.HoaDonID=h.HoaDonID
 WHERE h.HocVienID=@id AND h.IsDeleted=0
 UNION ALL
-SELECT l.TenLop,NULL,NULL,NULL,NULL,N'Chưa lập hóa đơn'
+SELECT l.TenLop,CAST(NULL AS int) HoaDonID,d.HocPhiApDung TongPhaiTra,
+CAST(0 AS decimal(12,2)) DaThanhToan,d.HocPhiApDung ConPhaiTra,N'Chưa lập hóa đơn' TrangThai
 FROM DangKy d JOIN LopHoc l ON l.LopHocID=d.LopHocID WHERE d.HocVienID=@id AND d.IsDeleted=0
 AND NOT EXISTS(SELECT 1 FROM HoaDon h WHERE h.DangKyID=d.DangKyID AND h.HocVienID=@id AND h.IsDeleted=0)",P("@id",id));
         }

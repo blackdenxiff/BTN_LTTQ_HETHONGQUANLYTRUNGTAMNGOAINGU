@@ -64,6 +64,13 @@ namespace BTL_LTTQ_QLHTTTNN
                 }
             };
             pnlMenu.Controls.Add(exitButton);
+            // Keep main sections in their original order; place added shortcuts around them.
+            pnlMenu.Controls.SetChildIndex(btnThongTin, 5);
+            pnlMenu.Controls.SetChildIndex(btnClasses, 4);
+            pnlMenu.Controls.SetChildIndex(btnKetQua, 3);
+            pnlMenu.Controls.SetChildIndex(btnHocPhi, 2);
+            pnlMenu.Controls.SetChildIndex(btnDangKyLop, 1);
+            pnlMenu.Controls.SetChildIndex(btnSchedule, 0);
             ConfigureGrid(dgvLopHoc, new[] { "TenLop", "TenKhoaHoc", "TenCoSo", "NgayBatDau", "NgayKetThuc" },
                 new[] { "Lớp học", "Khóa học", "Cơ sở", "Ngày bắt đầu", "Ngày kết thúc" });
             ConfigureGrid(dgvKetQua, new[] { "TenLop", "TenKhoaHoc", "DiemCuoiKhoa", "KetQua" },
@@ -369,4 +376,3 @@ namespace BTL_LTTQ_QLHTTTNN
         }
     }
 }
-

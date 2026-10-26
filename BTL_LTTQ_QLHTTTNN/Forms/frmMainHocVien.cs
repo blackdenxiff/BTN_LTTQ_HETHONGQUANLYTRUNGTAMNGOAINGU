@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Drawing;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace BTL_LTTQ_QLHTTTNN
@@ -19,6 +20,12 @@ namespace BTL_LTTQ_QLHTTTNN
         private Label scheduleStatus;
         private Button activeButton;
         private readonly Color navy = Color.FromArgb(32, 65, 105);
+        private static readonly Color green = Color.FromArgb(22, 128, 61);
+        private static readonly Color red = Color.FromArgb(200, 45, 45);
+        private static readonly Color orange = Color.FromArgb(205, 120, 0);
+        private static readonly CultureInfo vi = new CultureInfo("vi-VN");
+        private Label lblTongPhaiTra, lblDaThanhToan, lblConPhaiTra;
+        private Button btnThanhToan;
 
         private void SetupAppearance()
         {
@@ -40,10 +47,8 @@ namespace BTL_LTTQ_QLHTTTNN
             pnlMenu.Controls.Add(btnClasses);
             SetupSchedule();
             var exitButton = new Button { Text = "Thoát", Dock = DockStyle.Bottom, Height = 48,
-                BackColor = Color.FromArgb(196, 48, 61), ForeColor = Color.White, FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold), Cursor = Cursors.Hand };
+                BackColor = btnThongTin.BackColor, ForeColor = btnThongTin.ForeColor, FlatStyle = btnThongTin.FlatStyle, Font = btnThongTin.Font, TextAlign = btnThongTin.TextAlign, Padding = btnThongTin.Padding, Cursor = Cursors.Hand };
             exitButton.FlatAppearance.BorderSize = 0;
-            exitButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(166, 32, 44);
             exitButton.Click += delegate
             {
                 using (var dialog = new Form { Text = "Xác nhận thoát", ClientSize = new Size(370, 145),
@@ -245,11 +250,12 @@ namespace BTL_LTTQ_QLHTTTNN
             dgvKetQua.AutoGenerateColumns = true;
             Load += delegate { HocVienData.Run(LoadProfile); };
             btnThongTin.Click += btnThongTin_Click;
-           
+
             btnKetQua.Click += btnKetQua_Click;
             btnHocPhi.Click += btnHocPhi_Click;
             btnDangKyLop.Click += btnDangKyLop_Click;
             SetupAppearance();
+            BuildFeeSummary();
             tabHoSo.SelectedIndexChanged += delegate
             {
                 TabPage page = tabHoSo.SelectedTab;
@@ -261,6 +267,46 @@ namespace BTL_LTTQ_QLHTTTNN
                 new GridPager(grid, delegate { BTL_LTTQ_QLHTTTNN.Services.PhanQuyenService.YeuCauQuyen("XemHoSoCaNhan"); });
         }
 
+        private void BuildFeeSummary()
+        {
+            var summary = new TableLayoutPanel { Dock = DockStyle.Top, Height = 82, ColumnCount = 3, RowCount = 1, BackColor = Color.White, Padding = new Padding(8) };
+            for (int i = 0; i < 3; i++) summary.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.33F));
+            lblTongPhaiTra = AddFeeCard(summary, 0, "TỔNG PHẢI TRẢ", navy);
+            lblDaThanhToan = AddFeeCard(summary, 1, "ĐÃ THANH TOÁN", green);
+            lblConPhaiTra = AddFeeCard(summary, 2, "CÒN PHẢI TRẢ", orange);
+            tabHocPhi.Controls.Add(summary);
+            btnThanhToan = new Button { Text = "Lập phiếu thu", Dock = DockStyle.Bottom, Height = 44, FlatStyle = btnThongTin.FlatStyle, BackColor = btnThongTin.BackColor, ForeColor = btnThongTin.ForeColor, Font = btnThongTin.Font, Cursor = Cursors.Hand };
+            btnThanhToan.Click += btnThanhToan_Click;
+            tabHocPhi.Controls.Add(btnThanhToan);
+            btnThanhToan.BringToFront(); summary.BringToFront();
+        }
+        private Label AddFeeCard(TableLayoutPanel panel, int column, string title, Color accent)
+        {
+            var card = new Panel { Dock = DockStyle.Fill, BackColor = Color.FromArgb(246, 248, 252), Margin = new Padding(3) };
+            card.Controls.Add(new Label { Text = title, Dock = DockStyle.Top, Height = 22, ForeColor = Color.FromArgb(90, 102, 120), Font = new Font(Font, FontStyle.Bold) });
+            var value = new Label { Text = "0 đ", Dock = DockStyle.Fill, ForeColor = accent, Font = new Font(Font.FontFamily, 13F, FontStyle.Bold), TextAlign = ContentAlignment.MiddleLeft };
+            card.Controls.Add(value); panel.Controls.Add(card, column, 0); return value;
+        }
+        private void btnThanhToan_Click(object sender, EventArgs e)
+        {
+            if (!nguoiDungID.HasValue || nguoiDungID.Value <= 0) return;
+            DataRow profile = HocVienData.OwnProfile(nguoiDungID);
+            int id = Convert.ToInt32(profile["HocVienID"]);
+            using (var form = new frmLapPhieuThu(id, true))
+                if (form.ShowDialog(this) == DialogResult.OK) HocVienData.Run(LoadProfile);
+        }
+        private static decimal SumColumn(DataTable table, string name)
+        {
+            decimal result = 0;
+            if (table != null && table.Columns.Contains(name)) foreach (DataRow row in table.Rows) if (!row.IsNull(name)) result += Convert.ToDecimal(row[name]);
+            return result;
+        }
+        private void UpdateFeeSummary(DataTable fees)
+        {
+            decimal total = SumColumn(fees, "TongPhaiTra"), paid = SumColumn(fees, "DaThanhToan"), due = SumColumn(fees, "ConPhaiTra");
+            lblTongPhaiTra.Text = total.ToString("#,##0", vi) + " đ"; lblDaThanhToan.Text = paid.ToString("#,##0", vi) + " đ"; lblConPhaiTra.Text = due.ToString("#,##0", vi) + " đ";
+            lblConPhaiTra.ForeColor = due > 0 ? red : green; btnThanhToan.Enabled = due > 0;
+        }
         private void LoadProfile()
         {
             DataRow row = HocVienData.OwnProfile(nguoiDungID);
@@ -274,7 +320,9 @@ namespace BTL_LTTQ_QLHTTTNN
             lblNguoiDangNhap.Text = "Học viên: " + txtHoTen.Text;
             accountButton.Text = lblNguoiDangNhap.Text + "  ▾";
             var classes = HocVienData.Enrollments(id); dgvLopHoc.DataSource = classes; dgvKetQua.DataSource = classes.Copy();
-            dgvHocPhi.DataSource = HocVienData.Fees(id);
+            var fees = HocVienData.Fees(id);
+            dgvHocPhi.DataSource = fees;
+            UpdateFeeSummary(fees);
         }
 
         private void btnDangKyLop_Click(object sender, EventArgs e)
@@ -321,3 +369,4 @@ namespace BTL_LTTQ_QLHTTTNN
         }
     }
 }
+

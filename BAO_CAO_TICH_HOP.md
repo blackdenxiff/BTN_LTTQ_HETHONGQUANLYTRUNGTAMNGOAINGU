@@ -37,7 +37,7 @@ Các commit tích hợp lần lượt là `sang` (`4fb4b6c`), `hai` (`9cdc42a`),
 - LocalDB thử nghiệm: chạy schema gốc trên instance riêng; hai migration chạy được và chạy lại; kiểm tra giữ `hv_demo`, xử lý username bị chiếm (`hv_2_1`) và liên kết vai trò/học viên.
 - UI học viên trên tài khoản test: thông tin hồ sơ, danh sách lớp, phân trang, lịch học, học phí và menu giữ được; đăng ký trùng bị chặn; đăng ký `QA-ENROLL-01` thành công và sĩ số tăng 0→1.
 - Luồng phí trên LocalDB: đăng ký chưa có hóa đơn vẫn hiện phải thu 4.500.000đ; lập phiếu thu thử một phần 1.000.000đ trả mã `PT-2`; màn hình sau đó hiện đã thu 1.000.000đ, còn nợ 3.500.000đ, tổng đã thu 3.000.000đ. Đây là dữ liệu LocalDB thử nghiệm, không phải khoản thu thực.
-- Sau khi đóng UI, LocalDB báo lỗi truy cập cấu hình registry nên không kết nối lại để truy vấn kiểm chứng độc lập dữ liệu lịch sử. Giao diện đã xác nhận cập nhật sau khi lưu; kiểm tra truy vấn SQL độc lập còn thiếu.
+- Sau khi khởi động lại LocalDB với quyền truy cập phù hợp, truy vấn độc lập xác nhận hóa đơn `2` cho lớp test có tổng 4.500.000đ, một dòng thanh toán 1.000.000đ và còn nợ 3.500.000đ. Migration 01/02 chạy lại; migration cấp tài khoản không tạo trùng và danh sách liên kết hiện có vẫn hợp lệ.
 
 ## Việc chưa đạt và trạng thái main
 

@@ -359,4 +359,3 @@ namespace BTL_LTTQ_QLHTTTNN
         private System.Windows.Forms.Button btnKiemTraChuyenKhoan;
     }
 }
-

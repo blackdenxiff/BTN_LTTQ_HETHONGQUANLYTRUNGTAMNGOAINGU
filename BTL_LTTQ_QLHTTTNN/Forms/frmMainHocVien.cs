@@ -30,74 +30,56 @@ namespace BTL_LTTQ_QLHTTTNN
         private void SetupAppearance()
         {
             SuspendLayout();
+            foreach (var button in new[] { btnThongTin, btnKetQua, btnHocPhi, btnDangKyLop })
+                pnlMenu.Controls.Remove(button);
             pnlHeader.Controls.Remove(lblTenHeThong);
             Controls.Remove(pnlNoiDung);
             Controls.Remove(pnlHeader);
-            var mainArea = new Panel { Name = "pnlVungChinh", Dock = DockStyle.Fill, BackColor = Color.FromArgb(248, 250, 252) };
-            mainArea.Controls.Add(pnlNoiDung);
-            mainArea.Controls.Add(pnlHeader);
-            pnlHeader.Dock = DockStyle.Top;
-            pnlHeader.Height = 72;
-            pnlHeader.BackColor = Color.White;
-            pnlNoiDung.Dock = DockStyle.Fill;
-            pnlNoiDung.BackColor = Color.FromArgb(248, 250, 252);
-            Controls.Add(mainArea);
-            Controls.SetChildIndex(pnlMenu, 0);
-            pnlMenu.Dock = DockStyle.Left;
+            Controls.Remove(pnlMenu);
+            Controls.Remove(stsTrangThai);
+
+            var root = new TableLayoutPanel { Name = "tlpVungChinhHocVien", Dock = DockStyle.Fill, ColumnCount = 2, RowCount = 2, BackColor = Color.FromArgb(248, 250, 252), Margin = Padding.Empty };
+            root.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 270F));
+            root.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            root.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            root.RowStyles.Add(new RowStyle(SizeType.Absolute, 22F));
+            Controls.Add(root);
+
+            pnlMenu.Dock = DockStyle.Fill;
             pnlMenu.Width = 270;
             pnlMenu.Padding = Padding.Empty;
+            pnlMenu.AutoScroll = false;
             pnlMenu.BackColor = Color.FromArgb(15, 23, 42);
-            BackColor = Color.FromArgb(248, 250, 252);
-            ClientSize = new Size(1280, 800);
-            MinimumSize = new Size(1024, 680);
-            Text = "English Center — Học viên";
+            root.Controls.Add(pnlMenu, 0, 0);
 
-            var brand = new Panel { Name = "pnlThuongHieuHocVien", Dock = DockStyle.Top, Height = 100, BackColor = Color.FromArgb(15, 23, 42) };
-            var logo = new Label { Text = "E", Location = new Point(28, 22), Size = new Size(42, 52), ForeColor = Color.FromArgb(37, 99, 235), Font = new Font("Segoe UI", 28F, FontStyle.Bold), TextAlign = ContentAlignment.MiddleCenter };
+            var sidebar = new TableLayoutPanel { Name = "tlpMenuHocVien", Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 3, BackColor = pnlMenu.BackColor, Margin = Padding.Empty };
+            sidebar.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            sidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 100F));
+            sidebar.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            sidebar.RowStyles.Add(new RowStyle(SizeType.Absolute, 50F));
+            pnlMenu.Controls.Add(sidebar);
+
+            var brand = new Panel { Name = "pnlThuongHieuHocVien", Dock = DockStyle.Fill, BackColor = pnlMenu.BackColor, Margin = Padding.Empty };
+            var logo = new Label { Text = "E", Location = new Point(22, 25), Size = new Size(43, 48), ForeColor = Color.FromArgb(59, 130, 246), Font = new Font("Segoe UI", 26F, FontStyle.Bold), TextAlign = ContentAlignment.MiddleCenter };
             lblTenHeThong.Text = "ENGLISH CENTER";
-            lblTenHeThong.Location = new Point(82, 24);
-            lblTenHeThong.Size = new Size(175, 30);
-            lblTenHeThong.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTenHeThong.Location = new Point(75, 20);
+            lblTenHeThong.Size = new Size(190, 32);
+            lblTenHeThong.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblTenHeThong.ForeColor = Color.White;
-            var tagline = new Label { Text = "Quản lý trung tâm", Location = new Point(82, 55), Size = new Size(175, 22), ForeColor = Color.FromArgb(148, 163, 184), Font = new Font("Segoe UI", 9F) };
+            var tagline = new Label { Text = "Quản lý trung tâm", Location = new Point(76, 55), Size = new Size(185, 24), ForeColor = Color.FromArgb(148, 163, 184), Font = new Font("Segoe UI", 9F) };
             brand.Controls.AddRange(new Control[] { logo, lblTenHeThong, tagline });
-            pnlMenu.Controls.Add(brand);
-            pnlMenu.Controls.SetChildIndex(brand, 0);
+            sidebar.Controls.Add(brand, 0, 0);
 
-            lblNguoiDangNhap.Dock = DockStyle.None;
-            lblNguoiDangNhap.Location = new Point(0, 0);
-            lblNguoiDangNhap.Size = new Size(1, 1);
-            var menuButton = new Button { Name = "btnThuGonMenu", Text = "☰", Location = new Point(24, 17), Size = new Size(42, 38), FlatStyle = FlatStyle.Flat, BackColor = Color.White, ForeColor = Color.FromArgb(31, 41, 55), Cursor = Cursors.Hand };
-            menuButton.FlatAppearance.BorderColor = Color.FromArgb(203, 213, 225);
-            menuButton.Click += delegate { pnlMenu.Visible = !pnlMenu.Visible; };
-            var roleBadge = new Label { Text = "Học viên", Location = new Point(575, 20), Size = new Size(100, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right, BackColor = Color.FromArgb(37, 99, 235), ForeColor = Color.White, Font = new Font("Segoe UI", 9F, FontStyle.Bold), TextAlign = ContentAlignment.MiddleCenter };
-            pnlHeader.Controls.Add(menuButton);
-            pnlHeader.Controls.Add(roleBadge);
-            pnlHeader.Controls.SetChildIndex(menuButton, 0);
-            pnlHeader.Controls.SetChildIndex(roleBadge, 0);
+            var menuBody = new FlowLayoutPanel { Name = "flpMenuHocVien", Dock = DockStyle.Fill, FlowDirection = FlowDirection.TopDown, WrapContents = false, AutoScroll = true, BackColor = pnlMenu.BackColor, Padding = new Padding(12, 16, 12, 12), Margin = Padding.Empty };
+            var menuHeading = new Label { Text = "KHU VỰC HỌC VIÊN", Width = 230, Height = 38, ForeColor = Color.FromArgb(34, 211, 238), Font = new Font("Segoe UI", 9F, FontStyle.Bold), TextAlign = ContentAlignment.MiddleLeft, Margin = new Padding(2, 0, 0, 8) };
+            menuBody.Controls.Add(menuHeading);
+            sidebar.Controls.Add(menuBody, 0, 1);
 
-            // Keep main's tab strip and its existing dimensions; menus remain shortcuts to those tabs.
-            tabHoSo.Visible = true;
-            tabHoSo.Font = new Font("Segoe UI", 9.5F);
-            tabHoSo.BackColor = Color.White;
-            foreach (TabPage tab in tabHoSo.TabPages)
-            {
-                var panel = new Panel { Dock = DockStyle.Fill, BackColor = Color.White,
-                    Padding = Padding.Empty, AutoScroll = true, Visible = true };
-                while (tab.Controls.Count > 0) panel.Controls.Add(tab.Controls[0]);
-                pages.Add(tab, panel);
-                tab.Controls.Add(panel);
-                panel.BringToFront();
-            }
-            btnClasses = new Button { Text = "Lớp đã đăng ký", Dock = DockStyle.Top, Height = btnThongTin.Height,
-                FlatStyle = btnThongTin.FlatStyle, BackColor = btnThongTin.BackColor,
-                ForeColor = btnThongTin.ForeColor, TextAlign = btnThongTin.TextAlign, Padding = btnThongTin.Padding };
-            btnClasses.Click += btnLopHoc_Click;
-            pnlMenu.Controls.Add(btnClasses);
-            SetupSchedule();
-            var exitButton = new Button { Text = "Thoát", Dock = DockStyle.Bottom, Height = 48,
-                BackColor = btnThongTin.BackColor, ForeColor = btnThongTin.ForeColor, FlatStyle = btnThongTin.FlatStyle, Font = btnThongTin.Font, TextAlign = btnThongTin.TextAlign, Padding = btnThongTin.Padding, Cursor = Cursors.Hand };
+            var exitButton = new Button { Text = "Thoát", Dock = DockStyle.Fill, Height = 50,
+                BackColor = pnlMenu.BackColor, ForeColor = Color.FromArgb(203, 213, 225), FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 10F), TextAlign = ContentAlignment.MiddleLeft, Padding = new Padding(20, 0, 8, 0), Cursor = Cursors.Hand, Margin = Padding.Empty };
             exitButton.FlatAppearance.BorderSize = 0;
+            exitButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
             exitButton.Click += delegate
             {
                 using (var dialog = new Form { Text = "Xác nhận thoát", ClientSize = new Size(370, 145),
@@ -112,17 +94,80 @@ namespace BTL_LTTQ_QLHTTTNN
                     if (dialog.ShowDialog(this) == DialogResult.Yes) Application.Exit();
                 }
             };
-            pnlMenu.Controls.Add(exitButton);
-            // Keep main sections in their original order; place added shortcuts around them.
-            pnlMenu.Controls.SetChildIndex(btnThongTin, 5);
-            pnlMenu.Controls.SetChildIndex(btnClasses, 4);
-            pnlMenu.Controls.SetChildIndex(btnKetQua, 3);
-            pnlMenu.Controls.SetChildIndex(btnHocPhi, 2);
-            pnlMenu.Controls.SetChildIndex(btnDangKyLop, 1);
-            pnlMenu.Controls.SetChildIndex(btnSchedule, 0);
-            foreach (var button in new[] { btnThongTin, btnKetQua, btnHocPhi, btnDangKyLop, btnClasses, btnSchedule })
+            sidebar.Controls.Add(exitButton, 0, 2);
+
+            BackColor = Color.FromArgb(248, 250, 252);
+            ClientSize = new Size(1280, 800);
+            MinimumSize = new Size(980, 650);
+            Text = "English Center — Học viên";
+
+            var mainArea = new TableLayoutPanel { Name = "tlpNoiDungHocVien", Dock = DockStyle.Fill, ColumnCount = 1, RowCount = 2, BackColor = Color.FromArgb(248, 250, 252), Margin = Padding.Empty };
+            mainArea.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            mainArea.RowStyles.Add(new RowStyle(SizeType.Absolute, 72F));
+            mainArea.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            root.Controls.Add(mainArea, 1, 0);
+            mainArea.Controls.Add(pnlHeader, 0, 0);
+            mainArea.Controls.Add(pnlNoiDung, 0, 1);
+            root.Controls.Add(stsTrangThai, 0, 1);
+            root.SetColumnSpan(stsTrangThai, 2);
+            stsTrangThai.Dock = DockStyle.Fill;
+            stsTrangThai.BackColor = Color.FromArgb(248, 250, 252);
+            pnlHeader.Dock = DockStyle.Fill;
+            pnlHeader.Height = 72;
+            pnlHeader.BackColor = Color.White;
+            pnlNoiDung.Dock = DockStyle.Fill;
+            pnlNoiDung.BackColor = Color.FromArgb(248, 250, 252);
+            pnlNoiDung.Padding = new Padding(24, 18, 24, 18);
+
+            var header = new TableLayoutPanel { Dock = DockStyle.Fill, ColumnCount = 4, RowCount = 1, BackColor = Color.White, Margin = Padding.Empty };
+            header.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 90F));
+            header.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            header.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 120F));
+            header.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 300F));
+            pnlHeader.Controls.Clear();
+            pnlHeader.Controls.Add(header);
+            var menuButton = new Button { Name = "btnThuGonMenu", Text = "☰", Size = new Size(42, 38), FlatStyle = FlatStyle.Flat, BackColor = Color.White, ForeColor = Color.FromArgb(31, 41, 55), Cursor = Cursors.Hand, Margin = new Padding(20, 16, 0, 16) };
+            menuButton.FlatAppearance.BorderColor = Color.FromArgb(203, 213, 225);
+            menuButton.Click += delegate { pnlMenu.Visible = !pnlMenu.Visible; };
+            var spacer = new Panel { Dock = DockStyle.Fill, BackColor = Color.White, Margin = Padding.Empty };
+            var roleBadge = new Label { Text = "Học viên", Dock = DockStyle.Fill, Margin = new Padding(8, 14, 8, 14), BackColor = Color.FromArgb(37, 99, 235), ForeColor = Color.White, Font = new Font("Segoe UI", 9F, FontStyle.Bold), TextAlign = ContentAlignment.MiddleCenter };
+            header.Controls.Add(menuButton, 0, 0);
+            header.Controls.Add(spacer, 1, 0);
+            header.Controls.Add(roleBadge, 2, 0);
+            header.Controls.Add(lblNguoiDangNhap, 3, 0);
+            lblNguoiDangNhap.Dock = DockStyle.Fill;
+            lblNguoiDangNhap.ForeColor = Color.FromArgb(31, 41, 55);
+            lblNguoiDangNhap.TextAlign = ContentAlignment.MiddleRight;
+            lblNguoiDangNhap.Padding = new Padding(8, 0, 18, 0);
+            lblNguoiDangNhap.Font = new Font("Segoe UI", 10F);
+
+            // Keep main's tab strip and its existing dimensions; menus remain shortcuts to those tabs.
+            tabHoSo.Visible = true;
+            tabHoSo.Font = new Font("Segoe UI", 9.5F);
+            tabHoSo.BackColor = Color.White;
+            tabHoSo.Appearance = TabAppearance.FlatButtons;
+            tabHoSo.SizeMode = TabSizeMode.Fixed;
+            tabHoSo.ItemSize = new Size(0, 1);
+            foreach (TabPage tab in tabHoSo.TabPages)
             {
+                var panel = new Panel { Dock = DockStyle.Fill, BackColor = Color.White,
+                    Padding = Padding.Empty, AutoScroll = true, Visible = true };
+                while (tab.Controls.Count > 0) panel.Controls.Add(tab.Controls[0]);
+                pages.Add(tab, panel);
+                tab.Controls.Add(panel);
+                panel.BringToFront();
+            }
+            btnClasses = new Button { Text = "Lớp đã đăng ký", Dock = DockStyle.Top, Height = btnThongTin.Height,
+                FlatStyle = btnThongTin.FlatStyle, BackColor = btnThongTin.BackColor,
+                ForeColor = btnThongTin.ForeColor, TextAlign = btnThongTin.TextAlign, Padding = btnThongTin.Padding };
+            btnClasses.Click += btnLopHoc_Click;
+            SetupSchedule();
+            foreach (var button in new[] { btnThongTin, btnClasses, btnKetQua, btnHocPhi, btnDangKyLop, btnSchedule })
+            {
+                button.Dock = DockStyle.None;
+                button.Width = 230;
                 button.Height = 50;
+                button.Margin = new Padding(0, 0, 0, 4);
                 button.BackColor = Color.FromArgb(30, 41, 59);
                 button.ForeColor = Color.FromArgb(203, 213, 225);
                 button.FlatStyle = FlatStyle.Flat;
@@ -130,11 +175,11 @@ namespace BTL_LTTQ_QLHTTTNN
                 button.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
                 button.Font = new Font("Segoe UI", 10F);
                 button.TextAlign = ContentAlignment.MiddleLeft;
-                button.Padding = new Padding(20, 0, 8, 0);
+                button.Padding = new Padding(16, 0, 8, 0);
                 button.Cursor = Cursors.Hand;
+                menuBody.Controls.Add(button);
             }
             lblTieuDeTrang.ForeColor = Color.FromArgb(31, 41, 55);
-            pnlNoiDung.Padding = new Padding(24, 18, 24, 18);
             ResumeLayout(true);
             ConfigureGrid(dgvLopHoc, new[] { "TenLop", "TenKhoaHoc", "TenCoSo", "NgayBatDau", "NgayKetThuc" },
                 new[] { "Lớp học", "Khóa học", "Cơ sở", "Ngày bắt đầu", "Ngày kết thúc" });
@@ -147,12 +192,12 @@ namespace BTL_LTTQ_QLHTTTNN
         private void SetupAccountMenu()
         {
             var parent = lblNguoiDangNhap.Parent;
-            int index = parent.Controls.GetChildIndex(lblNguoiDangNhap);
+            parent.Controls.Remove(lblNguoiDangNhap);
             accountButton = new Button
             {
                 Text = lblNguoiDangNhap.Text + "  ▾",
-                Dock = DockStyle.Right,
-                Size = new Size(300, 72),
+                Dock = DockStyle.Fill,
+                Margin = Padding.Empty,
                 ForeColor = Color.FromArgb(31, 41, 55),
                 BackColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
@@ -165,10 +210,15 @@ namespace BTL_LTTQ_QLHTTTNN
             };
             accountButton.FlatAppearance.BorderSize = 0;
             accountButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(241, 245, 249);
-            lblNguoiDangNhap.Visible = false;
-            parent.Controls.Add(accountButton);
-            parent.Controls.SetChildIndex(accountButton, index);
+            (parent as TableLayoutPanel).Controls.Add(accountButton, 3, 0);
             var menu = new ContextMenuStrip { Font = new Font("Segoe UI", 10F) };
+            var changePassword = new ToolStripMenuItem("Đổi mật khẩu");
+            changePassword.Click += delegate
+            {
+                menu.Close();
+                using (var form = new frmDoiMatKhau()) form.ShowDialog(this);
+            };
+            menu.Items.Add(changePassword);
             var logout = new ToolStripMenuItem("Đăng xuất") { ForeColor = Color.FromArgb(196, 48, 61) };
             logout.Click += delegate
             {
@@ -196,7 +246,6 @@ namespace BTL_LTTQ_QLHTTTNN
             btnSchedule = new Button { Text = "Lịch học", Dock = DockStyle.Top, Height = btnThongTin.Height,
                 FlatStyle = btnThongTin.FlatStyle, BackColor = btnThongTin.BackColor,
                 ForeColor = btnThongTin.ForeColor, TextAlign = btnThongTin.TextAlign, Padding = btnThongTin.Padding };
-            pnlMenu.Controls.Add(btnSchedule);
             btnSchedule.Click += delegate
             {
                 Navigate(schedulePage, btnSchedule, "LỊCH HỌC");

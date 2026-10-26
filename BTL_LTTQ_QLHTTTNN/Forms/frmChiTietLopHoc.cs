@@ -192,6 +192,7 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
+            // 1. Kiểm tra Tên lớp
             if (string.IsNullOrWhiteSpace(txtTenLop.Text))
             {
                 MessageBox.Show("Vui lòng nhập Tên lớp!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -199,6 +200,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 return;
             }
 
+            // 2. Kiểm tra Khóa học (bắt buộc phải chọn, khác giá trị mặc định 0)
             if (cboKhoaHoc.SelectedValue == null || Convert.ToInt32(cboKhoaHoc.SelectedValue) == 0)
             {
                 MessageBox.Show("Vui lòng chọn Khóa học!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -206,21 +208,57 @@ namespace BTL_LTTQ_QLHTTTNN
                 return;
             }
 
-            if (dtpNgayKetThuc.Value < dtpNgayBatDau.Value)
+            // 3. Kiểm tra Cơ sở (bắt buộc phải chọn, khác giá trị mặc định 0)
+            if (cboCoSo.SelectedValue == null || Convert.ToInt32(cboCoSo.SelectedValue) == 0)
             {
-                MessageBox.Show("Ngày kết thúc phải lớn hơn hoặc bằng Ngày bắt đầu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng chọn Cơ sở học!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboCoSo.Focus();
                 return;
             }
 
+            // 4. Kiểm tra Giáo viên phụ trách (bắt buộc phải chọn, khác giá trị mặc định 0)
+            if (cboGiaoVien.SelectedValue == null || Convert.ToInt32(cboGiaoVien.SelectedValue) == 0)
+            {
+                MessageBox.Show("Vui lòng chọn Giáo viên phụ trách!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboGiaoVien.Focus();
+                return;
+            }
+
+            // 5. Kiểm tra Sĩ số tối đa (bắt buộc lớn hơn 0)
+            if (numSiSoToiDa.Value <= 0)
+            {
+                MessageBox.Show("Sĩ số tối đa phải lớn hơn 0!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                numSiSoToiDa.Focus();
+                return;
+            }
+
+            // 6. Kiểm tra Ngày kết thúc so với Ngày bắt đầu
+            if (dtpNgayKetThuc.Value < dtpNgayBatDau.Value)
+            {
+                MessageBox.Show("Ngày kết thúc phải lớn hơn hoặc bằng Ngày bắt đầu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpNgayKetThuc.Focus();
+                return;
+            }
+
+            // 7. Kiểm tra Trạng thái lớp học
+            if (cboTrangThai.SelectedItem == null || string.IsNullOrWhiteSpace(cboTrangThai.SelectedItem.ToString()))
+            {
+                MessageBox.Show("Vui lòng chọn Trạng thái lớp học!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboTrangThai.Focus();
+                return;
+            }
+
+            // --- Lấy dữ liệu khi đã hợp lệ ---
             string tenLop = txtTenLop.Text.Trim();
             int khoaHocID = Convert.ToInt32(cboKhoaHoc.SelectedValue);
-            int coSoID = cboCoSo.SelectedValue != null ? Convert.ToInt32(cboCoSo.SelectedValue) : 1;
-            int giaoVienID = cboGiaoVien.SelectedValue != null ? Convert.ToInt32(cboGiaoVien.SelectedValue) : 1;
+            int coSoID = Convert.ToInt32(cboCoSo.SelectedValue);
+            int giaoVienID = Convert.ToInt32(cboGiaoVien.SelectedValue);
             int siSoToiDa = (int)numSiSoToiDa.Value;
             string ngayBatDau = dtpNgayBatDau.Value.ToString("yyyy-MM-dd");
             string ngayKetThuc = dtpNgayKetThuc.Value.ToString("yyyy-MM-dd");
-            string trangThai = cboTrangThai.SelectedItem?.ToString() ?? "Sắp mở";
+            string trangThai = cboTrangThai.SelectedItem.ToString();
 
+            // --- Thực hiện lưu vào Cơ sở dữ liệu ---
             if (_lopHocID == 0)
             {
                 string sqlInsert = $"INSERT INTO LopHoc (TenLop, KhoaHocID, CoSoID, GiaoVienPhuTrachID, SiSoToiDa, NgayBatDau, NgayKetThuc, TrangThai, IsDeleted) " +

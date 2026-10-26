@@ -77,20 +77,55 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
+            // 1. Kiểm tra Tên khóa học
             if (string.IsNullOrWhiteSpace(txtTenKhoaHoc.Text))
             {
-                MessageBox.Show("Vui lòng nhập Tên khóa học!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập Tên khóa học!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtTenKhoaHoc.Focus();
                 return;
             }
 
+            // 2. Kiểm tra Trình độ đã được chọn chưa
+            if (cboTrinhDo.SelectedItem == null || string.IsNullOrWhiteSpace(cboTrinhDo.SelectedItem.ToString()))
+            {
+                MessageBox.Show("Vui lòng chọn Trình độ khóa học!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboTrinhDo.Focus();
+                return;
+            }
+
+            // 3. Kiểm tra Số buổi (bắt buộc > 0)
+            if (numSoBuoi.Value <= 0)
+            {
+                MessageBox.Show("Số buổi học phải lớn hơn 0!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                numSoBuoi.Focus();
+                return;
+            }
+
+            // 4. Kiểm tra Học phí (bắt buộc > 0)
+            if (numHocPhi.Value <= 0)
+            {
+                MessageBox.Show("Học phí phải lớn hơn 0 VNĐ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                numHocPhi.Focus();
+                return;
+            }
+
+            // 5. Kiểm tra Trạng thái đã được chọn chưa
+            if (cboTrangThai.SelectedItem == null || string.IsNullOrWhiteSpace(cboTrangThai.SelectedItem.ToString()))
+            {
+                MessageBox.Show("Vui lòng chọn Trạng thái khóa học!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboTrangThai.Focus();
+                return;
+            }
+
+            // Lấy dữ liệu khi đã hợp lệ
             string tenKhoa = txtTenKhoaHoc.Text.Trim();
-            string trinhDo = cboTrinhDo.SelectedItem?.ToString() ?? "";
+            string trinhDo = cboTrinhDo.SelectedItem.ToString();
             int soBuoi = (int)numSoBuoi.Value;
             decimal hocPhi = numHocPhi.Value;
             string moTa = txtMoTa.Text.Trim();
-            string trangThai = cboTrangThai.SelectedItem?.ToString() ?? "Đang mở";
+            string trangThai = cboTrangThai.SelectedItem.ToString();
 
+            // Tiến hành Lưu vào Database
             if (_khoaHocID == 0)
             {
                 string sqlInsert = $"INSERT INTO KhoaHoc (TenKhoaHoc, TrinhDo, SoBuoi, HocPhi, MoTa, TrangThai, IsDeleted, CreatedAt) " +

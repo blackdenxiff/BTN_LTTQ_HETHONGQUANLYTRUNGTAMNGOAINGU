@@ -38,7 +38,7 @@ WHERE n.TenDangNhap=@ten";
                     string role = Convert.ToString(r["TenVaiTro"]); int? ns = r["NhanSuID"] == DBNull.Value ? (int?)null : Convert.ToInt32(r["NhanSuID"]);
                     int? hv = r["HocVienID"] == DBNull.Value ? (int?)null : Convert.ToInt32(r["HocVienID"]);
                     string loai = r["LoaiNhanSu"] == DBNull.Value ? null : Convert.ToString(r["LoaiNhanSu"]);
-                    bool lienKetHopLe = role == "Admin" ? !ns.HasValue && !hv.HasValue : role == "Học viên" ? hv.HasValue && !ns.HasValue :
+                    bool lienKetHopLe = role == "Admin" ? !hv.HasValue : role == "Học viên" ? hv.HasValue && !ns.HasValue :
                         role == "Giáo viên" ? ns.HasValue && !hv.HasValue && (loai == "Giáo viên" || loai == "Cả hai") :
                         role == "Nhân viên" && ns.HasValue && !hv.HasValue && (loai == "Nhân viên" || loai == "Cả hai");
                     return new BanGhiXacThuc { Id = Convert.ToInt32(r["NguoiDungID"]), Ten = Convert.ToString(r["TenDangNhap"]), Hash = Convert.ToString(r["MatKhauHash"]),

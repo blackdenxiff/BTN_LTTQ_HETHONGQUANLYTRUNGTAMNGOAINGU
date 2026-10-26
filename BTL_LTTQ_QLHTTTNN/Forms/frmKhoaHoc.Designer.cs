@@ -60,6 +60,7 @@
             this.colLoTrinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTrangThai = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colThaoTac = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.colXoa = new System.Windows.Forms.DataGridViewButtonColumn();
             this.pnlHeader.SuspendLayout();
             this.tblStats.SuspendLayout();
             this.pnlCard1.SuspendLayout();
@@ -69,9 +70,9 @@
             this.pnlFilter.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvKhoaHoc)).BeginInit();
             this.SuspendLayout();
-            // 
+            //
             // pnlHeader
-            // 
+            //
             this.pnlHeader.BackColor = System.Drawing.Color.Transparent;
             this.pnlHeader.Controls.Add(this.btnTaoKhoaHocMoi);
             this.pnlHeader.Controls.Add(this.lblTitle);
@@ -82,9 +83,9 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(1262, 150);
             this.pnlHeader.TabIndex = 0;
-            // 
+            //
             // lblTitle
-            // 
+            //
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
             this.lblTitle.Location = new System.Drawing.Point(12, 30);
@@ -93,9 +94,9 @@
             this.lblTitle.TabIndex = 1;
             this.lblTitle.Text = "Danh Mục Chương Trình & Khóa Học";
             this.lblTitle.UseMnemonic = false;
-            // 
+            //
             // lblSubTitle
-            // 
+            //
             this.lblSubTitle.AutoSize = true;
             this.lblSubTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.5F);
             this.lblSubTitle.ForeColor = System.Drawing.Color.Gray;
@@ -104,9 +105,9 @@
             this.lblSubTitle.Size = new System.Drawing.Size(547, 18);
             this.lblSubTitle.TabIndex = 2;
             this.lblSubTitle.Text = "Quản lý các chương trình đào tạo chuẩn quốc tế, cấu trúc học phí và lộ trình đầu ra";
-            // 
+            //
             // btnTaoKhoaHocMoi
-            // 
+            //
             this.btnTaoKhoaHocMoi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnTaoKhoaHocMoi.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(110)))), ((int)(((byte)(253)))));
             this.btnTaoKhoaHocMoi.ForeColor = System.Drawing.Color.White;
@@ -117,9 +118,9 @@
             this.btnTaoKhoaHocMoi.Text = "+ Tạo Khóa Học Mới";
             this.btnTaoKhoaHocMoi.UseVisualStyleBackColor = false;
             this.btnTaoKhoaHocMoi.Click += new System.EventHandler(this.btnTaoKhoaHocMoi_Click);
-            // 
+            //
             // tblStats
-            // 
+            //
             this.tblStats.ColumnCount = 4;
             this.tblStats.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tblStats.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -136,9 +137,9 @@
             this.tblStats.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tblStats.Size = new System.Drawing.Size(1262, 138);
             this.tblStats.TabIndex = 4;
-            // 
+            //
             // pnlCard1
-            // 
+            //
             this.pnlCard1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCard1.Controls.Add(this.lblValTongKH);
             this.pnlCard1.Controls.Add(this.lblTitleTongKH);
@@ -147,9 +148,9 @@
             this.pnlCard1.Name = "pnlCard1";
             this.pnlCard1.Size = new System.Drawing.Size(309, 132);
             this.pnlCard1.TabIndex = 0;
-            // 
+            //
             // lblValTongKH
-            // 
+            //
             this.lblValTongKH.AutoSize = true;
             this.lblValTongKH.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
             this.lblValTongKH.Location = new System.Drawing.Point(85, 51);
@@ -157,9 +158,9 @@
             this.lblValTongKH.Size = new System.Drawing.Size(33, 36);
             this.lblValTongKH.TabIndex = 1;
             this.lblValTongKH.Text = "6";
-            // 
+            //
             // lblTitleTongKH
-            // 
+            //
             this.lblTitleTongKH.AutoSize = true;
             this.lblTitleTongKH.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.lblTitleTongKH.ForeColor = System.Drawing.Color.Black;
@@ -168,9 +169,9 @@
             this.lblTitleTongKH.Size = new System.Drawing.Size(126, 17);
             this.lblTitleTongKH.TabIndex = 0;
             this.lblTitleTongKH.Text = "TỔNG KHÓA HỌC";
-            // 
+            //
             // pnlCard2
-            // 
+            //
             this.pnlCard2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCard2.Controls.Add(this.lblValDangMo);
             this.pnlCard2.Controls.Add(this.lblTitleDangMo);
@@ -179,9 +180,9 @@
             this.pnlCard2.Name = "pnlCard2";
             this.pnlCard2.Size = new System.Drawing.Size(309, 132);
             this.pnlCard2.TabIndex = 1;
-            // 
+            //
             // lblValDangMo
-            // 
+            //
             this.lblValDangMo.AutoSize = true;
             this.lblValDangMo.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
             this.lblValDangMo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(110)))), ((int)(((byte)(253)))));
@@ -190,9 +191,9 @@
             this.lblValDangMo.Size = new System.Drawing.Size(33, 36);
             this.lblValDangMo.TabIndex = 1;
             this.lblValDangMo.Text = "6";
-            // 
+            //
             // lblTitleDangMo
-            // 
+            //
             this.lblTitleDangMo.AutoSize = true;
             this.lblTitleDangMo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.lblTitleDangMo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(110)))), ((int)(((byte)(253)))));
@@ -201,9 +202,9 @@
             this.lblTitleDangMo.Size = new System.Drawing.Size(65, 17);
             this.lblTitleDangMo.TabIndex = 0;
             this.lblTitleDangMo.Text = "Đang Mở";
-            // 
+            //
             // pnlCard3
-            // 
+            //
             this.pnlCard3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCard3.Controls.Add(this.lblValLopHD);
             this.pnlCard3.Controls.Add(this.lblTitleLopHD);
@@ -212,9 +213,9 @@
             this.pnlCard3.Name = "pnlCard3";
             this.pnlCard3.Size = new System.Drawing.Size(309, 132);
             this.pnlCard3.TabIndex = 2;
-            // 
+            //
             // lblValLopHD
-            // 
+            //
             this.lblValLopHD.AutoSize = true;
             this.lblValLopHD.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
             this.lblValLopHD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(135)))), ((int)(((byte)(84)))));
@@ -223,9 +224,9 @@
             this.lblValLopHD.Size = new System.Drawing.Size(33, 36);
             this.lblValLopHD.TabIndex = 1;
             this.lblValLopHD.Text = "3";
-            // 
+            //
             // lblTitleLopHD
-            // 
+            //
             this.lblTitleLopHD.AutoSize = true;
             this.lblTitleLopHD.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.lblTitleLopHD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(135)))), ((int)(((byte)(84)))));
@@ -234,9 +235,9 @@
             this.lblTitleLopHD.Size = new System.Drawing.Size(169, 17);
             this.lblTitleLopHD.TabIndex = 0;
             this.lblTitleLopHD.Text = "LỚP ĐANG HOẠT ĐỘNG";
-            // 
+            //
             // pnlCard4
-            // 
+            //
             this.pnlCard4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCard4.Controls.Add(this.lblValTongBuoi);
             this.pnlCard4.Controls.Add(this.lblTitleTongBuoi);
@@ -245,9 +246,9 @@
             this.pnlCard4.Name = "pnlCard4";
             this.pnlCard4.Size = new System.Drawing.Size(311, 132);
             this.pnlCard4.TabIndex = 3;
-            // 
+            //
             // lblValTongBuoi
-            // 
+            //
             this.lblValTongBuoi.AutoSize = true;
             this.lblValTongBuoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold);
             this.lblValTongBuoi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(202)))), ((int)(((byte)(240)))));
@@ -256,9 +257,9 @@
             this.lblValTongBuoi.Size = new System.Drawing.Size(51, 36);
             this.lblValTongBuoi.TabIndex = 1;
             this.lblValTongBuoi.Text = "22";
-            // 
+            //
             // lblTitleTongBuoi
-            // 
+            //
             this.lblTitleTongBuoi.AutoSize = true;
             this.lblTitleTongBuoi.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
             this.lblTitleTongBuoi.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(13)))), ((int)(((byte)(202)))), ((int)(((byte)(240)))));
@@ -267,9 +268,9 @@
             this.lblTitleTongBuoi.Size = new System.Drawing.Size(153, 17);
             this.lblTitleTongBuoi.TabIndex = 0;
             this.lblTitleTongBuoi.Text = "TỔNG BUỔI ĐÀO TẠO";
-            // 
+            //
             // pnlFilter
-            // 
+            //
             this.pnlFilter.BackColor = System.Drawing.Color.Transparent;
             this.pnlFilter.Controls.Add(this.btnReset);
             this.pnlFilter.Controls.Add(this.btnLoc);
@@ -282,17 +283,17 @@
             this.pnlFilter.Name = "pnlFilter";
             this.pnlFilter.Size = new System.Drawing.Size(1262, 60);
             this.pnlFilter.TabIndex = 5;
-            // 
+            //
             // txtTimKiem
-            // 
+            //
             this.txtTimKiem.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.txtTimKiem.Location = new System.Drawing.Point(12, 15);
             this.txtTimKiem.Name = "txtTimKiem";
             this.txtTimKiem.Size = new System.Drawing.Size(396, 30);
             this.txtTimKiem.TabIndex = 0;
-            // 
+            //
             // cboTrinhDo
-            // 
+            //
             this.cboTrinhDo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTrinhDo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.cboTrinhDo.FormattingEnabled = true;
@@ -300,9 +301,9 @@
             this.cboTrinhDo.Name = "cboTrinhDo";
             this.cboTrinhDo.Size = new System.Drawing.Size(180, 28);
             this.cboTrinhDo.TabIndex = 1;
-            // 
+            //
             // cboTrangThai
-            // 
+            //
             this.cboTrangThai.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTrangThai.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
             this.cboTrangThai.FormattingEnabled = true;
@@ -310,9 +311,9 @@
             this.cboTrangThai.Name = "cboTrangThai";
             this.cboTrangThai.Size = new System.Drawing.Size(180, 28);
             this.cboTrangThai.TabIndex = 2;
-            // 
+            //
             // btnLoc
-            // 
+            //
             this.btnLoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.btnLoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLoc.ForeColor = System.Drawing.Color.White;
@@ -323,9 +324,9 @@
             this.btnLoc.Text = "🔍 Lọc";
             this.btnLoc.UseVisualStyleBackColor = false;
             this.btnLoc.Click += new System.EventHandler(this.btnLoc_Click);
-            // 
+            //
             // btnReset
-            // 
+            //
             this.btnReset.BackColor = System.Drawing.Color.White;
             this.btnReset.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnReset.Location = new System.Drawing.Point(915, 15);
@@ -335,9 +336,9 @@
             this.btnReset.Text = "🔄";
             this.btnReset.UseVisualStyleBackColor = false;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
-            // 
+            //
             // dgvKhoaHoc
-            // 
+            //
             this.dgvKhoaHoc.AutoGenerateColumns = false;
             this.dgvKhoaHoc.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvKhoaHoc.BackgroundColor = System.Drawing.Color.White;
@@ -351,7 +352,8 @@
             this.colHocPhi,
             this.colLoTrinh,
             this.colTrangThai,
-            this.colThaoTac});
+            this.colThaoTac,
+            this.colXoa});
             this.dgvKhoaHoc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvKhoaHoc.Location = new System.Drawing.Point(0, 348);
             this.dgvKhoaHoc.Name = "dgvKhoaHoc";
@@ -361,65 +363,65 @@
             this.dgvKhoaHoc.Size = new System.Drawing.Size(1262, 393);
             this.dgvKhoaHoc.TabIndex = 6;
             this.dgvKhoaHoc.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvKhoaHoc_CellClick);
-            // 
+            //
             // colMaKhoa
-            // 
+            //
             this.colMaKhoa.HeaderText = "MÃ KHÓA";
             this.colMaKhoa.Name = "colMaKhoa";
             this.colMaKhoa.DataPropertyName = "MaKhoaHoc";
             this.colMaKhoa.FillWeight = 50F;
             this.colMaKhoa.ReadOnly = true;
-            // 
+            //
             // colTenChuongTrinh
-            // 
+            //
             this.colTenChuongTrinh.HeaderText = "TÊN CHƯƠNG TRÌNH ĐÀO TẠO";
             this.colTenChuongTrinh.Name = "colTenChuongTrinh";
             this.colTenChuongTrinh.DataPropertyName = "TenKhoaHoc";
             this.colTenChuongTrinh.FillWeight = 160F;
             this.colTenChuongTrinh.ReadOnly = true;
-            // 
+            //
             // colChuanDauRa
-            // 
+            //
             this.colChuanDauRa.HeaderText = "CHUẨN ĐẦU RA";
             this.colChuanDauRa.Name = "colChuanDauRa";
             this.colChuanDauRa.DataPropertyName = "ChuanDauRa";
             this.colChuanDauRa.FillWeight = 80F;
             this.colChuanDauRa.ReadOnly = true;
-            // 
+            //
             // colThoiLuong
-            // 
+            //
             this.colThoiLuong.HeaderText = "THỜI LƯỢNG";
             this.colThoiLuong.Name = "colThoiLuong";
             this.colThoiLuong.DataPropertyName = "ThoiLuong";
             this.colThoiLuong.FillWeight = 60F;
             this.colThoiLuong.ReadOnly = true;
-            // 
+            //
             // colHocPhi
-            // 
+            //
             this.colHocPhi.HeaderText = "HỌC PHÍ NIÊM YẾT";
             this.colHocPhi.Name = "colHocPhi";
             this.colHocPhi.DataPropertyName = "HocPhi";
             this.colHocPhi.FillWeight = 90F;
             this.colHocPhi.ReadOnly = true;
-            // 
+            //
             // colLoTrinh
-            // 
+            //
             this.colLoTrinh.HeaderText = "LỘ TRÌNH TÓM TẮT";
             this.colLoTrinh.Name = "colLoTrinh";
             this.colLoTrinh.DataPropertyName = "LoTrinh";
             this.colLoTrinh.FillWeight = 160F;
             this.colLoTrinh.ReadOnly = true;
-            // 
+            //
             // colTrangThai
-            // 
+            //
             this.colTrangThai.HeaderText = "TRẠNG THÁI";
             this.colTrangThai.Name = "colTrangThai";
             this.colTrangThai.DataPropertyName = "TrangThai";
             this.colTrangThai.FillWeight = 80F;
             this.colTrangThai.ReadOnly = true;
-            // 
+            //
             // colThaoTac
-            // 
+            //
             this.colThaoTac.HeaderText = "THAO TÁC";
             this.colThaoTac.Name = "colThaoTac";
             this.colThaoTac.FillWeight = 60F;
@@ -427,9 +429,18 @@
             this.colThaoTac.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             this.colThaoTac.Text = "Sửa";
             this.colThaoTac.UseColumnTextForButtonValue = true;
-            // 
+            //
+            // colXoa
+            //
+            this.colXoa.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.colXoa.HeaderText = "XÓA";
+            this.colXoa.Name = "colXoa";
+            this.colXoa.ReadOnly = true;
+            this.colXoa.Text = "Xóa";
+            this.colXoa.UseColumnTextForButtonValue = true;
+            //
             // frmKhoaHoc
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1262, 741);
@@ -493,5 +504,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colLoTrinh;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTrangThai;
         private System.Windows.Forms.DataGridViewButtonColumn colThaoTac;
+        private System.Windows.Forms.DataGridViewButtonColumn colXoa;
     }
 }

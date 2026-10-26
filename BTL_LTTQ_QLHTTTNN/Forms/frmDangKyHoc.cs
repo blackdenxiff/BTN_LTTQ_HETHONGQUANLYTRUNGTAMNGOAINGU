@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Data;
 using System.Windows.Forms;
 namespace BTL_LTTQ_QLHTTTNN
@@ -6,6 +6,7 @@ namespace BTL_LTTQ_QLHTTTNN
     public partial class frmDangKyHoc : Form
     {
         private readonly int? nguoiDungID;
+        public int? HocVienDuocChon { get; set; }
         private int hocVienID;
 
         public frmDangKyHoc(int authenticatedNguoiDungID) : this()
@@ -17,13 +18,33 @@ namespace BTL_LTTQ_QLHTTTNN
         public frmDangKyHoc()
         {
             InitializeComponent(); HocVienData.Grid(dgvLopHoc); txtGhiChu.MaxLength = 500;
-            txtHocVien.ReadOnly = true;
+            new GridPager(dgvLopHoc, delegate
+            {
+                BTL_LTTQ_QLHTTTNN.Services.PhanQuyenService.YeuCauQuyen("DangKyLopCaNhan");
+            }, pnlPhanTrang, btnTrangTruoc, btnTrangSau, lblTrang, cboSoDong);
+            cboHocVien.SelectedIndexChanged += delegate { ShowStudent(); ShowClass(); };
+            btnTimHocVien.Click += delegate { HocVienData.Run(delegate { LoadStudent(); ShowClass(); }); };
+            txtTimHocVien.KeyDown += delegate(object sender, KeyEventArgs e)
+            {
+                if (e.KeyCode == Keys.Enter) { e.SuppressKeyPress = true; btnTimHocVien.PerformClick(); }
+            };
+            lbltxtHocVien.Text = "Chọn học viên (mã - họ tên - số điện thoại)";
+            lblIntro.Text = "Chọn học viên và lớp học để đăng ký";
             txtSoDienThoai.ReadOnly = true;
             txtTrinhDo.ReadOnly = true;
             dtpNgayDangKy.Enabled = false;
             btnDangKy.Enabled = false;
             btnKiemTra.Enabled = false;
-            Load += delegate { HocVienData.Run(LoadData); };
+            Load += delegate
+            {
+                try { BTL_LTTQ_QLHTTTNN.Services.PhanQuyenService.YeuCauQuyen("DangKyLopCaNhan"); }
+                catch (Exception ex) { MessageBox.Show(ex.Message, "Không có quyền"); Close(); return; }
+                bool studentMode = nguoiDungID.HasValue;
+                txtTimHocVien.Visible = btnTimHocVien.Visible = lblTimHocVien.Visible = cboHocVien.Visible = !studentMode;
+                pnlPhanTrang.Visible = true;
+                txtHocVien.Visible = studentMode;
+                HocVienData.Run(LoadData);
+            };
             dgvLopHoc.SelectionChanged += delegate { ShowClass(); };
             btnLocLop.Click += delegate { HocVienData.Run(LoadClasses); };
             btnLamMoi.Click += delegate { HocVienData.Run(LoadData); };
@@ -51,30 +72,46 @@ namespace BTL_LTTQ_QLHTTTNN
         }
         private void LoadStudent()
         {
+            BTL_LTTQ_QLHTTTNN.Services.PhanQuyenService.YeuCauQuyen("DangKyLopCaNhan");
+            int previous = hocVienID;
+            if (!nguoiDungID.HasValue && cboHocVien.SelectedValue is int)
+                previous = (int)cboHocVien.SelectedValue;
             hocVienID = 0;
-            btnDangKy.Enabled = false;
-            btnKiemTra.Enabled = false;
-            txtHocVien.Clear();
-            txtSoDienThoai.Clear();
-            txtTrinhDo.Clear();
-            if (!nguoiDungID.HasValue || nguoiDungID.Value <= 0)
-                throw new InvalidOperationException("Vui lòng đăng nhập và mở Đăng ký lớp từ hồ sơ học viên.");
-
-            var table = HocVienData.Query(@"SELECT h.HocVienID,h.HoTen,h.SoDienThoai,h.TrinhDoDauVao
-FROM HocVien h
-JOIN NguoiDung n ON n.NguoiDungID=h.NguoiDungID
-JOIN VaiTro v ON v.VaiTroID=n.VaiTroID
-WHERE h.NguoiDungID=@id AND h.IsDeleted=0 AND n.IsDeleted=0 AND n.TrangThai=1
-AND v.IsDeleted=0 AND v.TenVaiTro=N'Học viên'",
-                HocVienData.P("@id", nguoiDungID.Value));
-            if (table.Rows.Count != 1)
-                throw new InvalidOperationException("Tài khoản chưa gắn học viên hoặc không còn được phép truy cập.");
-
-            DataRow student = table.Rows[0];
-            hocVienID = Convert.ToInt32(student["HocVienID"]);
-            txtHocVien.Text = hocVienID + " - " + Convert.ToString(student["HoTen"]);
-            txtSoDienThoai.Text = Convert.ToString(student["SoDienThoai"]);
-            txtTrinhDo.Text = Convert.ToString(student["TrinhDoDauVao"]);
+            txtSoDienThoai.Clear(); txtTrinhDo.Clear();
+            if (nguoiDungID.HasValue)
+            {
+                var student = HocVienData.OwnProfile(nguoiDungID);
+                hocVienID = Convert.ToInt32(student["HocVienID"]);
+                txtHocVien.Text = hocVienID + " - " + Convert.ToString(student["HoTen"]);
+                txtSoDienThoai.Text = Convert.ToString(student["SoDienThoai"]);
+                txtTrinhDo.Text = Convert.ToString(student["TrinhDoDauVao"]);
+                return;
+            }
+            BTL_LTTQ_QLHTTTNN.Services.PhanQuyenService.YeuCauQuyen("QuanLyHocVien");
+            if (previous <= 0) previous = HocVienDuocChon.GetValueOrDefault();
+            var students = HocVienData.Query(@"SELECT HocVienID,HoTen,SoDienThoai,TrinhDoDauVao,
+CONVERT(nvarchar(20),HocVienID)+N' - '+HoTen+N' - '+ISNULL(SoDienThoai,N'') AS HienThi
+FROM HocVien WHERE IsDeleted=0 AND (@q=N'' OR CONVERT(nvarchar(20),HocVienID)=@q
+OR CHARINDEX(@q,HoTen)>0 OR CHARINDEX(@q,ISNULL(SoDienThoai,N''))>0
+OR CHARINDEX(@q,ISNULL(Email,N''))>0) ORDER BY HoTen,HocVienID",
+                HocVienData.P("@q", txtTimHocVien.Text.Trim()));
+            Bind(cboHocVien, students, "HienThi", "HocVienID", false);
+            cboHocVien.SelectedIndex = -1;
+            if (previous > 0) cboHocVien.SelectedValue = previous;
+            ShowStudent();
+            lblTimHocVien.Text = students.Rows.Count == 0 ? "Không tìm thấy học viên." :
+                "Tìm thấy " + students.Rows.Count + " học viên. Chọn trong danh sách bên dưới.";
+        }
+        private void ShowStudent()
+        {
+            if (nguoiDungID.HasValue) { LoadStudent(); return; }
+            hocVienID = 0;
+            txtSoDienThoai.Clear(); txtTrinhDo.Clear();
+            var view = cboHocVien.SelectedItem as DataRowView;
+            if (view == null) return;
+            hocVienID = Convert.ToInt32(view["HocVienID"]);
+            txtSoDienThoai.Text = Convert.ToString(view["SoDienThoai"]);
+            txtTrinhDo.Text = Convert.ToString(view["TrinhDoDauVao"]);
         }
         private void ShowClass()
         {
@@ -83,22 +120,23 @@ AND v.IsDeleted=0 AND v.TenVaiTro=N'Học viên'",
             txtHocPhiApDung.Text = row == null ? "" : Convert.ToDecimal(row["HocPhi"]).ToString("N0");
             txtChoConLai.Text = row == null ? "" : Convert.ToString(row["ChoConLai"]);
             btnDangKy.Enabled = row != null && hocVienID > 0; btnKiemTra.Enabled = btnDangKy.Enabled;
-            lblKiemTra.Text = row == null ? "Không có lớp phù hợp." : "Nhấn Kiểm tra đăng ký để xem bạn đã đăng ký lớp này chưa và lớp còn chỗ không.";
+            lblKiemTra.Text = row == null ? "Không có lớp phù hợp." : "Nhấn Kiểm tra đăng ký để xác nhận học viên chưa đăng ký và lớp còn chỗ.";
         }
         private void Register(bool save)
         {
-            // Lay lai hoc vien tu tai khoan, khong lay ID tu o nhap tren giao dien.
-            LoadStudent();
+            BTL_LTTQ_QLHTTTNN.Services.PhanQuyenService.YeuCauQuyen("DangKyLopCaNhan");
+            if (nguoiDungID.HasValue) LoadStudent(); else ShowStudent();
             ShowClass();
             int student = hocVienID; var row = HocVienData.Row(dgvLopHoc);
-            if (student == 0 || row == null) throw new InvalidOperationException("Vui lòng chọn lớp học.");
+            if (student == 0 || row == null) throw new InvalidOperationException("Vui lòng chọn học viên và lớp học.");
             lblKiemTra.Text = "Đang kiểm tra đăng ký...";
-            if (save && MessageBox.Show("Bạn muốn đăng ký lớp " + row["TenLop"] + " với học phí " + txtHocPhiApDung.Text + "đ?",
+            string studentName = nguoiDungID.HasValue ? txtHocVien.Text : cboHocVien.Text;
+            if (save && MessageBox.Show("Đăng ký cho " + studentName + " vào lớp " + row["TenLop"] + " với học phí " + txtHocPhiApDung.Text + "đ?",
                 "Xác nhận", MessageBoxButtons.YesNo) != DialogResult.Yes) { lblKiemTra.Text = "Chưa đăng ký."; return; }
             try { HocVienData.Register(student, Convert.ToInt32(row["LopHocID"]), DateTime.Now, txtGhiChu.Text, Convert.ToDecimal(row["HocPhi"]), save); }
             catch { lblKiemTra.Text = "Chưa đăng ký. Xem thông báo lỗi và kiểm tra lại thông tin."; throw; }
             if (save) { MessageBox.Show("Đăng ký thành công."); txtGhiChu.Clear(); LoadClasses(); }
-            lblKiemTra.Text = save ? "Đã lưu đăng ký." : "Hợp lệ: bạn chưa đăng ký lớp và lớp còn chỗ. Khi lưu sẽ kiểm tra lại.";
+            lblKiemTra.Text = save ? "Đã lưu đăng ký." : "Hợp lệ: học viên chưa đăng ký lớp và lớp còn chỗ. Khi lưu sẽ kiểm tra lại.";
         }
     }
 }

@@ -54,6 +54,13 @@ namespace BTL_LTTQ_QLHTTTNN
 
             DataTable dt = DatabaseConnection.GetDataToTable(sql);
 
+            colMaKhoa.DataPropertyName = "MaKhoaHoc";
+            colTenChuongTrinh.DataPropertyName = "TenKhoaHoc";
+            colChuanDauRa.DataPropertyName = "ChuanDauRa";
+            colThoiLuong.DataPropertyName = "ThoiLuong";
+            colHocPhi.DataPropertyName = "HocPhi";
+            colLoTrinh.DataPropertyName = "LoTrinh";
+            colTrangThai.DataPropertyName = "TrangThai";
             dgvKhoaHoc.DataSource = dt;
         }
 
@@ -139,6 +146,15 @@ namespace BTL_LTTQ_QLHTTTNN
 
                 if (int.TryParse(maKhoaStr, out int maKhoaID))
                 {
+                    int countLop = Convert.ToInt32(DatabaseConnection.GetFieldValues(
+                        $"SELECT COUNT(*) FROM LopHoc WHERE KhoaHocID = {maKhoaID}"));
+                    if (countLop > 0)
+                    {
+                        MessageBox.Show($"Không thể xóa khóa học '{tenKhoa}' vì đang có {countLop} lớp liên kết.",
+                            "Không thể xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
                     DialogResult dr = MessageBox.Show($"Bạn có chắc chắn muốn xóa khóa học '{tenKhoa}' (ID: {maKhoaID}) không?",
                                                       "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dr == DialogResult.Yes)

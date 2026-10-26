@@ -49,7 +49,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 manHinhHienTai = main; dangNhap.Hide(); MainForm = dangNhap;
                 main.FormClosed += KetThucPhien; main.Show();
             }
-            catch (Exception ex) { TaiKhoanService.DangXuat(); dangNhap.XoaMatKhau(); dangNhap.HienThongBao(ex.Message); }
+            catch (Exception ex) { TaiKhoanService.DangXuat(); dangNhap.XoaMatKhau(); dangNhap.HienThongBao(ex.GetBaseException().Message); }
         }
         private Form TaoManHinh(NguoiDungPhien user)
         {
@@ -93,6 +93,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private void KetThucPhien(object sender, FormClosedEventArgs e)
         {
             TaiKhoanService.DangXuat(); manHinhHienTai = null;
+            if (e.CloseReason == CloseReason.ApplicationExitCall || e.CloseReason == CloseReason.WindowsShutDown || e.CloseReason == CloseReason.TaskManagerClosing) return;
             if (dangNhap != null && !dangNhap.IsDisposed) { MainForm = dangNhap; dangNhap.HienThongBao("Đã đăng xuất."); dangNhap.Show(); dangNhap.Activate(); }
         }
     }

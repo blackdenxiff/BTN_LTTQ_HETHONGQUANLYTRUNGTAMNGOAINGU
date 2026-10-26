@@ -9,10 +9,18 @@ namespace BTL_LTTQ_QLHTTTNN.Services
         {
             var session = SessionContext.NguoiDungHienTai;
             if (session == null || string.IsNullOrWhiteSpace(maChucNang)) return false;
-            string role; if (!TaiKhoanData.TaiKhoanConHoatDong(session.NguoiDungID, out role)) return false;
+            var account = TaiKhoanData.LayTheoTen(session.TenDangNhap);
+            if (account == null || account.Id != session.NguoiDungID || account.BiKhoa || account.DaXoa || !account.HoSoHopLe
+                || account.VaiTro != session.VaiTro || account.HocVienId != session.HocVienID || account.NhanSuId != session.NhanSuID) return false;
+            if (maChucNang != "DoiMatKhau" && (account.DoiMatKhauLanDau || session.DoiMatKhauLanDau)) return false;
+            string role = account.VaiTro;
             switch (maChucNang)
             {
                 case "DoiMatKhau": return true;
+                case "XemHoSoCaNhan": case "XemLopCaNhan": case "XemKetQuaCaNhan":
+                case "XemHocPhiCaNhan": return role == "Học viên";
+                case "DangKyLopCaNhan": return role == "Admin" || role == "Nhân viên" || role == "Học viên";
+                case "QuanLyHocVien": return role == "Admin" || role == "Nhân viên";
                 case "QuanLyTaiKhoan": case "TaoTaiKhoan": case "SuaTaiKhoan": case "KhoaTaiKhoan": case "XoaTaiKhoan": case "DatLaiMatKhau": case "XemThongKe": return role == "Admin";
                 default: return false;
             }

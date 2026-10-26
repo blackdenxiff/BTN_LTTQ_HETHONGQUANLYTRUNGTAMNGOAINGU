@@ -11,13 +11,68 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
 {
     public partial class frmThongBao : Form
     {
-        // CẤU HÌNH GMAIL NGUỜI GỬI
-        private static string GMAIL_ADMIN { get { return Environment.GetEnvironmentVariable("QLTT_EMAIL_ADMIN"); } }
-        private static string GMAIL_APP_PASSWORD { get { return Environment.GetEnvironmentVariable("QLTT_EMAIL_APP_PASSWORD"); } }
-
         public frmThongBao()
         {
             InitializeComponent();
+            var configure = new Button
+            {
+                Text = "⚙ Cấu hình email",
+                Location = new Point(24, 520),
+                Size = new Size(170, 42),
+                BackColor = Color.FromArgb(51, 65, 85),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 9.5F, FontStyle.Bold),
+                Cursor = Cursors.Hand
+            };
+            configure.FlatAppearance.BorderSize = 0;
+            configure.Click += delegate { CauHinhEmail(); };
+            pnlCardMain.Controls.Add(configure);
+            configure.BringToFront();
+        }
+
+        private bool CauHinhEmail()
+        {
+            var current = EmailSettingsService.Load();
+            using (var dialog = new Form
+            {
+                Text = "Cấu hình email gửi",
+                ClientSize = new Size(440, 230),
+                FormBorderStyle = FormBorderStyle.FixedDialog,
+                StartPosition = FormStartPosition.CenterParent,
+                MinimizeBox = false,
+                MaximizeBox = false,
+                ShowInTaskbar = false,
+                Font = new Font("Segoe UI", 9.5F)
+            })
+            {
+                var labelEmail = new Label { Text = "Email gửi", AutoSize = true, Location = new Point(22, 20) };
+                var email = new TextBox { Location = new Point(22, 44), Size = new Size(396, 27), Text = current == null ? "" : current.Email };
+                var labelPassword = new Label { Text = "Mật khẩu ứng dụng Gmail", AutoSize = true, Location = new Point(22, 82) };
+                var password = new TextBox { Location = new Point(22, 106), Size = new Size(396, 27), UseSystemPasswordChar = true };
+                var help = new Label { Text = "Mật khẩu được mã hóa cho tài khoản Windows hiện tại.", AutoSize = true, ForeColor = Color.FromArgb(100, 116, 139), Location = new Point(22, 140) };
+                var save = new Button { Text = "Lưu cấu hình", Location = new Point(286, 178), Size = new Size(132, 34), DialogResult = DialogResult.OK };
+                var cancel = new Button { Text = "Hủy", Location = new Point(198, 178), Size = new Size(78, 34), DialogResult = DialogResult.Cancel };
+                dialog.Controls.AddRange(new Control[] { labelEmail, email, labelPassword, password, help, cancel, save });
+                dialog.AcceptButton = save;
+                dialog.CancelButton = cancel;
+                save.Click += delegate
+                {
+                    try
+                    {
+                        EmailSettingsService.Save(email.Text, password.Text);
+                        password.Clear();
+                    }
+                    catch (Exception ex)
+                    {
+                        dialog.DialogResult = DialogResult.None;
+                        MessageBox.Show(dialog, ex.Message, "Cấu hình email", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                };
+                bool saved = dialog.ShowDialog(this) == DialogResult.OK;
+                password.Clear();
+                return saved;
+            }
         }
 
         private void frmThongBao_Load(object sender, EventArgs e)
@@ -179,10 +234,12 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
 
         private void btnGuiThongBao_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(GMAIL_ADMIN) || string.IsNullOrWhiteSpace(GMAIL_APP_PASSWORD))
+            var emailSettings = EmailSettingsService.Load();
+            if (emailSettings == null)
             {
-                MessageBox.Show("Chưa cấu hình email gửi. Hãy thiết lập biến môi trường QLTT_EMAIL_ADMIN và QLTT_EMAIL_APP_PASSWORD.", "Thiếu cấu hình email", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (!CauHinhEmail()) return;
+                emailSettings = EmailSettingsService.Load();
+                if (emailSettings == null) return;
             }
             string tieuDe = txtTieuDe.Text.Trim();
             string noiDung = txtNoiDung.Text.Trim();
@@ -251,7 +308,7 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
 
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587)
                 {
-                    Credentials = new NetworkCredential(GMAIL_ADMIN, GMAIL_APP_PASSWORD),
+                    Credentials = new NetworkCredential(emailSettings.Email, emailSettings.AppPassword),
                     EnableSsl = true
                 };
 
@@ -260,7 +317,7 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
                     try
                     {
                         MailMessage mail = new MailMessage();
-                        mail.From = new MailAddress(GMAIL_ADMIN, "English Center");
+                        mail.From = new MailAddress(emailSettings.Email, "English Center");
                         mail.To.Add(emailTarget);
                         mail.Subject = tieuDe;
                         mail.Body = noiDung;
@@ -284,7 +341,7 @@ namespace BTL_LTTQ_QLHTTTNN.Forms
             catch (Exception ex)
             {
                 Cursor = Cursors.Default;
-                MessageBox.Show($"Lỗi kết nối Gmail: {ex.Message}\n\nLưu ý: Kiểm tra lại Mật khẩu ứng dụng của Gmail {GMAIL_ADMIN}.", "Lỗi gửi mail", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi kết nối Gmail: {ex.Message}\n\nKiểm tra email gửi và mật khẩu ứng dụng trong Cấu hình email.", "Lỗi gửi mail", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

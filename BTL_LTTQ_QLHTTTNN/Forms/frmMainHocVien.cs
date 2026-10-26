@@ -29,8 +29,57 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void SetupAppearance()
         {
+            SuspendLayout();
+            pnlHeader.Controls.Remove(lblTenHeThong);
+            Controls.Remove(pnlNoiDung);
+            Controls.Remove(pnlHeader);
+            var mainArea = new Panel { Name = "pnlVungChinh", Dock = DockStyle.Fill, BackColor = Color.FromArgb(248, 250, 252) };
+            mainArea.Controls.Add(pnlNoiDung);
+            mainArea.Controls.Add(pnlHeader);
+            pnlHeader.Dock = DockStyle.Top;
+            pnlHeader.Height = 72;
+            pnlHeader.BackColor = Color.White;
+            pnlNoiDung.Dock = DockStyle.Fill;
+            pnlNoiDung.BackColor = Color.FromArgb(248, 250, 252);
+            Controls.Add(mainArea);
+            Controls.SetChildIndex(pnlMenu, 0);
+            pnlMenu.Dock = DockStyle.Left;
+            pnlMenu.Width = 270;
+            pnlMenu.Padding = Padding.Empty;
+            pnlMenu.BackColor = Color.FromArgb(15, 23, 42);
+            BackColor = Color.FromArgb(248, 250, 252);
+            ClientSize = new Size(1280, 800);
+            MinimumSize = new Size(1024, 680);
+            Text = "English Center — Học viên";
+
+            var brand = new Panel { Name = "pnlThuongHieuHocVien", Dock = DockStyle.Top, Height = 100, BackColor = Color.FromArgb(15, 23, 42) };
+            var logo = new Label { Text = "E", Location = new Point(28, 22), Size = new Size(42, 52), ForeColor = Color.FromArgb(37, 99, 235), Font = new Font("Segoe UI", 28F, FontStyle.Bold), TextAlign = ContentAlignment.MiddleCenter };
+            lblTenHeThong.Text = "ENGLISH CENTER";
+            lblTenHeThong.Location = new Point(82, 24);
+            lblTenHeThong.Size = new Size(175, 30);
+            lblTenHeThong.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTenHeThong.ForeColor = Color.White;
+            var tagline = new Label { Text = "Quản lý trung tâm", Location = new Point(82, 55), Size = new Size(175, 22), ForeColor = Color.FromArgb(148, 163, 184), Font = new Font("Segoe UI", 9F) };
+            brand.Controls.AddRange(new Control[] { logo, lblTenHeThong, tagline });
+            pnlMenu.Controls.Add(brand);
+            pnlMenu.Controls.SetChildIndex(brand, 0);
+
+            lblNguoiDangNhap.Dock = DockStyle.None;
+            lblNguoiDangNhap.Location = new Point(0, 0);
+            lblNguoiDangNhap.Size = new Size(1, 1);
+            var menuButton = new Button { Name = "btnThuGonMenu", Text = "☰", Location = new Point(24, 17), Size = new Size(42, 38), FlatStyle = FlatStyle.Flat, BackColor = Color.White, ForeColor = Color.FromArgb(31, 41, 55), Cursor = Cursors.Hand };
+            menuButton.FlatAppearance.BorderColor = Color.FromArgb(203, 213, 225);
+            menuButton.Click += delegate { pnlMenu.Visible = !pnlMenu.Visible; };
+            var roleBadge = new Label { Text = "Học viên", Location = new Point(575, 20), Size = new Size(100, 32), Anchor = AnchorStyles.Top | AnchorStyles.Right, BackColor = Color.FromArgb(37, 99, 235), ForeColor = Color.White, Font = new Font("Segoe UI", 9F, FontStyle.Bold), TextAlign = ContentAlignment.MiddleCenter };
+            pnlHeader.Controls.Add(menuButton);
+            pnlHeader.Controls.Add(roleBadge);
+            pnlHeader.Controls.SetChildIndex(menuButton, 0);
+            pnlHeader.Controls.SetChildIndex(roleBadge, 0);
+
             // Keep main's tab strip and its existing dimensions; menus remain shortcuts to those tabs.
             tabHoSo.Visible = true;
+            tabHoSo.Font = new Font("Segoe UI", 9.5F);
+            tabHoSo.BackColor = Color.White;
             foreach (TabPage tab in tabHoSo.TabPages)
             {
                 var panel = new Panel { Dock = DockStyle.Fill, BackColor = Color.White,
@@ -71,6 +120,22 @@ namespace BTL_LTTQ_QLHTTTNN
             pnlMenu.Controls.SetChildIndex(btnHocPhi, 2);
             pnlMenu.Controls.SetChildIndex(btnDangKyLop, 1);
             pnlMenu.Controls.SetChildIndex(btnSchedule, 0);
+            foreach (var button in new[] { btnThongTin, btnKetQua, btnHocPhi, btnDangKyLop, btnClasses, btnSchedule })
+            {
+                button.Height = 50;
+                button.BackColor = Color.FromArgb(30, 41, 59);
+                button.ForeColor = Color.FromArgb(203, 213, 225);
+                button.FlatStyle = FlatStyle.Flat;
+                button.FlatAppearance.BorderSize = 0;
+                button.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
+                button.Font = new Font("Segoe UI", 10F);
+                button.TextAlign = ContentAlignment.MiddleLeft;
+                button.Padding = new Padding(20, 0, 8, 0);
+                button.Cursor = Cursors.Hand;
+            }
+            lblTieuDeTrang.ForeColor = Color.FromArgb(31, 41, 55);
+            pnlNoiDung.Padding = new Padding(24, 18, 24, 18);
+            ResumeLayout(true);
             ConfigureGrid(dgvLopHoc, new[] { "TenLop", "TenKhoaHoc", "TenCoSo", "NgayBatDau", "NgayKetThuc" },
                 new[] { "Lớp học", "Khóa học", "Cơ sở", "Ngày bắt đầu", "Ngày kết thúc" });
             ConfigureGrid(dgvKetQua, new[] { "TenLop", "TenKhoaHoc", "DiemCuoiKhoa", "KetQua" },
@@ -86,10 +151,10 @@ namespace BTL_LTTQ_QLHTTTNN
             accountButton = new Button
             {
                 Text = lblNguoiDangNhap.Text + "  ▾",
-                Dock = lblNguoiDangNhap.Dock,
-                Size = lblNguoiDangNhap.Size,
-                ForeColor = Color.White,
-                BackColor = parent.BackColor,
+                Dock = DockStyle.Right,
+                Size = new Size(300, 72),
+                ForeColor = Color.FromArgb(31, 41, 55),
+                BackColor = Color.White,
                 FlatStyle = FlatStyle.Flat,
                 TextAlign = ContentAlignment.MiddleRight,
                 Padding = new Padding(8, 0, 16, 0),
@@ -99,7 +164,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 UseVisualStyleBackColor = false
             };
             accountButton.FlatAppearance.BorderSize = 0;
-            accountButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(45, 83, 130);
+            accountButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(241, 245, 249);
             lblNguoiDangNhap.Visible = false;
             parent.Controls.Add(accountButton);
             parent.Controls.SetChildIndex(accountButton, index);
@@ -228,6 +293,12 @@ namespace BTL_LTTQ_QLHTTTNN
         private void SelectMenu(Button button)
         {
             activeButton = button;
+            foreach (var item in new[] { btnThongTin, btnKetQua, btnHocPhi, btnDangKyLop, btnClasses, btnSchedule })
+            {
+                if (item == null) continue;
+                item.BackColor = item == button ? Color.FromArgb(37, 99, 235) : Color.FromArgb(30, 41, 59);
+                item.ForeColor = item == button ? Color.White : Color.FromArgb(203, 213, 225);
+            }
         }
 
         // TV1 passes the authenticated NguoiDungID after a successful login.

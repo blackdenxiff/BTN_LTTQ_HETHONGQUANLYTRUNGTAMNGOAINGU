@@ -31,12 +31,14 @@ namespace BTL_LTTQ_QLHTTTNN
             if (dgvKhoaHoc.Columns.Contains("colLoTrinh")) dgvKhoaHoc.Columns["colLoTrinh"].FillWeight = 160;
             if (dgvKhoaHoc.Columns.Contains("colTrangThai")) dgvKhoaHoc.Columns["colTrangThai"].FillWeight = 80;
             if (dgvKhoaHoc.Columns.Contains("colThaoTac")) dgvKhoaHoc.Columns["colThaoTac"].FillWeight = 60;
+            if (dgvKhoaHoc.Columns.Contains("colXoa")) dgvKhoaHoc.Columns["colXoa"].FillWeight = 50;
 
             // Tải dữ liệu
             LoadThongKe();
             LoadComboBoxFilter();
             LoadDataKhoaHoc();
         }
+
         // 1. Nạp số liệu 4 thẻ thống kê
         private void LoadThongKe()
         {
@@ -135,21 +137,21 @@ namespace BTL_LTTQ_QLHTTTNN
             }
         }
 
-        // 6. SỬA VÀ XÓA KHÓA HỌC
+        // 6. XỬ LÝ SỬA VÀ XÓA KHÓA HỌC TRÊN LƯỚI
         private void dgvKhoaHoc_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
 
             string columnName = dgvKhoaHoc.Columns[e.ColumnIndex].Name;
 
-            // Nút Sửa
+            // --- XỬ LÝ SỬA KHÓA HỌC ---
             if (columnName == "colThaoTac")
             {
                 string maKhoaStr = dgvKhoaHoc.Rows[e.RowIndex].Cells["colMaKhoa"].Value?.ToString();
 
                 if (int.TryParse(maKhoaStr, out int maKhoaID))
                 {
-                    frmChiTietKhoaHoc frm = new frmChiTietKhoaHoc(maKhoaID); // Truyền ID mở chế độ Sửa
+                    frmChiTietKhoaHoc frm = new frmChiTietKhoaHoc(maKhoaID);
                     if (frm.ShowDialog() == DialogResult.OK)
                     {
                         LoadThongKe();
@@ -157,7 +159,7 @@ namespace BTL_LTTQ_QLHTTTNN
                     }
                 }
             }
-            // Nút Xóa
+            // --- XỬ LÝ XÓA KHÓA HỌC ---
             else if (columnName == "colXoa")
             {
                 string maKhoaStr = dgvKhoaHoc.Rows[e.RowIndex].Cells["colMaKhoa"].Value?.ToString();
@@ -165,16 +167,29 @@ namespace BTL_LTTQ_QLHTTTNN
 
                 if (int.TryParse(maKhoaStr, out int maKhoaID))
                 {
-                    DialogResult dr = MessageBox.Show($"Bạn có chắc chắn muốn xóa khóa học '{tenKhoa}' (ID: {maKhoaID}) không?",
+                    // 1. Kiểm tra nếu khóa học đã có Lớp học thuộc về nó
+                    string checkClassSql = $"SELECT COUNT(*) FROM LopHoc WHERE KhoaHocID = {maKhoaID}";
+                    int countLop = Convert.ToInt32(DatabaseConnection.GetFieldValues(checkClassSql));
+
+                    if (countLop > 0)
+                    {
+                        MessageBox.Show($"Không thể xóa khóa học '{tenKhoa}' vì hiện có {countLop} lớp học đang liên kết!",
+                                        "Cảnh báo xóa", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // 2. Xác nhận xóa từ người dùng
+                    DialogResult dr = MessageBox.Show($"Bạn có chắc chắn muốn xóa khóa học '{tenKhoa}' (Mã KH: {maKhoaID}) không?",
                                                       "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (dr == DialogResult.Yes)
                     {
-                        // Xóa mềm trong CSDL
+                        // 3. Thực hiện Xóa mềm (Soft Delete)
                         string sqlDelete = $"UPDATE KhoaHoc SET IsDeleted = 1, DeletedAt = GETDATE() WHERE KhoaHocID = {maKhoaID}";
                         DatabaseConnection.RunSQL(sqlDelete);
 
                         MessageBox.Show("Đã xóa khóa học thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                        // 4. Nạp lại thông kê và lưới dữ liệu
                         LoadThongKe();
                         LoadDataKhoaHoc();
                     }

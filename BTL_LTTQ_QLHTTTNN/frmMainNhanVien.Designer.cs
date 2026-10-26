@@ -44,6 +44,7 @@
             this.btnHoSoHocVien = new System.Windows.Forms.Button();
             this.btnKhaoThiXepLop = new System.Windows.Forms.Button();
             this.lblNhom2 = new System.Windows.Forms.Label();
+            this.btnKhoaHoc = new System.Windows.Forms.Button();
             this.btnDanhSachLopHoc = new System.Windows.Forms.Button();
             this.btnLichHocPhongHoc = new System.Windows.Forms.Button();
             this.lblNhom3 = new System.Windows.Forms.Label();
@@ -107,7 +108,7 @@
             this.lblHuongDan.Name = "lblHuongDan";
             this.lblHuongDan.Size = new System.Drawing.Size(800, 28);
             this.lblHuongDan.TabIndex = 14;
-            this.lblHuongDan.Text = "Chọn chức năng trong menu bên trái để bắt đầu quản lý học viên, lớp học và học phí.";
+            this.lblHuongDan.Text = "Chọn chức năng trong menu bên trái để bắt đầu quản lý học viên, khóa học, lớp học và học phí.";
             this.lblHuongDan.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblThongBao
@@ -193,6 +194,7 @@
             this.pnlMenuNoiDung.Controls.Add(this.btnHoSoHocVien);
             this.pnlMenuNoiDung.Controls.Add(this.btnKhaoThiXepLop);
             this.pnlMenuNoiDung.Controls.Add(this.lblNhom2);
+            this.pnlMenuNoiDung.Controls.Add(this.btnKhoaHoc);
             this.pnlMenuNoiDung.Controls.Add(this.btnDanhSachLopHoc);
             this.pnlMenuNoiDung.Controls.Add(this.btnLichHocPhongHoc);
             this.pnlMenuNoiDung.Controls.Add(this.lblNhom3);
@@ -267,6 +269,26 @@
             this.lblNhom2.Text = "VẬN HÀNH ĐÀO TẠO";
             this.lblNhom2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // btnKhoaHoc
+            // 
+            this.btnKhoaHoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
+            this.btnKhoaHoc.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnKhoaHoc.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
+            this.btnKhoaHoc.FlatAppearance.BorderSize = 0;
+            this.btnKhoaHoc.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(41)))), ((int)(((byte)(59)))));
+            this.btnKhoaHoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnKhoaHoc.Font = new System.Drawing.Font("Segoe UI", 9.5F);
+            this.btnKhoaHoc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
+            this.btnKhoaHoc.Location = new System.Drawing.Point(14, 200);
+            this.btnKhoaHoc.Name = "btnKhoaHoc";
+            this.btnKhoaHoc.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
+            this.btnKhoaHoc.Size = new System.Drawing.Size(232, 40);
+            this.btnKhoaHoc.TabIndex = 29;
+            this.btnKhoaHoc.Text = "📚  Chương trình && Khóa học";
+            this.btnKhoaHoc.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnKhoaHoc.UseVisualStyleBackColor = false;
+            this.btnKhoaHoc.Click += new System.EventHandler(this.btnKhoaHoc_Click);
+            // 
             // btnDanhSachLopHoc
             // 
             this.btnDanhSachLopHoc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(15)))), ((int)(((byte)(23)))), ((int)(((byte)(42)))));
@@ -277,7 +299,7 @@
             this.btnDanhSachLopHoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnDanhSachLopHoc.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.btnDanhSachLopHoc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
-            this.btnDanhSachLopHoc.Location = new System.Drawing.Point(14, 200);
+            this.btnDanhSachLopHoc.Location = new System.Drawing.Point(14, 244);
             this.btnDanhSachLopHoc.Name = "btnDanhSachLopHoc";
             this.btnDanhSachLopHoc.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnDanhSachLopHoc.Size = new System.Drawing.Size(232, 40);
@@ -297,7 +319,7 @@
             this.btnLichHocPhongHoc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLichHocPhongHoc.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.btnLichHocPhongHoc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
-            this.btnLichHocPhongHoc.Location = new System.Drawing.Point(14, 244);
+            this.btnLichHocPhongHoc.Location = new System.Drawing.Point(14, 288);
             this.btnLichHocPhongHoc.Name = "btnLichHocPhongHoc";
             this.btnLichHocPhongHoc.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnLichHocPhongHoc.Size = new System.Drawing.Size(232, 40);
@@ -311,7 +333,7 @@
             // 
             this.lblNhom3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblNhom3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(189)))), ((int)(((byte)(248)))));
-            this.lblNhom3.Location = new System.Drawing.Point(24, 302);
+            this.lblNhom3.Location = new System.Drawing.Point(24, 346);
             this.lblNhom3.Name = "lblNhom3";
             this.lblNhom3.Size = new System.Drawing.Size(230, 28);
             this.lblNhom3.TabIndex = 25;
@@ -328,7 +350,7 @@
             this.btnQuanLyHoaDon.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnQuanLyHoaDon.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.btnQuanLyHoaDon.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
-            this.btnQuanLyHoaDon.Location = new System.Drawing.Point(14, 340);
+            this.btnQuanLyHoaDon.Location = new System.Drawing.Point(14, 384);
             this.btnQuanLyHoaDon.Name = "btnQuanLyHoaDon";
             this.btnQuanLyHoaDon.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnQuanLyHoaDon.Size = new System.Drawing.Size(232, 40);
@@ -342,7 +364,7 @@
             // 
             this.lblNhom4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.lblNhom4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(189)))), ((int)(((byte)(248)))));
-            this.lblNhom4.Location = new System.Drawing.Point(24, 398);
+            this.lblNhom4.Location = new System.Drawing.Point(24, 442);
             this.lblNhom4.Name = "lblNhom4";
             this.lblNhom4.Size = new System.Drawing.Size(230, 28);
             this.lblNhom4.TabIndex = 27;
@@ -359,7 +381,7 @@
             this.btnThongBao.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnThongBao.Font = new System.Drawing.Font("Segoe UI", 9.5F);
             this.btnThongBao.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(213)))), ((int)(((byte)(225)))));
-            this.btnThongBao.Location = new System.Drawing.Point(14, 436);
+            this.btnThongBao.Location = new System.Drawing.Point(14, 480);
             this.btnThongBao.Name = "btnThongBao";
             this.btnThongBao.Padding = new System.Windows.Forms.Padding(10, 0, 0, 0);
             this.btnThongBao.Size = new System.Drawing.Size(232, 40);
@@ -487,6 +509,7 @@
         private System.Windows.Forms.Button btnHoSoHocVien;
         private System.Windows.Forms.Button btnKhaoThiXepLop;
         private System.Windows.Forms.Label lblNhom2;
+        private System.Windows.Forms.Button btnKhoaHoc;
         private System.Windows.Forms.Button btnDanhSachLopHoc;
         private System.Windows.Forms.Button btnLichHocPhongHoc;
         private System.Windows.Forms.Label lblNhom3;

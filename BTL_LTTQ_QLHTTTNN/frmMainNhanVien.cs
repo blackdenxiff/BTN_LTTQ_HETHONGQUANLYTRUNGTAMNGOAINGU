@@ -53,6 +53,11 @@ namespace BTL_LTTQ_QLHTTTNN
             MoFormCon(new frmDangKyHoc());
         }
 
+        private void btnKhoaHoc_Click(object sender, EventArgs e)
+        {
+            MoFormCon(new frmKhoaHoc());
+        }
+
         private void btnDanhSachLopHoc_Click(object sender, EventArgs e)
         {
             MoFormCon(new frmLopHoc());

@@ -15,6 +15,8 @@ namespace BTL_LTTQ_QLHTTTNN.Services
         /// </summary>
         public static KetQuaXuLy LapPhieuThu(TaoPhieuThuDto duLieu)
         {
+            if (!PhanQuyenService.KiemTraQuyen("LapPhieuThu"))
+                return KetQuaXuLy.ThatBai("Chỉ nhân viên trung tâm mới được lập phiếu thu.");
             if (duLieu == null)
             {
                 return KetQuaXuLy.ThatBai("Dữ liệu lập phiếu thu không được để trống.");

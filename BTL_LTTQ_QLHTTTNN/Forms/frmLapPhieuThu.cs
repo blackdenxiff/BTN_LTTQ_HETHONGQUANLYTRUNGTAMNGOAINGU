@@ -45,6 +45,13 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void frmLapPhieuThu_Load(object sender, EventArgs e)
         {
+            if (_hocVienKhoa.HasValue && !PhanQuyenService.KiemTraQuyen("LapPhieuThu"))
+            {
+                MessageBox.Show(this, "Học viên chỉ có thể xem tình trạng học phí. Vui lòng liên hệ nhân viên để xác nhận khoản đã thu.",
+                    "Không có quyền lập phiếu thu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Close();
+                return;
+            }
             // 1. Sửa lỗi "Lậ p Phiế u" bằng cách đổi sang Font Tahoma
             this.Text = "Lập Phiếu Thu Học Phí";
             if (lblTieuDe != null)

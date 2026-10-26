@@ -20,6 +20,7 @@ namespace BTL_LTTQ_QLHTTTNN.Services
                 case "XemHoSoCaNhan": case "XemLopCaNhan": case "XemKetQuaCaNhan":
                 case "XemHocPhiCaNhan": return role == "Học viên";
                 case "DangKyLopCaNhan": return role == "Admin" || role == "Nhân viên" || role == "Học viên";
+                case "LapPhieuThu": return role == "Admin" || role == "Nhân viên";
                 case "QuanLyHocVien": return role == "Admin" || role == "Nhân viên";
                 case "QuanLyTaiKhoan": case "TaoTaiKhoan": case "SuaTaiKhoan": case "KhoaTaiKhoan": case "XoaTaiKhoan": case "DatLaiMatKhau": case "XemThongKe": return role == "Admin";
                 default: return false;

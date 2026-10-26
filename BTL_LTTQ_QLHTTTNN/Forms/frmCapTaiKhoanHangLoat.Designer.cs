@@ -24,6 +24,7 @@ namespace BTL_LTTQ_QLHTTTNN
             this.lblTimKiem = new System.Windows.Forms.Label();
             this.txtTimKiem = new System.Windows.Forms.TextBox();
             this.btnTim = new System.Windows.Forms.Button();
+            this.btnChonTrang = new System.Windows.Forms.Button();
             this.dgvHoSo = new System.Windows.Forms.DataGridView();
             this.colChon = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.colMaHoSo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,7 +38,6 @@ namespace BTL_LTTQ_QLHTTTNN
             this.btnSau = new System.Windows.Forms.Button();
             this.lblSoDaChon = new System.Windows.Forms.Label();
             this.progressCap = new System.Windows.Forms.ProgressBar();
-            this.btnChonTatCa = new System.Windows.Forms.Button();
             this.btnCapTaiKhoan = new System.Windows.Forms.Button();
             this.lblTrangThai = new System.Windows.Forms.Label();
             this.tlpChinh.SuspendLayout();
@@ -78,6 +78,7 @@ namespace BTL_LTTQ_QLHTTTNN
             this.pnlLoc.Controls.Add(this.lblTimKiem);
             this.pnlLoc.Controls.Add(this.txtTimKiem);
             this.pnlLoc.Controls.Add(this.btnTim);
+            this.pnlLoc.Controls.Add(this.btnChonTrang);
             this.pnlLoc.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlLoc.Name = "pnlLoc";
             //
@@ -112,6 +113,13 @@ namespace BTL_LTTQ_QLHTTTNN
             this.btnTim.Size = new System.Drawing.Size(90, 34);
             this.btnTim.Text = "Tìm";
             this.btnTim.Click += new System.EventHandler(this.btnTim_Click);
+            //
+            // btnChonTrang
+            //
+            this.btnChonTrang.Location = new System.Drawing.Point(628, 24);
+            this.btnChonTrang.Size = new System.Drawing.Size(165, 34);
+            this.btnChonTrang.Text = "Chọn tất cả trang";
+            this.btnChonTrang.Click += new System.EventHandler(this.ChonHoSoTrangHienTai);
             //
             // dgvHoSo
             //
@@ -186,17 +194,15 @@ namespace BTL_LTTQ_QLHTTTNN
             //
             // tlpThaoTac
             //
-            this.tlpThaoTac.ColumnCount = 5;
+            this.tlpThaoTac.ColumnCount = 4;
             this.tlpThaoTac.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpThaoTac.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 130F));
             this.tlpThaoTac.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
-            this.tlpThaoTac.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 150F));
             this.tlpThaoTac.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 220F));
             this.tlpThaoTac.Controls.Add(this.lblTrangThai, 0, 0);
             this.tlpThaoTac.Controls.Add(this.progressCap, 1, 0);
             this.tlpThaoTac.Controls.Add(this.lblSoDaChon, 2, 0);
-            this.tlpThaoTac.Controls.Add(this.btnChonTatCa, 3, 0);
-            this.tlpThaoTac.Controls.Add(this.btnCapTaiKhoan, 4, 0);
+            this.tlpThaoTac.Controls.Add(this.btnCapTaiKhoan, 3, 0);
             this.tlpThaoTac.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpThaoTac.Name = "tlpThaoTac";
             this.tlpThaoTac.RowCount = 1;
@@ -234,13 +240,6 @@ namespace BTL_LTTQ_QLHTTTNN
             this.progressCap.Dock = System.Windows.Forms.DockStyle.Fill;
             this.progressCap.Margin = new System.Windows.Forms.Padding(4, 8, 4, 8);
             this.progressCap.Visible = false;
-            //
-            // btnChonTatCa
-            //
-            this.btnChonTatCa.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnChonTatCa.Margin = new System.Windows.Forms.Padding(4, 2, 4, 2);
-            this.btnChonTatCa.Text = "Chọn tất cả trang";
-            this.btnChonTatCa.Click += new System.EventHandler(this.btnChonTatCa_Click);
             //
             // btnCapTaiKhoan
             //
@@ -284,7 +283,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private System.Windows.Forms.TableLayoutPanel tlpChan, tlpThaoTac;
         private System.Windows.Forms.ComboBox cboLoaiHoSo;
         private System.Windows.Forms.TextBox txtTimKiem;
-        private System.Windows.Forms.Button btnTim, btnTruoc, btnSau, btnChonTatCa, btnCapTaiKhoan;
+        private System.Windows.Forms.Button btnTim, btnChonTrang, btnTruoc, btnSau, btnCapTaiKhoan;
         private System.Windows.Forms.ProgressBar progressCap;
         private System.Windows.Forms.DataGridView dgvHoSo;
         private System.Windows.Forms.DataGridViewCheckBoxColumn colChon;

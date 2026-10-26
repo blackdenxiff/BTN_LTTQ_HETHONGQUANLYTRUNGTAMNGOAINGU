@@ -27,6 +27,33 @@ namespace BTL_LTTQ_QLHTTTNN
                 using (var form = new frmDangKyHoc { HocVienDuocChon = selectedId }) form.ShowDialog(this);
                 ShowStudent();
             }); };
+            var menuHocVien = new ContextMenuStrip();
+            var itemXoaHocVien = new ToolStripMenuItem("Xóa hồ sơ học viên");
+            menuHocVien.Items.Add(itemXoaHocVien);
+            dgvHocVien.ContextMenuStrip = menuHocVien;
+            dgvHocVien.CellMouseDown += delegate(object sender, DataGridViewCellMouseEventArgs e)
+            {
+                if (e.Button == MouseButtons.Right && e.RowIndex >= 0 && e.ColumnIndex >= 0)
+                    dgvHocVien.CurrentCell = dgvHocVien.Rows[e.RowIndex].Cells[e.ColumnIndex];
+            };
+            menuHocVien.Opening += delegate
+            {
+                itemXoaHocVien.Enabled = !editing && selectedId.HasValue;
+            };
+            itemXoaHocVien.Click += delegate
+            {
+                if (!selectedId.HasValue) return;
+                int id = selectedId.Value;
+                string name = txtHoTen.Text.Trim();
+                if (MessageBox.Show(this, "Xóa mềm hồ sơ '" + name + "'? Chỉ có thể xóa hồ sơ chưa có tài khoản, đăng ký hoặc hóa đơn.",
+                    "Xác nhận xóa học viên", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+                HocVienData.Run(delegate
+                {
+                    HocVienData.XoaMemHocVien(id);
+                    LoadStatuses();
+                    LoadList();
+                });
+            };
 
             foreach(var grid in new[]{dgvHocVien,dgvtabLop,dgvtabKetQua,dgvtabHocPhi}) HocVienData.Grid(grid);
             foreach (var grid in new[] { dgvHocVien, dgvtabLop, dgvtabKetQua, dgvtabHocPhi })

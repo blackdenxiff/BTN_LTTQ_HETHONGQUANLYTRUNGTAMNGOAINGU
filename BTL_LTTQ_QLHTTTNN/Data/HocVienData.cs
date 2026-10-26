@@ -143,6 +143,31 @@ OUTPUT INSERTED.HocVienID VALUES(@name,@birth,@gender,@phone,@email,@level,@scor
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
+        public static void XoaMemHocVien(int id)
+        {
+            PhanQuyenService.YeuCauQuyen("QuanLyHocVien");
+            if (id <= 0) throw new InvalidOperationException("Chọn học viên cần xóa.");
+            using (var c = Open()) using (var tx = c.BeginTransaction(IsolationLevel.Serializable))
+            {
+                try
+                {
+                    var student = Query(c, tx, "SELECT NguoiDungID FROM HocVien WITH(UPDLOCK,HOLDLOCK) WHERE HocVienID=@id AND IsDeleted=0", P("@id", id));
+                    if (student.Rows.Count == 0) throw new InvalidOperationException("Học viên không còn hoạt động. Hãy tải lại danh sách.");
+                    if (!student.Rows[0].IsNull("NguoiDungID"))
+                        throw new InvalidOperationException("Không thể xóa học viên đã có tài khoản. Hãy khóa tài khoản trước hoặc giữ hồ sơ để bảo toàn lịch sử.");
+                    if (Query(c, tx, "SELECT TOP(1) DangKyID FROM DangKy WITH(UPDLOCK,HOLDLOCK) WHERE HocVienID=@id", P("@id", id)).Rows.Count > 0 ||
+                        Query(c, tx, "SELECT TOP(1) HoaDonID FROM HoaDon WITH(UPDLOCK,HOLDLOCK) WHERE HocVienID=@id", P("@id", id)).Rows.Count > 0)
+                        throw new InvalidOperationException("Không thể xóa học viên đã có lịch sử đăng ký hoặc hóa đơn.");
+                    using (var cmd = new SqlCommand("UPDATE HocVien SET IsDeleted=1,UpdatedAt=GETDATE() WHERE HocVienID=@id AND IsDeleted=0", c, tx))
+                    {
+                        cmd.Parameters.Add(P("@id", id));
+                        if (cmd.ExecuteNonQuery() != 1) throw new InvalidOperationException("Học viên đã thay đổi. Hãy tải lại danh sách.");
+                    }
+                    tx.Commit();
+                }
+                catch { tx.Rollback(); throw; }
+            }
+        }
         private static object Empty(string value) { return string.IsNullOrWhiteSpace(value) ? (object)DBNull.Value : value.Trim(); }
         public static DataTable Enrollments(int id)
         {

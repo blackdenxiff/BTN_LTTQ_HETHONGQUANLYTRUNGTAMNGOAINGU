@@ -79,7 +79,9 @@ namespace BTL_LTTQ_QLHTTTNN
             switch (ma)
             {
                 case "frmHocVien": form.MoNoiDung(new frmHocVien()); break;
-                case "frmDangKyHoc": MessageBox.Show("Học viên tự đăng ký lớp sau khi đăng nhập tài khoản học viên."); break;
+                case "frmDangKyHoc":
+                    PhanQuyenService.YeuCauQuyen("DangKyLopCaNhan");
+                    form.MoNoiDung(new frmDangKyHoc()); break;
                 case "frmKhoaHoc": form.MoNoiDung(new frmKhoaHoc()); break;
                 case "frmLopHoc": form.MoNoiDung(new frmLopHoc()); break;
                 case "frmLichHoc": form.MoNoiDung(new frmLichHoc()); break;

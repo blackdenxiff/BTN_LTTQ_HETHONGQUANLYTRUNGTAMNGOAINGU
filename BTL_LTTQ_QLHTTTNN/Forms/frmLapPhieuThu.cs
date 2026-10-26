@@ -15,15 +15,14 @@ namespace BTL_LTTQ_QLHTTTNN
     public partial class frmLapPhieuThu : Form
     {
         // THÔNG TIN TÀI KHOẢN NGÂN HÀNG TRUNG TÂM (BIDV)
-        private const string BANK_BIN = "970418"; // Mã BIN ngân hàng BIDV
+        private const string BANK_BIN = "970418";
         private const string ACCOUNT_NO = "8893141886";
         private const string ACCOUNT_NAME = "NGUYEN VAN NGHIA";
 
-        private readonly Guid _paymentRequestId = Guid.NewGuid();
         private decimal _hocPhiGoc = 0;
         private decimal _conPhaiDong = 0;
         private int? _maDangKyKhoiTao = null;
-        private int? _hocVienKhoa = null;   // != null: chế độ học viên tự thanh toán, chỉ được thao tác cho HocVienID này
+        private int? _hocVienKhoa = null;   // Chế độ Học viên tự thao tác
 
         public frmLapPhieuThu()
         {
@@ -36,7 +35,7 @@ namespace BTL_LTTQ_QLHTTTNN
         }
 
         /// <summary>
-        /// Chế độ học viên tự thanh toán: khóa cứng vào đúng học viên đang đăng nhập.
+        /// Chế độ học viên: khóa cứng học viên đang đăng nhập và chỉ cho phép xem mã QR thanh toán.
         /// </summary>
         public frmLapPhieuThu(int hocVienID, bool khoaTheoHocVien) : this()
         {
@@ -45,22 +44,16 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void frmLapPhieuThu_Load(object sender, EventArgs e)
         {
-            if (_hocVienKhoa.HasValue && !PhanQuyenService.KiemTraQuyen("LapPhieuThu"))
-            {
-                MessageBox.Show(this, "Học viên chỉ có thể xem tình trạng học phí. Vui lòng liên hệ nhân viên để xác nhận khoản đã thu.",
-                    "Không có quyền lập phiếu thu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                Close();
-                return;
-            }
-            // 1. Sửa lỗi "Lậ p Phiế u" bằng cách đổi sang Font Tahoma
-            this.Text = "Lập Phiếu Thu Học Phí";
+            bool laHocVien = _hocVienKhoa.HasValue;
+
+            // 1. Thay đổi tiêu đề Form dựa trên vai trò
+            this.Text = laHocVien ? "Thanh Toán Học Phí Trực Tuyến" : "Lập Phiếu Thu Học Phí";
             if (lblTieuDe != null)
             {
-                lblTieuDe.Text = "💳 Lập Phiếu Thu Học Phí";
+                lblTieuDe.Text = laHocVien ? "💳 Thanh Toán Học Phí Trực Tuyến" : "💳 Lập Phiếu Thu Học Phí";
                 lblTieuDe.Font = new Font("Tahoma", 12F, FontStyle.Bold);
             }
 
-            // 2. Ép các Form cha sửa font chữ và dòng text
             CapNhatTieuDeFormCha();
 
             try
@@ -68,7 +61,23 @@ namespace BTL_LTTQ_QLHTTTNN
                 DatabaseConnection.Connect();
                 cboPhuongThuc.Items.Clear();
                 cboPhuongThuc.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản ngân hàng", "Thẻ ATM / VNPAY" });
-                cboPhuongThuc.SelectedIndex = 0;
+
+                // 2. Nếu là Học viên: Ép dùng Chuyển khoản QR & Khóa quyền Tạo phiếu thu
+                if (laHocVien)
+                {
+                    cboPhuongThuc.SelectedItem = "Chuyển khoản ngân hàng";
+                    cboPhuongThuc.Enabled = false; // Ẩn chọn phương thức khác
+
+                    // Khóa / Ẩn các nút lưu phiếu thu đối với học viên
+                    if (btnLuu != null) btnLuu.Visible = false;
+                    if (btnKiemTraChuyenKhoan != null) btnKiemTraChuyenKhoan.Visible = false;
+                    if (btnHuy != null) btnHuy.Text = "❌ Đóng";
+                }
+                else
+                {
+                    cboPhuongThuc.SelectedIndex = 0;
+                }
+
                 NapDanhSachHocVien();
 
                 if (_maDangKyKhoiTao.HasValue && _maDangKyKhoiTao.Value > 0)
@@ -107,7 +116,7 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             if (ctrl is Label lbl && (lbl.Text.Contains("Lậ") || lbl.Text.Contains("Phiế") || lbl.Name.ToLower().Contains("tieude") || lbl.Name.ToLower().Contains("header")))
             {
-                lbl.Text = "💳 Lập Phiếu Thu Học Phí";
+                lbl.Text = _hocVienKhoa.HasValue ? "💳 Thanh Toán Học Phí Trực Tuyến" : "💳 Lập Phiếu Thu Học Phí";
                 lbl.Font = new Font("Tahoma", 12F, FontStyle.Bold);
                 return;
             }
@@ -121,7 +130,6 @@ namespace BTL_LTTQ_QLHTTTNN
         private void NapDanhSachHocVien()
         {
             bool khoa = _hocVienKhoa.HasValue;
-            // _hocVienKhoa là int nên ghép chuỗi an toàn, không có nguy cơ SQL injection.
             string sqlHV = @"SELECT HocVienID,
                                     HoTen + ' (HV-' + CAST(HocVienID AS NVARCHAR) + ' • ' + ISNULL(SoDienThoai, '') + ')' AS TenHV
                              FROM HocVien
@@ -151,8 +159,8 @@ namespace BTL_LTTQ_QLHTTTNN
 
             if (khoa)
             {
-                cboHocVien.Enabled = false;                       // không cho đổi sang học viên khác
-                cboHocVien_SelectedIndexChanged(cboHocVien, EventArgs.Empty); // nạp sẵn danh sách lớp của chính mình
+                cboHocVien.Enabled = false; // Khóa không cho chọn học viên khác
+                cboHocVien_SelectedIndexChanged(cboHocVien, EventArgs.Empty);
             }
         }
 
@@ -212,9 +220,6 @@ namespace BTL_LTTQ_QLHTTTNN
             if (cboPhuongThuc.SelectedItem?.ToString() == "Chuyển khoản ngân hàng") CapNhatHienThiQR();
         }
 
-        /// <summary>
-        /// Thuật toán tạo chuỗi VietQR chuẩn EMVCo (Đánh dấu Mã Động 010212 để khóa cứng số tiền)
-        /// </summary>
         private string TaoChuoiVietQR(decimal soTien, string noiDung)
         {
             string accInfo = $"0006{BANK_BIN}01{ACCOUNT_NO.Length:D2}{ACCOUNT_NO}";
@@ -223,10 +228,8 @@ namespace BTL_LTTQ_QLHTTTNN
             string tag62 = $"62{noiDung.Length + 4:D2}08{noiDung.Length:D2}{noiDung}";
             string nameSafe = ACCOUNT_NAME.Length > 25 ? ACCOUNT_NAME.Substring(0, 25) : ACCOUNT_NAME;
 
-            // 010212 chính là lệnh ép App Ngân hàng KHÔNG CHO PHÉP sửa số tiền
             string payload = $"00020101021238{merchantInfo.Length:D2}{merchantInfo}530370454{amountStr.Length:D2}{amountStr}5802VN59{nameSafe.Length:D2}{nameSafe}6005HANOI{tag62}6304";
 
-            // Tính mã kiểm tra CRC16-CCITT bắt buộc của Ngân hàng
             int crc = 0xFFFF;
             byte[] bytes = Encoding.ASCII.GetBytes(payload);
             foreach (byte b in bytes)
@@ -249,7 +252,6 @@ namespace BTL_LTTQ_QLHTTTNN
                 int hvId = Convert.ToInt32(cboHocVien.SelectedValue ?? 0);
                 var itemDangKy = cboLopHoc.SelectedItem as DangKyChuaThuDto;
 
-                // 1. Chặn: Chưa chọn học viên / lớp
                 if (hvId <= 0 || itemDangKy == null)
                 {
                     picQR.Image = null;
@@ -258,7 +260,6 @@ namespace BTL_LTTQ_QLHTTTNN
                     return;
                 }
 
-                // 2. Chặn: Đã nộp đủ tiền (Công nợ <= 0)
                 if (_conPhaiDong <= 0)
                 {
                     picQR.Image = null;
@@ -267,7 +268,6 @@ namespace BTL_LTTQ_QLHTTTNN
                     return;
                 }
 
-                // 3. Chặn: Nhập số tiền sai định dạng
                 if (!decimal.TryParse(txtSoTienNop.Text.Trim(), out decimal soTien) || soTien <= 0)
                 {
                     picQR.Image = null;
@@ -276,7 +276,6 @@ namespace BTL_LTTQ_QLHTTTNN
                     return;
                 }
 
-                // 4. Chặn: Số tiền nhập lớn hơn số tiền còn nợ
                 if (soTien > _conPhaiDong)
                 {
                     picQR.Image = null;
@@ -285,10 +284,14 @@ namespace BTL_LTTQ_QLHTTTNN
                     return;
                 }
 
-                // Nếu mọi thứ hợp lệ, trả lại màu chữ đen và hiển thị QR
                 lblBankInfo.ForeColor = Color.FromArgb(51, 65, 85);
                 string noiDungCK = $"HP HV{hvId} DK{itemDangKy.DangKyID}";
-                lblBankInfo.Text = $"🏦 Ngân hàng: BIDV (Ngân hàng TMCP Đầu tư & Phát triển)\n💳 Số tài khoản: {ACCOUNT_NO}\n👤 Chủ tài khoản: {ACCOUNT_NAME}\n💰 Số tiền: {soTien:N0} đ\n📝 Nội dung: {noiDungCK}";
+
+                string noteHuongDan = _hocVienKhoa.HasValue
+                    ? "\n📌 HƯỚNG DẪN: Quý học viên dùng App Ngân hàng quét mã QR trên để thanh toán. Nhân viên sẽ kiểm tra và xuất phiếu thu chính thức."
+                    : "";
+
+                lblBankInfo.Text = $"🏦 Ngân hàng: BIDV (Ngân hàng TMCP Đầu tư & Phát triển)\n💳 Số tài khoản: {ACCOUNT_NO}\n👤 Chủ tài khoản: {ACCOUNT_NAME}\n💰 Số tiền: {soTien:N0} đ\n📝 Nội dung: {noiDungCK}{noteHuongDan}";
 
                 try
                 {
@@ -323,7 +326,6 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             if (_conPhaiDong <= 0)
             {
-                // Đã sửa lại câu thông báo theo yêu cầu
                 MessageBox.Show("Học viên đã thanh toán đủ học phí cho lớp học này. Không thể lập thêm phiếu thu!", "Cảnh báo dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -395,13 +397,6 @@ namespace BTL_LTTQ_QLHTTTNN
                     return;
                 }
 
-                // Học viên chỉ được nộp cho chính mình
-                if (_hocVienKhoa.HasValue && itemDangKy.HocVienID != _hocVienKhoa.Value)
-                {
-                    MessageBox.Show("Bạn chỉ được thanh toán học phí cho chính mình.", "Không hợp lệ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
                 if (!decimal.TryParse(txtSoTienNop.Text.Trim(), out decimal soTienNop) || soTienNop <= 0)
                 {
                     MessageBox.Show("Số tiền thanh toán không hợp lệ! Vui lòng nhập số tiền lớn hơn 0 đ.", "Kiểm tra dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -418,25 +413,30 @@ namespace BTL_LTTQ_QLHTTTNN
 
                 var dto = new TaoPhieuThuDto
                 {
-                    RequestId = _paymentRequestId,
                     DangKyID = itemDangKy.DangKyID,
                     HocVienID = itemDangKy.HocVienID,
                     LopHocID = itemDangKy.LopHocID,
                     SoTien = soTienNop,
-                    PhuongThuc = cboPhuongThuc.SelectedItem?.ToString() ?? "Tiền mặt",
+                    PhuongThuc = cboPhuongThuc.SelectedItem?.ToString() ?? "Chuyển khoản ngân hàng",
                     NhanSuID = SessionContext.NguoiDungHienTai?.NhanSuID ?? 1,
                     GhiChu = txtGhiChu.Text.Trim()
                 };
 
-                // Chế độ học viên: service kiểm tra lại quyền sở hữu đăng ký học ở tầng nghiệp vụ
-                var ketQua = _hocVienKhoa.HasValue
-                    ? PhieuThuService.LapPhieuThuChoHocVien(dto, _hocVienKhoa.Value)
-                    : PhieuThuService.LapPhieuThu(dto);
+                var ketQua = PhieuThuService.LapPhieuThu(dto);
+
                 if (ketQua.ThanhCong)
                 {
                     MessageBox.Show(ketQua.ThongBao, "Thông báo thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    this.DialogResult = DialogResult.OK;
-                    this.Close();
+
+                    if (this.TopLevel == false)
+                    {
+                        ChuyenSangFormHocPhi();
+                    }
+                    else
+                    {
+                        this.DialogResult = DialogResult.OK;
+                        this.Close();
+                    }
                 }
                 else
                 {
@@ -451,6 +451,36 @@ namespace BTL_LTTQ_QLHTTTNN
 
         private void btnHuy_Click(object sender, EventArgs e) => this.Close();
 
+        private void ChuyenSangFormHocPhi()
+        {
+            try
+            {
+                Control parent = this.Parent;
+                while (parent != null)
+                {
+                    if (parent is frmMainAdmin mainAdmin)
+                    {
+                        mainAdmin.MoNoiDung(new frmHocPhi());
+                        return;
+                    }
 
+                    if (parent.GetType().Name == "frmMainNhanVien")
+                    {
+                        var method = parent.GetType().GetMethod("MoFormCon");
+                        if (method != null)
+                        {
+                            method.Invoke(parent, new object[] { new frmHocPhi() });
+                            return;
+                        }
+                    }
+
+                    parent = parent.Parent;
+                }
+            }
+            catch { }
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
     }
 }

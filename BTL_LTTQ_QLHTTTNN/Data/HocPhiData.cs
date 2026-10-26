@@ -333,31 +333,6 @@ namespace BTL_LTTQ_QLHTTTNN.Data
                 {
                     try
                     {
-                        using (var cmdRequest = new SqlCommand(@"SELECT tt.ThanhToanID, tt.SoTien, tt.PhuongThuc, tt.IsDeleted, hd.DangKyID, hd.HocVienID
-                            FROM ThanhToan tt WITH (UPDLOCK, HOLDLOCK)
-                            INNER JOIN HoaDon hd ON hd.HoaDonID = tt.HoaDonID
-                            WHERE tt.RequestId = @requestId", conn, tx))
-                        {
-                            cmdRequest.Parameters.Add(new SqlParameter("@requestId", dto.RequestId));
-                            using (var request = cmdRequest.ExecuteReader())
-                            {
-                                if (request.Read())
-                                {
-                                    bool sameRequest = !Convert.ToBoolean(request["IsDeleted"])
-                                        && Convert.ToInt32(request["DangKyID"]) == dto.DangKyID
-                                        && Convert.ToInt32(request["HocVienID"]) == dto.HocVienID
-                                        && Convert.ToDecimal(request["SoTien"]) == dto.SoTien
-                                        && string.Equals(Convert.ToString(request["PhuongThuc"]), dto.PhuongThuc, StringComparison.Ordinal);
-                                    if (!sameRequest)
-                                        throw new InvalidOperationException("Mã yêu cầu phiếu thu đã được dùng cho dữ liệu khác.");
-                                    int existingId = Convert.ToInt32(request["ThanhToanID"]);
-                                    request.Close();
-                                    tx.Commit();
-                                    return existingId;
-                                }
-                            }
-                        }
-
                         int hocVienDangKy;
                         using (var cmdDangKy = new SqlCommand(@"SELECT HocVienID FROM DangKy WITH (UPDLOCK, HOLDLOCK) WHERE DangKyID = @dk AND IsDeleted = 0 AND TrangThai <> N'Hủy'", conn, tx))
                         {
@@ -430,11 +405,12 @@ namespace BTL_LTTQ_QLHTTTNN.Data
                         }
                         if (dto.SoTien <= 0 || dto.SoTien > tongPhaiTra - daThuTruoc)
                             throw new InvalidOperationException("Số tiền thu vượt quá học phí còn phải đóng. Hãy tải lại dữ liệu và thử lại.");
+
                         // 2. Thêm bản ghi vào bảng ThanhToan (Phiếu thu)
                         int thanhToanId = 0;
                         string sqlInsertThanhToan = @"
-                            INSERT INTO ThanhToan (HoaDonID, NhanSuID, NgayThanhToan, SoTien, PhuongThuc, GhiChu, IsDeleted, CreatedAt, RequestId)
-                            VALUES (@hd, @ns, GETDATE(), @soTien, @pt, @ghiChu, 0, GETDATE(), @requestId);
+                            INSERT INTO ThanhToan (HoaDonID, NhanSuID, NgayThanhToan, SoTien, PhuongThuc, GhiChu, IsDeleted, CreatedAt)
+                            VALUES (@hd, @ns, GETDATE(), @soTien, @pt, @ghiChu, 0, GETDATE());
                             SELECT SCOPE_IDENTITY();";
 
                         using (var cmdTT = new SqlCommand(sqlInsertThanhToan, conn, tx))
@@ -444,7 +420,6 @@ namespace BTL_LTTQ_QLHTTTNN.Data
                             cmdTT.Parameters.Add(new SqlParameter("@soTien", dto.SoTien));
                             cmdTT.Parameters.Add(new SqlParameter("@pt", dto.PhuongThuc));
                             cmdTT.Parameters.Add(new SqlParameter("@ghiChu", (object)dto.GhiChu ?? DBNull.Value));
-                            cmdTT.Parameters.Add(new SqlParameter("@requestId", dto.RequestId));
 
                             thanhToanId = Convert.ToInt32(cmdTT.ExecuteScalar());
                         }

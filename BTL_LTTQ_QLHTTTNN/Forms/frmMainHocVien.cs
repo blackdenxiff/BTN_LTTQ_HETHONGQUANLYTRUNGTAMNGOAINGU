@@ -29,21 +29,30 @@ namespace BTL_LTTQ_QLHTTTNN
             pnlMenu.BackColor = Color.FromArgb(235, 241, 248);
             lblTieuDeTrang.Height = 60;
             lblTieuDeTrang.Font = new Font("Segoe UI", 19F, FontStyle.Bold);
+
             // Chuyển nội dung tab vào các panel; chỉ menu chính điều hướng.
             tabHoSo.Visible = false;
             foreach (TabPage tab in tabHoSo.TabPages)
             {
-                var panel = new Panel { Dock = DockStyle.Fill, BackColor = Color.White,
-                    Padding = new Padding(22), AutoScroll = true, Visible = false };
+                var panel = new Panel
+                {
+                    Dock = DockStyle.Fill,
+                    BackColor = Color.White,
+                    Padding = new Padding(22),
+                    AutoScroll = true,
+                    Visible = false
+                };
                 while (tab.Controls.Count > 0) panel.Controls.Add(tab.Controls[0]);
                 pages.Add(tab, panel);
                 pnlNoiDung.Controls.Add(panel);
                 panel.BringToFront();
             }
+
             btnClasses = new Button { Text = "Lớp đã đăng ký" };
             btnClasses.Click += btnLopHoc_Click;
             pnlMenu.Controls.Add(btnClasses);
             SetupSchedule();
+
             var buttons = new[] { btnThongTin, btnClasses, btnSchedule, btnKetQua, btnHocPhi, btnDangKyLop };
             for (int i = 0; i < buttons.Length; i++)
             {
@@ -56,16 +65,33 @@ namespace BTL_LTTQ_QLHTTTNN
                 b.Font = new Font("Segoe UI", 10F); b.Cursor = Cursors.Hand;
                 b.BackColor = pnlMenu.BackColor; b.ForeColor = navy;
             }
-            var exitButton = new Button { Text = "Thoát", Dock = DockStyle.Bottom, Height = 48,
-                BackColor = Color.FromArgb(196, 48, 61), ForeColor = Color.White, FlatStyle = FlatStyle.Flat,
-                Font = new Font("Segoe UI", 10F, FontStyle.Bold), Cursor = Cursors.Hand };
+
+            var exitButton = new Button
+            {
+                Text = "Thoát",
+                Dock = DockStyle.Bottom,
+                Height = 48,
+                BackColor = Color.FromArgb(196, 48, 61),
+                ForeColor = Color.White,
+                FlatStyle = FlatStyle.Flat,
+                Font = new Font("Segoe UI", 10F, FontStyle.Bold),
+                Cursor = Cursors.Hand
+            };
             exitButton.FlatAppearance.BorderSize = 0;
             exitButton.FlatAppearance.MouseOverBackColor = Color.FromArgb(166, 32, 44);
             exitButton.Click += delegate
             {
-                using (var dialog = new Form { Text = "Xác nhận thoát", ClientSize = new Size(370, 145),
-                    FormBorderStyle = FormBorderStyle.FixedDialog, StartPosition = FormStartPosition.CenterParent,
-                    MinimizeBox = false, MaximizeBox = false, ShowInTaskbar = false, Font = Font })
+                using (var dialog = new Form
+                {
+                    Text = "Xác nhận thoát",
+                    ClientSize = new Size(370, 145),
+                    FormBorderStyle = FormBorderStyle.FixedDialog,
+                    StartPosition = FormStartPosition.CenterParent,
+                    MinimizeBox = false,
+                    MaximizeBox = false,
+                    ShowInTaskbar = false,
+                    Font = Font
+                })
                 {
                     var message = new Label { Text = "Bạn có muốn thoát ứng dụng không?", AutoSize = true, Location = new Point(24, 25) };
                     var yes = new Button { Text = "Có", DialogResult = DialogResult.Yes, Location = new Point(155, 88), Size = new Size(90, 34) };
@@ -76,24 +102,45 @@ namespace BTL_LTTQ_QLHTTTNN
                 }
             };
             pnlMenu.Controls.Add(exitButton);
+
             foreach (Control c in tblThongTin.Controls)
             {
                 var box = c as TextBox;
-                if (box != null) { box.BorderStyle = BorderStyle.None; box.BackColor = Color.FromArgb(244, 247, 251);
-                    box.ForeColor = navy; box.Font = new Font("Segoe UI", 11F); box.Margin = new Padding(8, 12, 8, 10); }
+                if (box != null)
+                {
+                    box.BorderStyle = BorderStyle.None; box.BackColor = Color.FromArgb(244, 247, 251);
+                    box.ForeColor = navy; box.Font = new Font("Segoe UI", 11F); box.Margin = new Padding(8, 12, 8, 10);
+                }
                 var label = c as Label;
                 if (label != null) { label.ForeColor = Color.FromArgb(90, 105, 125); label.Font = new Font("Segoe UI", 10F); }
             }
             foreach (RowStyle row in tblThongTin.RowStyles) row.Height = 44;
             tblThongTin.RowStyles[tblThongTin.RowStyles.Count - 1].Height = 90;
+
             ConfigureGrid(dgvLopHoc, new[] { "TenLop", "TenKhoaHoc", "TenCoSo", "NgayBatDau", "NgayKetThuc" },
                 new[] { "Lớp học", "Khóa học", "Cơ sở", "Ngày bắt đầu", "Ngày kết thúc" });
             ConfigureGrid(dgvKetQua, new[] { "TenLop", "TenKhoaHoc", "DiemCuoiKhoa", "KetQua" },
                 new[] { "Lớp học", "Khóa học", "Điểm cuối khóa", "Kết quả" });
+
+            // Cấu hình bảng Học phí & Thêm cột nút bấm "Thanh toán"
             ConfigureGrid(dgvHocPhi, new[] { "TenLop", "TongPhaiTra", "DaThanhToan", "ConPhaiTra", "TrangThai" },
                 new[] { "Lớp học", "Học phí phải đóng", "Đã thanh toán", "Còn phải đóng", "Tình trạng" });
+
+            var colThanhToan = new DataGridViewButtonColumn
+            {
+                Name = "colThanhToan",
+                HeaderText = "Thao tác",
+                Text = "💳 Thanh toán",
+                UseColumnTextForButtonValue = true,
+                FlatStyle = FlatStyle.Flat,
+                Width = 120
+            };
+            dgvHocPhi.Columns.Add(colThanhToan);
+            dgvHocPhi.CellClick += dgvHocPhi_CellClick;
+
             Navigate(tabThongTin, btnThongTin, "THÔNG TIN CÁ NHÂN");
         }
+
         private void SetupAccountMenu()
         {
             var parent = lblNguoiDangNhap.Parent;
@@ -131,7 +178,6 @@ namespace BTL_LTTQ_QLHTTTNN
             {
                 menu.Close();
                 BTL_LTTQ_QLHTTTNN.Services.TaiKhoanService.DangXuat();
-                // Program.VongDoiUngDung xử lý FormClosed để hiện lại màn hình đăng nhập.
                 Close();
             };
             menu.Items.Add(logout);
@@ -172,7 +218,8 @@ namespace BTL_LTTQ_QLHTTTNN
             view.Click += delegate { RefreshSchedule(); };
             thisWeek.Click += delegate {
                 DateTime start = DateTime.Today.AddDays(-((int)DateTime.Today.DayOfWeek + 6) % 7);
-                scheduleFrom.Value = start; scheduleTo.Value = start.AddDays(6); RefreshSchedule(); };
+                scheduleFrom.Value = start; scheduleTo.Value = start.AddDays(6); RefreshSchedule();
+            };
             previous.Click += delegate { ShiftSchedule(-7); };
             next.Click += delegate { ShiftSchedule(7); };
             scheduleStatus = new Label { Dock = DockStyle.Bottom, Height = 52, ForeColor = Color.FromArgb(90, 105, 125), TextAlign = ContentAlignment.MiddleLeft };
@@ -180,18 +227,19 @@ namespace BTL_LTTQ_QLHTTTNN
             ConfigureGrid(scheduleGrid,
                 new[] { "NgayHoc", "GioBatDau", "GioKetThuc", "TenLop", "TenKhoaHoc", "TenPhong", "TenCoSo", "TrangThai", "GhiChu" },
                 new[] { "Ngày học", "Bắt đầu", "Kết thúc", "Lớp học", "Khóa học", "Phòng học", "Cơ sở", "Trạng thái", "Ghi chú" });
-            // Các cột có độ rộng tối thiểu; cuộn ngang khi cửa sổ nhỏ.
             scheduleGrid.Columns["TenLop"].MinimumWidth = 140;
             scheduleGrid.Columns["TenKhoaHoc"].MinimumWidth = 160;
             scheduleGrid.Columns["GhiChu"].MinimumWidth = 180;
             panel.Controls.Add(scheduleGrid); panel.Controls.Add(filter); panel.Controls.Add(scheduleStatus);
         }
+
         private void ShiftSchedule(int days)
         {
             DateTime start = scheduleFrom.Value.Date.AddDays(days), end = scheduleTo.Value.Date.AddDays(days);
             if (start < scheduleFrom.MinDate || start > scheduleFrom.MaxDate || end < scheduleTo.MinDate || end > scheduleTo.MaxDate) return;
             scheduleFrom.Value = start; scheduleTo.Value = end; RefreshSchedule();
         }
+
         private void RefreshSchedule()
         {
             scheduleGrid.DataSource = null;
@@ -207,6 +255,7 @@ namespace BTL_LTTQ_QLHTTTNN
                     : string.Format("{0} buổi trong khoảng {1:dd/MM/yyyy} – {2:dd/MM/yyyy}. Trạng thái buổi học do trung tâm cập nhật.", data.Rows.Count, start, end);
             });
         }
+
         private void ConfigureGrid(DataGridView grid, string[] fields, string[] titles)
         {
             grid.AutoGenerateColumns = false; grid.Columns.Clear(); grid.ReadOnly = true;
@@ -236,6 +285,7 @@ namespace BTL_LTTQ_QLHTTTNN
                 grid.Columns.Add(col);
             }
         }
+
         private void Navigate(TabPage page, Button button, string title)
         {
             foreach (var item in pages) item.Value.Visible = item.Key == page;
@@ -243,6 +293,7 @@ namespace BTL_LTTQ_QLHTTTNN
             lblTieuDeTrang.Text = title;
             SelectMenu(button);
         }
+
         private void SelectMenu(Button button)
         {
             foreach (var b in new[] { btnThongTin, btnClasses, btnSchedule, btnKetQua, btnHocPhi, btnDangKyLop })
@@ -250,7 +301,6 @@ namespace BTL_LTTQ_QLHTTTNN
             activeButton = button;
         }
 
-        // TV1 passes the authenticated NguoiDungID after a successful login.
         public frmMainHocVien(int authenticatedNguoiDungID) : this()
         {
             nguoiDungID = authenticatedNguoiDungID;
@@ -260,12 +310,12 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             InitializeComponent();
             foreach (var grid in new[] { dgvLopHoc, dgvKetQua, dgvHocPhi }) HocVienData.Grid(grid);
-            // Tự tạo cột theo dữ liệu truy vấn.
-            dgvHocPhi.AutoGenerateColumns = true;
-            dgvHocPhi.ColumnHeadersVisible = true;
 
+            // Giữ cấu hình cột thủ công cho các bảng
+            dgvHocPhi.AutoGenerateColumns = false;
             dgvLopHoc.AutoGenerateColumns = true;
             dgvKetQua.AutoGenerateColumns = true;
+
             Load += delegate { HocVienData.Run(LoadProfile); };
             btnThongTin.Click += btnThongTin_Click;
             btnDangKyLop.Click += btnDangKyLop_Click;
@@ -291,6 +341,60 @@ namespace BTL_LTTQ_QLHTTTNN
             accountButton.Text = lblNguoiDangNhap.Text + "  ▾";
             var classes = HocVienData.Enrollments(id); dgvLopHoc.DataSource = classes; dgvKetQua.DataSource = classes.Copy();
             dgvHocPhi.DataSource = HocVienData.Fees(id);
+        }
+
+        /// <summary>
+        /// Xử lý sự kiện khi học viên bấm vào nút Thanh toán trên bảng Học phí
+        /// </summary>
+        private void dgvHocPhi_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            if (dgvHocPhi.Columns[e.ColumnIndex].Name == "colThanhToan")
+            {
+                DataRowView drv = dgvHocPhi.Rows[e.RowIndex].DataBoundItem as DataRowView;
+                if (drv == null) return;
+
+                // Kiểm tra số tiền còn lại
+                decimal conPhaiTra = 0;
+                if (drv.Row.Table.Columns.Contains("ConPhaiTra") && drv["ConPhaiTra"] != DBNull.Value)
+                    conPhaiTra = Convert.ToDecimal(drv["ConPhaiTra"]);
+
+                if (conPhaiTra <= 0)
+                {
+                    MessageBox.Show("Bạn đã thanh toán hoàn tất học phí cho lớp học này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                // Lấy DangKyID từ bản ghi
+                int dangKyID = 0;
+                if (drv.Row.Table.Columns.Contains("DangKyID") && drv["DangKyID"] != DBNull.Value)
+                    dangKyID = Convert.ToInt32(drv["DangKyID"]);
+
+                if (dangKyID > 0)
+                {
+                    // Mở Form lập phiếu thu cho Đăng ký cụ thể
+                    using (var form = new frmLapPhieuThu(dangKyID))
+                    {
+                        if (form.ShowDialog(this) == DialogResult.OK)
+                        {
+                            LoadProfile(); // Tải lại số tiền mới sau khi nộp
+                        }
+                    }
+                }
+                else
+                {
+                    // Fallback: Mở theo HocVienID với chế độ khóa theo học viên
+                    int hvID = Convert.ToInt32(txtHocVienID.Text);
+                    using (var form = new frmLapPhieuThu(hvID, true))
+                    {
+                        if (form.ShowDialog(this) == DialogResult.OK)
+                        {
+                            LoadProfile();
+                        }
+                    }
+                }
+            }
         }
 
         private void btnDangKyLop_Click(object sender, EventArgs e)

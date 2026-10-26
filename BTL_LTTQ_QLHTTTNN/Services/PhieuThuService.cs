@@ -37,10 +37,6 @@ namespace BTL_LTTQ_QLHTTTNN.Services
                 return KetQuaXuLy.ThatBai("Số tiền thanh toán phải lớn hơn 0 đ.");
             }
 
-            // Giữ nguyên khóa trên DTO để một lần gửi lại sau timeout không tạo phiếu thu thứ hai.
-            if (duLieu.RequestId == Guid.Empty)
-                duLieu.RequestId = Guid.NewGuid();
-
             if (string.IsNullOrWhiteSpace(duLieu.PhuongThuc))
             {
                 duLieu.PhuongThuc = "Tiền mặt";

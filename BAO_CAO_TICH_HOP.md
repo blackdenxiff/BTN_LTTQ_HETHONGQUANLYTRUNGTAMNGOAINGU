@@ -9,7 +9,7 @@
 | `origin/hai` | `0965510c209dc0e595ade8ce7d623bbe7713ae9d` |
 | `origin/nghia` | `675f1e4910565ab795f31084b9719582c3f4ff22` |
 | `origin/duong` | `96e5ae92f12b12148c8016ea9a744e86629ddd21` |
-| Nhánh tích hợp | `codex/merge-sang-hai-nghia-duong`, HEAD `fca832ee56e26b0a994138b7d06e27fe7ab3518b` |
+| Nhánh tích hợp | `codex/merge-sang-hai-nghia-duong`; commit tích hợp chức năng cuối `fca832ee56e26b0a994138b7d06e27fe7ab3518b`, sau đó có commit báo cáo này |
 
 Nhánh `sang` không mang thêm thay đổi chức năng cần áp dụng ngoài phần đã có; đã kiểm tra hồi quy và sửa liên kết cột/nút cùng chặn xóa khóa học còn lớp. Các thay đổi commit trên nhánh tích hợp theo thứ tự: `sang` (`4fb4b6c`), `hai` (`9cdc42a`), `nghia` (`3bcee53`), `duong` (`fca832e`).
 
@@ -38,3 +38,4 @@ Nhánh `sang` không mang thêm thay đổi chức năng cần áp dụng ngoài
 - Có `sqlcmd` nhưng chưa xác nhận được SQL Server/database thử nghiệm; migration 01/02 và các nghiệp vụ tài khoản/học phí chưa được chạy trên bản sao dữ liệu. Không chạy script trên dữ liệu thật.
 - Do database/runtime test chưa sẵn sàng, chưa thể tuyên bố toàn bộ checklist chức năng đã đạt.
 - `main`/`origin/main` đang ở commit đã ghi nhận khi chuẩn bị tích hợp. Worktree `main` được Git ghi nhận tại `C:\Users\admin\Desktop\BTN_LTTQ_HETHONGQUANLYTRUNGTAMNGU` hiện không tồn tại. Vì vậy kết quả được giữ trên nhánh tích hợp; không cập nhật `main` và không push. Worktree `duong` cùng các thay đổi cá nhân của người dùng không bị sửa.
+

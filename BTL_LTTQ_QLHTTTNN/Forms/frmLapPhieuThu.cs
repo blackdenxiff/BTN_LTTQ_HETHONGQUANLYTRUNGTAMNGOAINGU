@@ -366,16 +366,26 @@ namespace BTL_LTTQ_QLHTTTNN
         {
             try
             {
-                if (_conPhaiDong <= 0)
+                if (cboHocVien.SelectedValue == null || Convert.ToInt32(cboHocVien.SelectedValue) <= 0)
                 {
-                    // Đã sửa lại câu thông báo theo yêu cầu
-                    MessageBox.Show("Học viên đã thanh toán đủ học phí cho lớp học này. Không thể lập thêm phiếu thu!", "Cảnh báo dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng chọn học viên nộp tiền.", "Kiểm tra dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cboHocVien.Focus();
                     return;
                 }
 
-                if (cboHocVien.SelectedValue == null || Convert.ToInt32(cboHocVien.SelectedValue) <= 0) return;
                 var itemDangKy = cboLopHoc.SelectedItem as DangKyChuaThuDto;
-                if (itemDangKy == null) return;
+                if (itemDangKy == null)
+                {
+                    MessageBox.Show("Vui lòng chọn lớp học cần thanh toán.", "Kiểm tra dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cboLopHoc.Focus();
+                    return;
+                }
+
+                if (_conPhaiDong <= 0)
+                {
+                    MessageBox.Show("Học viên đã thanh toán đủ học phí cho lớp học này. Không thể lập thêm phiếu thu!", "Cảnh báo dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 // Học viên chỉ được nộp cho chính mình
                 if (_hocVienKhoa.HasValue && itemDangKy.HocVienID != _hocVienKhoa.Value)

@@ -13,6 +13,7 @@ namespace BTL_LTTQ_QLHTTTNN
     {
         private int trang = 1, tongTrang = 1;
         private bool dangXuLy;
+        private bool dangCapNhatLuaChon;
         private readonly Dictionary<string, HoSoTaiKhoanDto> hoSoDaChon = new Dictionary<string, HoSoTaiKhoanDto>();
         public string ThongBaoKetQua { get; private set; }
 
@@ -43,8 +44,45 @@ namespace BTL_LTTQ_QLHTTTNN
         private void CapNhatSoDaChon()
         { lblSoDaChon.Text = "Đã chọn " + hoSoDaChon.Count + " hồ sơ"; btnCapTaiKhoan.Enabled = !dangXuLy && hoSoDaChon.Count > 0; }
 
+        private void CapNhatNutChonTatCa()
+        {
+            int soDong = dgvHoSo.Rows.Count;
+            bool tatCaDaChon = soDong > 0;
+            foreach (DataGridViewRow row in dgvHoSo.Rows)
+                if (!Convert.ToBoolean(row.Cells["colChon"].Value ?? false)) { tatCaDaChon = false; break; }
+            btnChonTatCa.Text = tatCaDaChon ? "Bỏ chọn trang" : "Chọn tất cả trang";
+            btnChonTatCa.Enabled = !dangXuLy && soDong > 0;
+        }
+
         private void dgvHoSo_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        { GhiNhanLuaChonDong(); CapNhatSoDaChon(); }
+        { if (dangCapNhatLuaChon) return; GhiNhanLuaChonDong(); CapNhatSoDaChon(); CapNhatNutChonTatCa(); }
+
+        private void btnChonTatCa_Click(object sender, EventArgs e)
+        {
+            if (dangXuLy || dgvHoSo.Rows.Count == 0) return;
+            if (dgvHoSo.IsCurrentCellDirty) dgvHoSo.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            dgvHoSo.EndEdit();
+            bool chon = false;
+            foreach (DataGridViewRow row in dgvHoSo.Rows)
+                if (!Convert.ToBoolean(row.Cells["colChon"].Value ?? false)) { chon = true; break; }
+
+            dangCapNhatLuaChon = true;
+            try
+            {
+                foreach (DataGridViewRow row in dgvHoSo.Rows)
+                {
+                    var hoSo = row.DataBoundItem as HoSoTaiKhoanDto;
+                    if (hoSo == null) continue;
+                    hoSo.DaChon = chon;
+                    row.Cells["colChon"].Value = chon;
+                    if (chon) hoSoDaChon[Khoa(hoSo)] = hoSo;
+                    else hoSoDaChon.Remove(Khoa(hoSo));
+                }
+            }
+            finally { dangCapNhatLuaChon = false; }
+            CapNhatSoDaChon();
+            CapNhatNutChonTatCa();
+        }
 
         private void TaiHoSo()
         {
@@ -64,6 +102,7 @@ namespace BTL_LTTQ_QLHTTTNN
             }
             catch (Exception ex) { lblTrangThai.Text = ex.Message; }
             CapNhatSoDaChon();
+            CapNhatNutChonTatCa();
         }
 
         private void btnTim_Click(object sender, EventArgs e) { trang = 1; TaiHoSo(); }
@@ -84,7 +123,7 @@ namespace BTL_LTTQ_QLHTTTNN
             if (MessageBox.Show(this, "Tạo tài khoản cho " + soLuongChon + " hồ sơ đã chọn?", "Xác nhận cấp hàng loạt", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
             var selected = hoSoDaChon.Values.Select(x => new TaiKhoanTaoDto { HoSoID = x.HoSoID, VaiTro = x.LoaiHoSo }).ToList();
             dangXuLy = true;
-            dgvHoSo.Enabled = btnTruoc.Enabled = btnSau.Enabled = cboLoaiHoSo.Enabled = txtTimKiem.Enabled = btnTim.Enabled = false;
+            dgvHoSo.Enabled = btnTruoc.Enabled = btnSau.Enabled = cboLoaiHoSo.Enabled = txtTimKiem.Enabled = btnTim.Enabled = btnChonTatCa.Enabled = false;
             btnCapTaiKhoan.Enabled = false;
             progressCap.Value = 0; progressCap.Maximum = selected.Count; progressCap.Visible = true;
             lblTrangThai.Text = "Đang cấp tài khoản…";

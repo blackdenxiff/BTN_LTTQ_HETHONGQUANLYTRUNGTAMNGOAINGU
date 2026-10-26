@@ -274,6 +274,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SQL\00_TaoDatabase_BanGoc.sql" />
+    <None Include="SQL\01_ChoPhepHocVienChuaCoTaiKhoan.sql" />
+    <None Include="SQL\02_CapTaiKhoanHocVien.sql" />
+    <None Include="SQL\03_IdempotencyPhieuThu.sql" />
+  </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

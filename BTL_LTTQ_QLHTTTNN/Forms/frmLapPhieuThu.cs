@@ -19,6 +19,7 @@ namespace BTL_LTTQ_QLHTTTNN
         private const string ACCOUNT_NO = "8893141886";
         private const string ACCOUNT_NAME = "NGUYEN VAN NGHIA";
 
+        private readonly Guid _paymentRequestId = Guid.NewGuid();
         private decimal _hocPhiGoc = 0;
         private decimal _conPhaiDong = 0;
         private int? _maDangKyKhoiTao = null;
@@ -410,6 +411,7 @@ namespace BTL_LTTQ_QLHTTTNN
 
                 var dto = new TaoPhieuThuDto
                 {
+                    RequestId = _paymentRequestId,
                     DangKyID = itemDangKy.DangKyID,
                     HocVienID = itemDangKy.HocVienID,
                     LopHocID = itemDangKy.LopHocID,

@@ -55,6 +55,7 @@ namespace BTL_LTTQ_QLHTTTNN.Services.Models
     /// </summary>
     public sealed class TaoPhieuThuDto
     {
+        public Guid RequestId { get; set; }
         public int DangKyID { get; set; }
         public int HocVienID { get; set; }
         public int LopHocID { get; set; }
